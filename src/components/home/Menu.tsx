@@ -1,33 +1,62 @@
+import * as React from "react";
 import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { sidebarData } from "@/lib/data";
 
-const navigationMenuItems = [
-    { title: "Home", href: "#" },
-    { title: "Blog", href: "#blog" },
-    { title: "Docs", href: "#docs" },
-];
 
-export default function NavigationMenuDemo() {
-    return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                {navigationMenuItems.map((item) => (
-                    <NavigationMenuItem key={item.title}>
-                        <NavigationMenuLink
-                            className={navigationMenuTriggerStyle()}
-                            asChild
-                        >
-                            <Link href={item.href}>{item.title}</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                ))}
-            </NavigationMenuList>
-        </NavigationMenu>
-    );
+export default function NavigationMenuWithDropdown() {
+  return (
+    <NavigationMenu className="z-20 hidden md:block" dir="rtl">
+      <NavigationMenuList>
+        {
+          sidebarData.map(item => (
+            <NavigationMenuItem key={item.title}>
+              <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-4 md:w-[350px] md:grid-cols-2" dir="rtl">
+                  {item.items.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.url}
+                    />
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          ))
+        }
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
 }
+
+const ListItem = React.forwardRef<
+  React.ComponentRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "text-sm font-medium block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          {title}
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
