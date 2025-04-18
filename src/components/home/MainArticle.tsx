@@ -1,4 +1,5 @@
 import React from 'react'
+import { Carousel } from './Carousel';
 
 function MainArticle({
     children,
@@ -6,16 +7,12 @@ function MainArticle({
     children: React.ReactNode;
 }>) {
     return (
-
-        <div className="flex flex-1 flex-col gap-4 p-4">
-            {Array.from({ length: 24 }).map((_, index) => (
-                <div
-                    key={index}
-                    className="bg-muted/50 aspect-video h-12 w-full rounded-lg"
-                />
-            ))}
+        <main>
+            <div className='flex justify-center'>
+                <Carousel />
+            </div>
             {children}
-        </div>
+        </main>
     )
 }
 

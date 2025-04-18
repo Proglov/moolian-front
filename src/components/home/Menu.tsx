@@ -13,14 +13,14 @@ import { sidebarData } from "@/lib/data";
 
 export default function NavigationMenuWithDropdown() {
   return (
-    <NavigationMenu className="z-20 hidden md:block" dir="rtl">
+    <NavigationMenu className="z-[2000] hidden md:block" dir="rtl">
       <NavigationMenuList>
         {
           sidebarData.map(item => (
             <NavigationMenuItem key={item.title}>
               <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-4 md:w-[350px] md:grid-cols-2" dir="rtl">
+              <NavigationMenuContent className="z-[2000] relative">
+                <ul className="grid gap-3 p-4 md:w-[350px] md:grid-cols-2 z-40" dir="rtl">
                   {item.items.map((component) => (
                     <ListItem
                       key={component.title}
