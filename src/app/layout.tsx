@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BaseProviders from "@/lib/BaseProviders";
 import "./globals.css";
 
 
@@ -13,9 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" dir="rtl">
+    <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
       <body>
-        {children}
+        <BaseProviders>
+          {children}
+        </BaseProviders>
       </body>
     </html>
   );
