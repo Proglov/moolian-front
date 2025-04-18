@@ -45,10 +45,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <CollapsibleTrigger>
                   {item.title}
                   {" "}
-                  <ChevronLeft className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                  <ChevronLeft className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90 text-destructive mt-0.5" />
                 </CollapsibleTrigger>
               </SidebarGroupLabel>
-              <CollapsibleContent>
+              <CollapsibleContent className="mr-3">
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {item.items.map((item) => (

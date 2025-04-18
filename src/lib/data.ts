@@ -12,7 +12,7 @@ const categories = [
     "ورزشی",
     "مدیریتی",
     "مناسب هدیه",
-    "مناسب مهمانی",
+    "مهمانی و مجلسی",
 ]
 
 const getFullFlavors = (sex: string) => flavors.map(flavor => ({
