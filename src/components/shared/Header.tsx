@@ -1,10 +1,10 @@
 'use client'
-import { Account } from './Account'
-import Hero from './Hero'
-import NavigationMenuWithDropdown from './Menu'
-import Searchbar from './Searchbar'
-import ShoppingCart from './ShoppingCart'
-import { ModeToggle } from './toggle-theme'
+import { Account } from '../home/Account'
+import Hero from '../home/Hero'
+import NavigationMenuWithDropdown from '../home/Menu'
+import Searchbar from '../home/Searchbar'
+import ShoppingCart from '../home/ShoppingCart'
+import { ModeToggle } from '../home/toggle-theme'
 import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default function Header() {

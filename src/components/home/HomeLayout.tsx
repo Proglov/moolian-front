@@ -1,9 +1,9 @@
 import React from 'react'
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from './Sidebar';
-import Header from './Header';
+import Header from '../shared/Header';
 import MainArticle from './MainArticle';
-import Footer from './Footer';
+import Footer from '../shared/Footer';
 
 function HomeLayout({
     children,
