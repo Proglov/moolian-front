@@ -8,17 +8,24 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import Image from "next/image"
 
 export function Carousel() {
     return (
-        <CarouselShadCn>
+        <CarouselShadCn className="w-[calc(100%-200px)] max-w-xl mt-3">
             <CarouselContent >
-                {Array.from({ length: 5 }).map((_, index) => (
+                {[
+                    '/img/1.jpg',
+                    '/img/2.png',
+                    '/img/3.png',
+                    '/img/4.jpg',
+                    '/img/5.jpg',
+                ].map((src, index) => (
                     <CarouselItem key={index}>
                         <div className="p-1">
                             <Card>
-                                <CardContent className="flex aspect-square items-center justify-center p-6">
-                                    <span className="text-4xl font-semibold">{index + 1}</span>
+                                <CardContent className="flex aspect-square items-center justify-center">
+                                    <Image width={100} height={100} alt="pic" src={src} className="w-full h-full inset-0 object-cover rounded-b-sm" />
                                 </CardContent>
                             </Card>
                         </div>
