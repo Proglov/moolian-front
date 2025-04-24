@@ -1,5 +1,4 @@
 import { Loader2 } from "lucide-react"
-
 import { Button as ShadCnButton } from "@/components/ui/button"
 import { ComponentProps } from "react";
 
@@ -8,19 +7,19 @@ interface ButtonLoadingProps extends ComponentProps<typeof ShadCnButton> {
     children?: React.ReactNode;
 }
 
-function Button(props: ButtonLoadingProps) {
-    if (props?.loading)
+function Button({ loading, children, ...props }: ButtonLoadingProps) {
+    if (loading)
         return (
-            <ShadCnButton {...props} disabled >
+            <ShadCnButton {...props} disabled>
                 <Loader2 className="animate-spin" />
                 لطفا صبر کنید
             </ShadCnButton>
         )
     return (
         <ShadCnButton {...props}>
-            {props.children}
+            {children}
         </ShadCnButton>
     )
 }
 
-export default Button
+export default Button;

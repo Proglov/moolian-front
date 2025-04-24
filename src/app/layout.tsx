@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BaseProviders from "@/lib/BaseProviders";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <BaseProviders>
           {children}
+          <Toaster richColors />
         </BaseProviders>
       </body>
     </html>

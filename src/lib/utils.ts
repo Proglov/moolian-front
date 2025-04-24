@@ -66,3 +66,6 @@ export function getFarsiFlavor(flavor: string): string {
       return "طعم نامعلوم";
   }
 }
+
+
+export const isEmail = (input: string) => /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i.test(input)

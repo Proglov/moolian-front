@@ -1,9 +1,12 @@
+import { Carousel } from "@/components/home/Carousel";
 
 
 export default async function Home() {
   return (
-    <main>
-
-    </main>
+    <div>
+      <div className='flex justify-center'>
+        <Carousel />
+      </div>
+    </div>
   )
 }

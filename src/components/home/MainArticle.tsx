@@ -1,5 +1,4 @@
 import React from 'react'
-import { Carousel } from './Carousel';
 
 function MainArticle({
     children,
@@ -8,9 +7,6 @@ function MainArticle({
 }>) {
     return (
         <main>
-            <div className='flex justify-center'>
-                <Carousel />
-            </div>
             {children}
         </main>
     )

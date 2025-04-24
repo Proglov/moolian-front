@@ -18,4 +18,9 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   )
 }
 
+export interface InputProps extends React.ComponentProps<"input"> {
+  className?: string;
+  type?: string;
+}
+
 export { Input }
