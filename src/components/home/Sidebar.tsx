@@ -1,6 +1,5 @@
 import * as React from "react"
 import { ChevronLeft } from "lucide-react"
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,11 +14,10 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
+  SidebarMenuItem
 } from "@/components/ui/sidebar"
-
 import { sidebarData } from "@/lib/data"
+import SidebarMotionDiv from "./SidebarMotionDiv"
 
 
 
@@ -52,11 +50,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
+                      <SidebarMotionDiv key={item.title}>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton asChild>
+                            <a href={item.url}>{item.title}</a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      </SidebarMotionDiv>
                     ))}
                   </SidebarMenu>
                 </SidebarGroupContent>
@@ -65,7 +65,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </Collapsible>
         ))}
       </SidebarContent>
-      <SidebarRail />
     </Sidebar>
   )
 }

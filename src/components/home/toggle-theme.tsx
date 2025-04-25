@@ -1,21 +1,26 @@
 "use client"
-
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion";
 
 const toggleTheme = (theme: string | undefined) => {
-    if (theme === 'light') return 'dark'
-    return 'light'
+    return theme === 'light' ? 'dark' : 'light';
 }
 
 export function ModeToggle() {
-    const { setTheme, theme } = useTheme()
+    const { setTheme, theme } = useTheme();
 
     return (
         <Button variant="outline" size="icon" onClick={() => setTheme(toggleTheme(theme))}>
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <motion.div
+                initial={{ rotate: 0 }}
+                animate={{ rotate: theme === 'light' ? 0 : -180 }}
+                transition={{ duration: 0.3 }}
+            >
+                <Sun className="block dark:hidden" />
+                <Moon className="transform-[scale(1,-1)] rotate-90 hidden dark:block" />
+            </motion.div>
         </Button>
-    )
+    );
 }

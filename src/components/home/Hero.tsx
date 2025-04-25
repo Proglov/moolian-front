@@ -1,30 +1,77 @@
-import Image from "next/image"
-import Link from "next/link"
-import Button from "../shared/Button"
+import Image from "next/image";
+import Link from "next/link";
+import Button from "../shared/Button";
+import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <div className="relative w-full h-[50rem]">
-            <Image width={1000} height={1000} src="/img/5.jpg" alt="Hero" className="absolute inset-0 object-cover w-full h-full rounded-b-sm" />
-            <div className="absolute inset-0 flex flex-col justify-center gap-4 p-4 md:gap-10">
+        <div className="relative w-full h-[50rem] overflow-hidden">
+            <motion.div
+                className="absolute inset-0 shadow-2xl"
+                variants={imageVariants}
+                initial="init"
+                animate="animate"
+                transition={{ duration: 0.7 }}
+            >
+                <Image
+                    width={1000}
+                    height={1000}
+                    src="/img/5.jpg"
+                    alt="Hero"
+                    className="absolute inset-0 object-cover w-full h-full"
+                />
+            </motion.div>
+            <motion.div
+                className="absolute inset-0 flex flex-col justify-center gap-4 p-4 md:gap-10"
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            >
                 <div className="grid gap-4">
-                    <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                        مولیان پرفیوم
-                    </h1>
-                    <p className="max-w-[700px]">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                    </p>
-                </div>
-                <Button asChild variant={'default'}>
-                    <Link
-                        href="#"
-                        className="inline-flex h-10 items-center justify-center rounded-md shadow-sm w-24 transition-colors"
-                        prefetch={false}
+                    <motion.h1
+                        className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        دکمه
-                    </Link>
-                </Button>
-            </div>
+                        مولیان پرفیوم
+                    </motion.h1>
+                    <motion.p
+                        className="max-w-[700px]"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                    >
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </motion.p>
+                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                >
+                    <Button asChild variant={'default'}>
+                        <Link
+                            href="#"
+                            className="inline-flex h-10 items-center justify-center rounded-md shadow-sm w-24 transition-colors"
+                            prefetch={false}
+                        >
+                            دکمه
+                        </Link>
+                    </Button>
+                </motion.div>
+            </motion.div>
         </div>
-    )
+    );
 }
+
+const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+};
+
+const imageVariants = {
+    init: { y: -400 },
+    animate: { y: 0 }
+};
