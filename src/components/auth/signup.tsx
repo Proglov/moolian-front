@@ -6,6 +6,7 @@ import { toast } from "@/components/ui/sonner"
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -19,6 +20,7 @@ import { isEmail } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { PasswordInput } from "../shared/PasswordInput"
+import Link from "next/link"
 
 
 const FormSchema = z.object({
@@ -130,7 +132,6 @@ export default function Signup() {
                             </FormItem>
                         )}
                     />
-
                     <FormField
                         control={form.control}
                         name="email"
@@ -168,6 +169,13 @@ export default function Signup() {
                     <div className="w-full flex justify-center">
                         <Button type="submit" loading={isLoading}>ارسال</Button>
                     </div>
+                    <FormDescription>
+                        قبلا ثبت نام کرده اید؟ از
+                        <Link href='/auth/signin' className="text-purple-700 underline text-base mx-1">
+                            اینجا
+                        </Link>
+                        وارد شوید
+                    </FormDescription>
                 </form>
             </Form>
         </>
