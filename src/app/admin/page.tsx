@@ -1,7 +1,16 @@
-import React from 'react'
+import Products from '@/components/admin/Products'
 
-export default function page() {
+interface props {
+    searchParams: { [key: string]: string | undefined }
+}
+
+export default async function page({ searchParams }: props) {
+    const params = await searchParams;
+    const currentPage = parseInt(params['page'] || '') || 1;
+
     return (
-        <div>admin</div>
+        <div className='m-5'>
+            <Products currenPage={currentPage} />
+        </div>
     )
 }
