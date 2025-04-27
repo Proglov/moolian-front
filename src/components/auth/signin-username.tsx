@@ -40,7 +40,7 @@ export default function SigninUsername() {
 
 
     useEffect(() => {
-        isSuccess && router.back()
+        isSuccess && router.push('/')
     }, [isSuccess])
 
     useEffect(() => {
