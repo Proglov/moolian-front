@@ -106,27 +106,30 @@ export function PaginationWithLinks({
                     pageSize={pageSize}
                 />
             </div>
-            <Pagination dir="ltr" className={"md:justify-end"}>
-                <PaginationContent className="max-sm:gap-0">
-                    <PaginationItem>
-                        <PaginationPrevious
-                            onClick={handlePreviousPage}
-                            aria-disabled={page === 1}
-                            tabIndex={page === 1 ? -1 : undefined}
-                            className={page === 1 ? "pointer-events-none opacity-50" : undefined}
-                        />
-                    </PaginationItem>
-                    {renderPageNumbers()}
-                    <PaginationItem>
-                        <PaginationNext
-                            onClick={handleNextPage}
-                            aria-disabled={page === totalPageCount}
-                            tabIndex={page === totalPageCount ? -1 : undefined}
-                            className={page === totalPageCount ? "pointer-events-none opacity-50" : undefined}
-                        />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+            {
+                totalPageCount > 1 &&
+                <Pagination dir="ltr" className={"md:justify-end"}>
+                    <PaginationContent className="max-sm:gap-0">
+                        <PaginationItem>
+                            <PaginationPrevious
+                                onClick={handlePreviousPage}
+                                aria-disabled={page === 1}
+                                tabIndex={page === 1 ? -1 : undefined}
+                                className={page === 1 ? "pointer-events-none opacity-50" : undefined}
+                            />
+                        </PaginationItem>
+                        {renderPageNumbers()}
+                        <PaginationItem>
+                            <PaginationNext
+                                onClick={handleNextPage}
+                                aria-disabled={page === totalPageCount}
+                                tabIndex={page === totalPageCount ? -1 : undefined}
+                                className={page === totalPageCount ? "pointer-events-none opacity-50" : undefined}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+            }
         </div>
     );
 }

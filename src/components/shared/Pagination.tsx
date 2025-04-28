@@ -12,7 +12,7 @@ interface PaginationProps<T> {
 
 export default function Pagination<T>({ queryHook, children }: PaginationProps<T>) {
     const [currenPage, setCurrenPage] = useState(1);
-    const [limit, setLimit] = useState(2);
+    const [limit, setLimit] = useState(10);
     const { data, isError, isLoading, isUninitialized, error } = queryHook({ limit, page: currenPage });
 
 
