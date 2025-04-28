@@ -12,7 +12,7 @@ import {
 import { LogIn, LogOut, User } from "lucide-react"
 import Link from "next/link";
 import Button from "../shared/Button";
-import { useGetMeQuery } from "@/services/user";
+import { useGetMeQuery } from "@/services/users";
 import Spinner from "../shared/Spinner";
 import { useLogoutMutation } from "@/services/auth";
 

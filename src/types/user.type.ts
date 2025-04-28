@@ -1,5 +1,5 @@
 
-export interface IUserGetMe {
+export interface IUser {
     name: string;
     _id: string;
     address: string[];

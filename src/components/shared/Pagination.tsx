@@ -1,17 +1,18 @@
 'use client';
 import Spinner from '@/components/shared/Spinner';
 import { PaginationWithLinks } from '../ui/pagination-with-link';
+import { useState } from 'react';
 
 
 
 interface PaginationProps<T> {
     queryHook: any;
-    currenPage: number;
     children: (data: T[]) => JSX.Element;
 }
 
-export default function Pagination<T>({ queryHook, children, currenPage }: PaginationProps<T>) {
-    const limit = 2;
+export default function Pagination<T>({ queryHook, children }: PaginationProps<T>) {
+    const [currenPage, setCurrenPage] = useState(1);
+    const [limit, setLimit] = useState(2);
     const { data, isError, isLoading, isUninitialized, error } = queryHook({ limit, page: currenPage });
 
 
@@ -31,7 +32,7 @@ export default function Pagination<T>({ queryHook, children, currenPage }: Pagin
         <div>
             {content}
             <br />
-            <PaginationWithLinks page={currenPage} totalCount={data.count} pageSize={limit} />
+            <PaginationWithLinks page={currenPage} totalCount={data.count} pageSize={limit} setCurrentPage={setCurrenPage} setLimit={setLimit} />
         </div>
     );
 }

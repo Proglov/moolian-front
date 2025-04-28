@@ -5,7 +5,6 @@ import Pagination from '../shared/Pagination';
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -14,16 +13,12 @@ import {
 
 
 
-export default function Products({
-    currenPage }: {
-        currenPage: number;
-    }) {
+export default function Products() {
     const queryHook = useGetAllProductsQuery;
 
     return (
         <Pagination<IProduct>
             queryHook={queryHook}
-            currenPage={currenPage}
         >
             {(data: IProduct[]) => <ChildComponent data={data} />}
         </Pagination>
@@ -35,29 +30,27 @@ function ChildComponent({ data }: { data: IProduct[] | [] }) {
     if (!data) return <div>محصولی یافت نشد</div>;
 
     return (
-        <div className='max-w-5xl mx-auto'>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>نام</TableHead>
-                        <TableHead>برند</TableHead>
-                        <TableHead>دسته بندی</TableHead>
-                        <TableHead>قیمت</TableHead>
-                        <TableHead>توضیحات</TableHead>
+        <Table dir='rtl'>
+            <TableHeader>
+                <TableRow>
+                    <TableHead>نام</TableHead>
+                    <TableHead>برند</TableHead>
+                    <TableHead>دسته بندی</TableHead>
+                    <TableHead>قیمت</TableHead>
+                    <TableHead>توضیحات</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {data.map(p => (
+                    <TableRow key={p._id}>
+                        <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
+                        <TableCell>{p.brandId.nameFA}</TableCell>
+                        <TableCell>{p.category}</TableCell>
+                        <TableCell>{p.price}</TableCell>
+                        <TableCell className='text-justify'>{p.desc}</TableCell>
                     </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data.map(p => (
-                        <TableRow key={p._id}>
-                            <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
-                            <TableCell>{p.brandId.nameFA}</TableCell>
-                            <TableCell>{p.category}</TableCell>
-                            <TableCell>{p.price}</TableCell>
-                            <TableCell className='text-justify'>{p.desc}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
+                ))}
+            </TableBody>
+        </Table>
     );
 }
