@@ -1,3 +1,4 @@
+import Brands from '@/components/admin/brands/Brands';
 import Products from '@/components/admin/Products'
 import Users from '@/components/admin/Users';
 import Button from '@/components/shared/Button';
@@ -20,13 +21,11 @@ export default async function page() {
                 <TabsList dir='rtl'>
                     <TabsTrigger value="products">محصولات</TabsTrigger>
                     <TabsTrigger value="users">کاربران</TabsTrigger>
+                    <TabsTrigger value="brands">برندها</TabsTrigger>
                 </TabsList>
-                <TabsContent value="products">
-                    <Products />
-                </TabsContent>
-                <TabsContent value="users">
-                    <Users />
-                </TabsContent>
+                <TabsContent value="products"> <Products /> </TabsContent>
+                <TabsContent value="users"> <Users /> </TabsContent>
+                <TabsContent value="brands"> <Brands /> </TabsContent>
             </Tabs>
 
         </div>

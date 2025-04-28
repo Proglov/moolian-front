@@ -2,19 +2,19 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import CartProductsReducer from "./cart-products/CartProductsSlice";
 import authReducer from "./auth";
-import { productApi } from '../services/products'
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { baseApi } from "@/services/baseApi";
 
 
 export const makeStore = () => {
     const store = configureStore({
         reducer: {
-            [productApi.reducerPath]: productApi.reducer,
+            [baseApi.reducerPath]: baseApi.reducer,
             CartProducts: CartProductsReducer,
             auth: authReducer
         },
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(productApi.middleware),
+            getDefaultMiddleware().concat(baseApi.middleware),
     });
 
     setupListeners(store.dispatch);
