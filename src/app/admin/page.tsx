@@ -2,6 +2,7 @@ import Brands from '@/components/admin/brands/Brands';
 import Products from '@/components/admin/Products'
 import Users from '@/components/admin/Users';
 import Button from '@/components/shared/Button';
+import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Undo } from 'lucide-react';
 import Link from 'next/link';
@@ -17,12 +18,15 @@ export default async function page() {
                     بازگشت
                 </Link>
             </Button>
-            <Tabs defaultValue="products" className='max-w-5xl mx-auto'>
-                <TabsList dir='rtl'>
+            <Tabs defaultValue="products" className='max-w-5xl mx-auto relative'>
+                <TabsList dir='rtl' className='z-20'>
                     <TabsTrigger value="products">محصولات</TabsTrigger>
                     <TabsTrigger value="users">کاربران</TabsTrigger>
                     <TabsTrigger value="brands">برندها</TabsTrigger>
                 </TabsList>
+
+                <div className='border-t-4 border-gray-300 w-full rounded-[100%] h-2 absolute top-4' />
+
                 <TabsContent value="products"> <Products /> </TabsContent>
                 <TabsContent value="users"> <Users /> </TabsContent>
                 <TabsContent value="brands"> <Brands /> </TabsContent>
