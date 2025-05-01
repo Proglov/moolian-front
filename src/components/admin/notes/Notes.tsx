@@ -1,6 +1,6 @@
 'use client';
-import { useGetAllBrandsQuery } from '@/services/brands';
-import { IBrand } from '@/types/brand.type';
+import { useGetAllNotesQuery } from '@/services/notes';
+import { INote } from '@/types/note.type';
 import Pagination from '../../shared/Pagination';
 import {
     Table,
@@ -11,29 +11,29 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import Image from 'next/image';
-import AddBrand from './AddBrand';
+import AddNote from './AddNote';
 
 
 
-export default function Brands() {
-    const queryHook = useGetAllBrandsQuery;
+export default function Notes() {
+    const queryHook = useGetAllNotesQuery;
 
     return (
         <main dir='rtl'>
-            <AddBrand />
+            <AddNote />
 
-            <Pagination<IBrand>
+            <Pagination<INote>
                 queryHook={queryHook}
             >
-                {(data: IBrand[]) => <ChildComponent data={data} />}
+                {(data: INote[]) => <ChildComponent data={data} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: IBrand[] | [] }) {
-    if (!data) return <div>برندی یافت نشد</div>;
+function ChildComponent({ data }: { data: INote[] | [] }) {
+    if (!data) return <div>نوتی یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
@@ -46,9 +46,9 @@ function ChildComponent({ data }: { data: IBrand[] | [] }) {
             <TableBody>
                 {data.map(p => (
                     <TableRow key={p._id}>
-                        <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
+                        <TableCell>{p.name}</TableCell>
                         <TableCell>
-                            <Image width={200} height={200} src={p.imageKey} alt={p.nameEN} />
+                            <Image width={200} height={200} src={p.imageKey} alt={p.name} />
                         </TableCell>
                     </TableRow>
                 ))}
