@@ -15,14 +15,14 @@ export interface IProduct {
     _id: string;
     availability: boolean;
     brandId: IBrand;
-    country: string;
+    country?: string;
     desc: string;
     flavor: string[];
     gender: string;
     category: string;
     olfactory: string;
     imageKeys: string[];
-    maker: string;
+    maker?: string;
     baseNoteObjects: INoteInProduct[];
     initialNoteObjects: INoteInProduct[];
     midNoteObjects: INoteInProduct[];
@@ -30,7 +30,7 @@ export interface IProduct {
     nameFA: string;
     price: number;
     season: string[];
-    year: number;
+    year?: number;
 }
 
 export interface ICreateProduct extends Omit<IProduct, 'brandId' | 'baseNoteObjects' | 'initialNoteObjects' | 'midNoteObjects' | '_id' | 'availability'> {

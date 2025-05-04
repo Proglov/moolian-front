@@ -20,6 +20,4 @@ export const imageApi = baseApi.injectEndpoints({
     overrideExisting: false,
 })
 
-
-
 export const { useUploadImageMutation } = imageApi

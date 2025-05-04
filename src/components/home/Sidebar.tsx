@@ -16,7 +16,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from "@/components/ui/sidebar"
-import { sidebarData } from "@/lib/data"
+import { sidebarData } from "@/lib/sidebar-data"
 import SidebarMotionDiv from "./SidebarMotionDiv"
 
 

@@ -1,11 +1,12 @@
 import { useAddNewBrandMutation } from "@/services/brands"
 import { useEffect, useState } from "react"
 import { toast } from "@/components/ui/sonner"
+import { useUploadImageMutation } from "@/services/image"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { isFetchBaseQueryError } from "@/lib/utils"
-import { useAddImage } from "./use-addImage"
+import { IProduct } from "@/types/product.type"
 
 
 const FormSchema = z.object({
@@ -13,14 +14,14 @@ const FormSchema = z.object({
     nameFA: z.string().nonempty({ message: 'نام فارسی برند الزامیست' })
 })
 type TForm = z.infer<typeof FormSchema>;
-const defaultValues: TForm = { nameEN: '', nameFA: '' }
 const resolver = zodResolver(FormSchema)
 
 
-export function useAddBrand() {
-    const form = useForm<TForm>({ resolver, defaultValues })
+export function useEditProduct(product: IProduct) {
+    const form = useForm<TForm>({ resolver, defaultValues: product })
     const [addNewBrand, { isError, error, isLoading, isSuccess }] = useAddNewBrandMutation()
-    const { data, uploadImage, fileState, setFileState } = useAddImage()
+    const [uploadImage, { data, isError: isErrorUpload, error: errorUpload }] = useUploadImageMutation()
+    const [fileState, setFileState] = useState<File | undefined>(undefined);
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -37,6 +38,12 @@ export function useAddBrand() {
         }
     }, [isError])
 
+    useEffect(() => {
+        if (isFetchBaseQueryError(errorUpload)) {
+            const messages = (errorUpload.data as { message: string[] }).message;
+            messages.map(message => toast.error(message))
+        }
+    }, [isErrorUpload])
 
     useEffect(() => {
         if (data) {

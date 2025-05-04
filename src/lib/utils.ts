@@ -1,4 +1,5 @@
 import { Category, Flavor, Gender, Season } from "@/types/product.type";
+import { numberToWords as ntw } from "@persian-tools/persian-tools";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
@@ -44,3 +45,15 @@ export const isEmail = (input: string) => /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A
 export const isFetchBaseQueryError = (error: unknown): error is FetchBaseQueryError => {
   return typeof error === 'object' && error !== null && 'status' in error && 'data' in error && typeof error.data === 'object' && error.data !== null;
 };
+
+
+export const numberToWords = (inp: number) => {
+  try {
+    const x = ntw(inp)
+    if (x instanceof TypeError)
+      throw new Error()
+    return x
+  } catch (error) {
+    return ''
+  }
+}

@@ -1,11 +1,11 @@
 import { useAddNewNoteMutation } from "@/services/notes"
 import { useEffect, useState } from "react"
 import { toast } from "@/components/ui/sonner"
-import { useUploadImageMutation } from "@/services/image"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { isFetchBaseQueryError } from "@/lib/utils"
+import { useAddImage } from "./use-addImage"
 
 
 const FormSchema = z.object({
@@ -19,8 +19,7 @@ const resolver = zodResolver(FormSchema)
 export function useAddNote() {
     const form = useForm<TForm>({ resolver, defaultValues })
     const [addNewNote, { isError, error, isLoading, isSuccess }] = useAddNewNoteMutation()
-    const [uploadImage, { data, isError: isErrorUpload, error: errorUpload }] = useUploadImageMutation()
-    const [fileState, setFileState] = useState<File | undefined>(undefined);
+    const { data, uploadImage, fileState, setFileState } = useAddImage()
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -36,13 +35,6 @@ export function useAddNote() {
             messages.map(message => toast.error(message))
         }
     }, [isError])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(errorUpload)) {
-            const messages = (errorUpload.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isErrorUpload])
 
     useEffect(() => {
         if (data) {

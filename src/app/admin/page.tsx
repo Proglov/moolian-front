@@ -26,7 +26,7 @@ export default async function page() {
                     <TabsTrigger value="notes">نوت ها</TabsTrigger>
                 </TabsList>
 
-                <div className='border-t-4 border-gray-300 w-full rounded-[100%] h-2 absolute top-4' />
+                <div className='border-t-4 border-gray-300 w-full rounded-[100%] h-16 absolute top-4' />
 
                 <TabsContent value="products"> <Products /> </TabsContent>
                 <TabsContent value="users"> <Users /> </TabsContent>

@@ -8,7 +8,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { sidebarData } from "@/lib/data";
+import { sidebarData } from "@/lib/sidebar-data";
 
 
 export default function NavigationMenuWithDropdown() {
