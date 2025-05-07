@@ -139,7 +139,7 @@ export default function AddProduct() {
                                         <FormItem>
                                             <FormLabel>
                                                 نوت های ابتدایی
-                                                <span className="text-destructive">*</span>
+                                                <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
                                             <FormControl>
                                                 {
@@ -172,7 +172,7 @@ export default function AddProduct() {
                                         <FormItem>
                                             <FormLabel>
                                                 نوت های میانی
-                                                <span className="text-destructive">*</span>
+                                                <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
                                             <FormControl>
                                                 {
@@ -205,7 +205,7 @@ export default function AddProduct() {
                                         <FormItem>
                                             <FormLabel>
                                                 نوت های پایه
-                                                <span className="text-destructive">*</span>
+                                                <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
                                             <FormControl>
                                                 {
@@ -435,6 +435,7 @@ export default function AddProduct() {
                                     <label
                                         className="block mt-2 mb-1 text-right" htmlFor="inline-image-upload">
                                         آپلود تصاویر
+                                        <span className="text-destructive pt-1.5">*</span>
                                     </label>
                                     <MultiFileDropzone
                                         value={fileStates}

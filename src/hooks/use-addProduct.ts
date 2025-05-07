@@ -1,7 +1,6 @@
 import { useAddNewProductMutation } from "@/services/products"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "@/components/ui/sonner"
-import { useUploadImageMutation } from "@/services/image"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -18,7 +17,7 @@ const noteSchema = z.object({
     cent: z.coerce.number({ message: 'درصد باید عددی بین 1 تا 99 باشد' }).refine(val => val < 100 && val > 0, { message: "درصد باید عددی بین 1 تا 99 باشد" }),
 })
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
     nameEN: z.string().nonempty({ message: 'نام انگلیسی محصول الزامیست' }),
     nameFA: z.string().nonempty({ message: 'نام فارسی محصول الزامیست' }),
     price: z.coerce.number({ message: 'قیمت محصول باید عدد مثبت باشد' }).positive({ message: 'قیمت محصول الزامیست' }),
@@ -35,7 +34,6 @@ const FormSchema = z.object({
     initialNoteObjects: z.array(noteSchema),
     midNoteObjects: z.array(noteSchema),
     baseNoteObjects: z.array(noteSchema),
-
 })
 type TForm = z.infer<typeof FormSchema>;
 const defaultValues: TForm = { nameEN: '', nameFA: '', price: 0, year: 0, olfactory: '', gender: Gender.male, category: Category.management, flavor: [], season: [], desc: '', brandId: '', initialNoteObjects: [], midNoteObjects: [], baseNoteObjects: [], country: '', maker: '' }

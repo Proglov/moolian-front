@@ -71,10 +71,19 @@ export function useAddImages() {
         )
     }
 
+    const onImageDelete = (id: string) => setUploadRes(prev => prev.filter(key => key !== id))
+
+    const onFinished = () => {
+        setFileStates([])
+        setUploadRes([])
+    }
+
     return {
         onFilesAdded,
         fileStates,
         setFileStates,
-        uploadRes
+        uploadRes,
+        onImageDelete,
+        onFinished
     }
 }

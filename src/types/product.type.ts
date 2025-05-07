@@ -17,9 +17,9 @@ export interface IProduct {
     brandId: IBrand;
     country?: string;
     desc: string;
-    flavor: string[];
-    gender: string;
-    category: string;
+    flavor: Flavor[];
+    gender: Gender;
+    category: Category;
     olfactory: string;
     imageKeys: string[];
     maker?: string;
@@ -29,7 +29,7 @@ export interface IProduct {
     nameEN: string;
     nameFA: string;
     price: number;
-    season: string[];
+    season: Season[];
     year?: number;
 }
 
@@ -41,7 +41,8 @@ export interface ICreateProduct extends Omit<IProduct, 'brandId' | 'baseNoteObje
 }
 
 export interface IUpdateProduct extends Partial<ICreateProduct> {
-    _id: string
+    _id: string;
+    availability?: boolean;
 }
 
 

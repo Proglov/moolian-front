@@ -1,33 +1,44 @@
-import { useAddNewBrandMutation } from "@/services/brands"
+import { useUpdateProductMutation } from "@/services/products"
 import { useEffect, useState } from "react"
 import { toast } from "@/components/ui/sonner"
-import { useUploadImageMutation } from "@/services/image"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { isFetchBaseQueryError } from "@/lib/utils"
+import { extractFileName, getChangedFields, isFetchBaseQueryError } from "@/lib/utils"
+import { useAddImages } from "./use-addImages"
+import { FormSchema, useGetBrands, useGetNotes } from "./use-addProduct"
 import { IProduct } from "@/types/product.type"
+import _ from "lodash"
 
-
-const FormSchema = z.object({
-    nameEN: z.string().nonempty({ message: 'نام انگلیسی برند الزامیست' }),
-    nameFA: z.string().nonempty({ message: 'نام فارسی برند الزامیست' })
+const EditFormSchema = FormSchema.extend({
+    _id: z.string(),
+    availability: z.boolean().optional()
 })
-type TForm = z.infer<typeof FormSchema>;
-const resolver = zodResolver(FormSchema)
+type TForm = z.infer<typeof EditFormSchema>;
+const resolver = zodResolver(EditFormSchema)
 
 
 export function useEditProduct(product: IProduct) {
-    const form = useForm<TForm>({ resolver, defaultValues: product })
-    const [addNewBrand, { isError, error, isLoading, isSuccess }] = useAddNewBrandMutation()
-    const [uploadImage, { data, isError: isErrorUpload, error: errorUpload }] = useUploadImageMutation()
-    const [fileState, setFileState] = useState<File | undefined>(undefined);
+    const reformedProduct = {
+        ...product,
+        brandId: product.brandId._id,
+        initialNoteObjects: product.initialNoteObjects.map(n => ({ ...n, noteId: n.noteId._id })),
+        baseNoteObjects: product.baseNoteObjects.map(n => ({ ...n, noteId: n.noteId._id })),
+        midNoteObjects: product.midNoteObjects.map(n => ({ ...n, noteId: n.noteId._id }))
+    }
+    const form = useForm<TForm>({ resolver, defaultValues: reformedProduct })
+    const [updateProduct, { isError, error, isLoading, isSuccess }] = useUpdateProductMutation()
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
+    const { brands, isBrandQueryLoading } = useGetBrands()
+    const { notes, isNoteQueryLoading } = useGetNotes()
+    const { fileStates, onFilesAdded, setFileStates, uploadRes, onImageDelete, onFinished } = useAddImages()
+    const [deletedImages, setDeletedImages] = useState<string[]>([])
 
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
-            toast.success('برند با موفقیت افزوده شد')
+            toast.success('محصول با موفقیت ویرایش شد')
+            onFinished()
         }
     }, [isSuccess])
 
@@ -38,32 +49,44 @@ export function useEditProduct(product: IProduct) {
         }
     }, [isError])
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(errorUpload)) {
-            const messages = (errorUpload.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
+    const onImageRemove = (id: string) => {
+        onImageDelete(id);
+        setDeletedImages(prev => [...prev, id])
+    }
+
+    const isImageDeleted = (id: string): boolean => deletedImages.includes(id)
+
+    const submit = (data: any) => {
+        const prevImages: string[] = [];
+        product.imageKeys.map(key => {
+            const filename = extractFileName(key)
+            !!filename && prevImages.push(filename)
+        })
+        const imageKeys = [...uploadRes, ...prevImages];
+        _.pull(imageKeys, ...deletedImages)
+
+        const newObj = {
+            _id: product._id,
+            ...getChangedFields(reformedProduct, { ...data, imageKeys })
         }
-    }, [isErrorUpload])
 
-    useEffect(() => {
-        if (data) {
-            const values = form.getValues()
-            addNewBrand({ ...values, imageKey: data })
-        }
-    }, [data])
-
-
-    //first we send the image, the rest of the process is handled in the useEffect
-    const submit = () => uploadImage(fileState);
+        updateProduct(newObj)
+    };
 
     return {
         isLoading,
-        fileState,
-        setFileState,
         dialogIsOpen,
         setDialogIsOpen,
         form,
         submit,
-        data
+        brands,
+        isBrandQueryLoading,
+        notes,
+        isNoteQueryLoading,
+        fileStates,
+        setFileStates,
+        onFilesAdded,
+        onImageRemove,
+        isImageDeleted
     }
 }
