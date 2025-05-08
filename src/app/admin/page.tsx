@@ -1,4 +1,5 @@
 import Brands from '@/components/admin/brands/Brands';
+import Comments from '@/components/admin/comments/Comments';
 import Notes from '@/components/admin/notes/Notes';
 import Products from '@/components/admin/products/Products'
 import Users from '@/components/admin/Users';
@@ -24,6 +25,7 @@ export default async function page() {
                     <TabsTrigger value="users">کاربران</TabsTrigger>
                     <TabsTrigger value="brands">برندها</TabsTrigger>
                     <TabsTrigger value="notes">نوت ها</TabsTrigger>
+                    <TabsTrigger value="comments">کامنت ها</TabsTrigger>
                 </TabsList>
 
                 <div className='border-t-4 border-gray-300 w-full rounded-[100%] h-16 absolute top-4' />
@@ -32,6 +34,7 @@ export default async function page() {
                 <TabsContent value="users"> <Users /> </TabsContent>
                 <TabsContent value="brands"> <Brands /> </TabsContent>
                 <TabsContent value="notes"> <Notes /> </TabsContent>
+                <TabsContent value="comments"> <Comments /> </TabsContent>
             </Tabs>
 
         </div>

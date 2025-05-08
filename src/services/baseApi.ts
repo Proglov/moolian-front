@@ -59,5 +59,5 @@ export const baseApi = createApi({
     baseQuery: baseQueryWithReauth,
     endpoints: () => ({})
 }).enhanceEndpoints({
-    addTagTypes: ['product', 'user', 'brand', 'note']
+    addTagTypes: ['product', 'user', 'brand', 'note', 'comment']
 })
