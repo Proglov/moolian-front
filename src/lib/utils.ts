@@ -1,9 +1,10 @@
 import { Category, Flavor, Gender, Season } from "@/types/product.type";
-import { numberToWords as ntw } from "@persian-tools/persian-tools";
+import { digitsEnToFa, digitsFaToEn, numberToWords as ntw, timeAgo } from "@persian-tools/persian-tools";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import _ from 'lodash';
+import { TStatusObject, TXStatus } from "@/types/transaction";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -40,7 +41,6 @@ export const flavorsObject: Record<Flavor, string> = {
 
 export const isEmail = (input: string) => /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i.test(input)
 
-
 export const isFetchBaseQueryError = (error: unknown): error is FetchBaseQueryError => {
   return typeof error === 'object' && error !== null && 'status' in error && 'data' in error && typeof error.data === 'object' && error.data !== null;
 };
@@ -69,3 +69,91 @@ export function getChangedFields<T extends Record<string, any>>(a: T, b: T): Par
 }
 
 export const extractFileName = (url: string) => url.split('?')[0].split('/').pop()
+
+export const getDateParts = (date: Date) => {
+
+  interface DateParts {
+    year?: string;
+    month?: string;
+    day?: string;
+    hour?: string;
+    minute?: string;
+    second?: string;
+  }
+
+  const formatter = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+    timeZone: 'Asia/Tehran'
+  });
+
+  const parts = formatter.formatToParts(date);
+  const dateParts: DateParts = {};
+
+  for (const part of parts) {
+    if (
+      part.type === 'year' ||
+      part.type === 'month' ||
+      part.type === 'day' ||
+      part.type === 'hour' ||
+      part.type === 'minute' ||
+      part.type === 'second'
+    ) {
+      dateParts[part.type] = part.value;
+    }
+  }
+
+  return dateParts
+
+}
+
+export const timeAGO = (date: Date) => {
+
+  const dateParts = getDateParts(date)
+  // Construct formatted string yyyy/mm/dd hh:mm:ss
+  const formatted = `${dateParts.year}/${dateParts.month}/${dateParts.day} ${dateParts.hour}:${dateParts.minute}:${dateParts.second}`;
+
+  return digitsEnToFa(timeAgo(digitsFaToEn(formatted)))
+}
+
+export const formattedTime = (date: Date) => {
+  const dateParts = getDateParts(date)
+  return `${dateParts.year}/${dateParts.month}/${dateParts.day} ${dateParts.hour}:${dateParts.minute}`;
+}
+
+export const statusObject: TStatusObject = {
+  'Requested': {
+    color: 'warning',
+    fa: 'درخواست داده شده',
+    next: TXStatus.Accepted,
+    nextFA: 'قبول',
+    nextColor: 'orange'
+  },
+  'Accepted': {
+    color: 'orange',
+    fa: 'قبول شده',
+    next: TXStatus.Sent,
+    nextFA: 'ارسال شد',
+    nextColor: 'info'
+  },
+  'Sent': {
+    color: 'info',
+    fa: 'ارسال شده',
+    next: TXStatus.Received,
+    nextFA: 'دریافت شد',
+    nextColor: 'success'
+  },
+  'Received': {
+    color: 'success',
+    fa: 'دریافت شده'
+  },
+  'Canceled': {
+    color: 'destructive',
+    fa: 'کنسل شده'
+  },
+}

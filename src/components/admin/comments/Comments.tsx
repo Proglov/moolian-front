@@ -32,7 +32,7 @@ export default function Comments() {
 
 
 function ChildComponent({ data }: { data: IComment[] | [] }) {
-    if (!data) return <div>نوتی یافت نشد</div>;
+    if (!data) return <div>کامنتی یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
