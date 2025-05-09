@@ -89,7 +89,7 @@ export function useAddProduct() {
 }
 
 export function useGetBrands() {
-    const { isError, error, isLoading, isSuccess, data } = useGetAllBrandsQuery({})
+    const { isError, error, isLoading, isSuccess, data } = useGetAllBrandsQuery({ page: 1, limit: 10000 })
     const [brands, setBrands] = useState<IBrand[]>([]);
 
     useEffect(() => {
@@ -111,7 +111,7 @@ export function useGetBrands() {
 }
 
 export function useGetNotes() {
-    const { isError, error, isLoading, isSuccess, data } = useGetAllNotesQuery({})
+    const { isError, error, isLoading, isSuccess, data } = useGetAllNotesQuery({ page: 1, limit: 10000 })
     const [notes, setNotes] = useState<INote[]>([]);
 
     useEffect(() => {
