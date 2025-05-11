@@ -1,13 +1,13 @@
 'use client';
 import Spinner from '@/components/shared/Spinner';
 import { PaginationWithLinks } from '../ui/pagination-with-link';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 
 
 interface PaginationProps<T> {
     queryHook: any;
-    children: (data: T[]) => JSX.Element;
+    children: (data: T[]) => React.JSX.Element;
     extraOptions?: any
 }
 
