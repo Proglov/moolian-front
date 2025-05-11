@@ -40,14 +40,14 @@ export function useEditProduct(product: IProduct) {
             toast.success('محصول با موفقیت ویرایش شد')
             onFinished()
         }
-    }, [isSuccess])
+    }, [isSuccess, onFinished])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
     const onImageRemove = (id: string) => {
         onImageDelete(id);
@@ -56,18 +56,18 @@ export function useEditProduct(product: IProduct) {
 
     const isImageDeleted = (id: string): boolean => deletedImages.includes(id)
 
-    const submit = (data: any) => {
+    const submit = (data: TForm) => {
         const prevImages: string[] = [];
         product.imageKeys.map(key => {
             const filename = extractFileName(key)
-            !!filename && prevImages.push(filename)
+            if (!!filename) prevImages.push(filename)
         })
         const imageKeys = [...uploadRes, ...prevImages];
         _.pull(imageKeys, ...deletedImages)
 
         const newObj = {
             _id: product._id,
-            ...getChangedFields(reformedProduct, { ...data, imageKeys })
+            ...getChangedFields(reformedProduct, { ...data, imageKeys } as TForm)
         }
 
         updateProduct(newObj)

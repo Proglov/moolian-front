@@ -50,7 +50,6 @@ function useSidebar() {
 function SidebarProvider({
   defaultOpen = true,
   open: openProp,
-  onOpenChange: setOpenProp,
   className,
   style,
   children,
@@ -64,8 +63,7 @@ function SidebarProvider({
   const [openMobile, setOpenMobile] = React.useState(false)
 
   // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(defaultOpen)
+  const [_open] = React.useState(defaultOpen)
   const open = openProp ?? _open
 
   // Helper to toggle the sidebar.
@@ -116,14 +114,12 @@ function SidebarProvider({
 
 function Sidebar({
   side = "right",
-  variant = "sidebar",
   collapsible = "offcanvas",
   className,
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   side?: "left" | "right"
-  variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, openMobile, setOpenMobile } = useSidebar()

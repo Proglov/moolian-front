@@ -51,11 +51,12 @@ export const numberToWords = (inp: number) => {
     if (x instanceof TypeError)
       throw new Error()
     return x
-  } catch (error) {
+  } catch (_error) {
     return ''
   }
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getChangedFields<T extends Record<string, any>>(a: T, b: T): Partial<T> {
   const diff: Partial<T> = {};
   // Cast keys to `keyof T` to resolve indexing issue

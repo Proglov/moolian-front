@@ -6,6 +6,7 @@ export interface IPagination {
 }
 
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface IRequiredPagination extends Required<IPagination> { }
 
 export interface IGetResponse<T> {

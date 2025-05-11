@@ -14,7 +14,7 @@ export function useAddImage() {
             const messages = (errorUpload.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isErrorUpload])
+    }, [isErrorUpload, errorUpload])
 
 
     return {

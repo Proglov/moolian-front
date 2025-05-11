@@ -9,7 +9,7 @@ const USERNAME_TAB = 'username';
 export default function SigninMain() {
     const searchParams = useSearchParams()
     const tab = searchParams.get('tab');
-    let content = tab === USERNAME_TAB ? <SigninUsername /> : <SigninPhone />;
+    const content = tab === USERNAME_TAB ? <SigninUsername /> : <SigninPhone />;
 
     return (
         <AnimatePresence mode="wait" >

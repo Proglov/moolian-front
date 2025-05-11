@@ -35,7 +35,7 @@ export function useAddBrand() {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export function useAddBrand() {
             const values = form.getValues()
             addNewBrand({ ...values, imageKey: data })
         }
-    }, [data])
+    }, [data, addNewBrand, form])
 
 
     //first we send the image, the rest of the process is handled in the useEffect

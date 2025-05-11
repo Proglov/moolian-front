@@ -7,7 +7,7 @@ export const loadCartState = () => {
       return [];
     }
     return JSON.parse(serialState);
-  } catch (err) {
+  } catch {
     return [];
   }
 };

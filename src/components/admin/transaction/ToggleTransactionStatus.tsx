@@ -8,8 +8,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { useCancelTransactionBySellerMutation } from "@/services/transaction";
-import { TXStatus } from "@/types/transaction";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 

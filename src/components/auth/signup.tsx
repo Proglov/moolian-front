@@ -2,7 +2,6 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { toast } from "@/components/ui/sonner"
 import {
     Form,
     FormControl,
@@ -17,10 +16,9 @@ import { phoneNumberValidator } from "@persian-tools/persian-tools";
 import { useSignupMutation } from "@/services/auth"
 import Button from "@/components/shared/Button"
 import { isEmail } from "@/lib/utils"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 import { PasswordInput } from "../shared/PasswordInput"
 import Link from "next/link"
+import useAuth from "@/hooks/use-auth"
 
 
 const FormSchema = z.object({
@@ -55,22 +53,8 @@ const resolver = zodResolver(FormSchema)
 
 export default function Signup() {
     const form = useForm<TForm>({ resolver, defaultValues })
-    const [signup, { isError, error, isLoading, isSuccess }] = useSignupMutation()
-    const router = useRouter()
-
-
-    useEffect(() => {
-        isSuccess && router.push('/')
-    }, [isSuccess])
-
-    useEffect(() => {
-        if (isError && 'status' in error && typeof error.data === 'object' && error.data !== null) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError])
-
-    const onSubmit = ({ passwordRepeat, ...data }: TForm) => signup(data)
+    const { func: signup, isLoading } = useAuth(useSignupMutation)
+    const onSubmit = ({ passwordRepeat: _, ...data }: TForm) => signup(data)
 
 
     return (

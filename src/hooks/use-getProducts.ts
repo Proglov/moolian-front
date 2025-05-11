@@ -19,13 +19,13 @@ export default function useGetProducts() {
                 setIsFinished(true)
             }
         }
-    }, [data])
+    }, [data, isSuccess, page])
 
     useEffect(() => {
         if (inView && !isFinished && products.length) {
             setPage(prev => prev + 1)
         }
-    }, [inView])
+    }, [inView, isFinished, products.length])
 
     return { products, ref, isFinished }
 }

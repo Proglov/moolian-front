@@ -37,7 +37,7 @@ export function useAddFestival() {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     const submit = (data: TForm) => {
@@ -64,14 +64,14 @@ export function useGetProducts() {
 
     useEffect(() => {
         if (isSuccess) setProducts(data.items)
-    }, [isSuccess])
+    }, [isSuccess, data?.items])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     return {

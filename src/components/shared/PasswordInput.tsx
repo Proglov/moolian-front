@@ -20,14 +20,12 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(({ classNam
             {showPassword ? (
                 <Eye
                     className="absolute left-4 top-2 z-10 cursor-pointer text-gray-500"
-                    onClick={() => {
-                        setShowPassword(!showPassword), console.log(showPassword)
-                    }}
+                    onClick={() => setShowPassword(prev => !prev)}
                 />
             ) : (
                 <EyeOff
                     className="absolute left-4 top-2 z-10 cursor-pointer text-gray-500"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => setShowPassword(prev => !prev)}
                 />
             )}
         </div>

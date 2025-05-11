@@ -34,14 +34,14 @@ export function useAddNote() {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
     useEffect(() => {
         if (data) {
             const values = form.getValues()
             addNewNote({ ...values, imageKey: data })
         }
-    }, [data])
+    }, [data, addNewNote, form])
 
 
     //first we send the image, the rest of the process is handled in the useEffect

@@ -41,7 +41,7 @@ export const productApi = baseApi.injectEndpoints({
                 // Optionally limit the number of cached pages
                 maxPages: 20,
                 // Must provide a `getNextPageParam` function
-                getNextPageParam: (lastPage, _allPages, lastPageParam, _allPageParams) => {
+                getNextPageParam: (lastPage, _allPages, lastPageParam) => {
                     if (!lastPageParam.page || !lastPageParam.limit) return { ...lastPageParam, page: 2 }
                     const nextPage = lastPageParam.page + 1
 
@@ -58,8 +58,7 @@ export const productApi = baseApi.injectEndpoints({
                 getPreviousPageParam: (
                     _firstPage,
                     _allPages,
-                    firstPageParam,
-                    _allPageParams,
+                    firstPageParam
                 ) => {
                     if (!firstPageParam.page) return undefined
                     const prevPage = firstPageParam.page - 1

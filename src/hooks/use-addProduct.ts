@@ -60,7 +60,7 @@ export function useAddProduct() {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     const submit = (data: TForm) => {
@@ -94,14 +94,14 @@ export function useGetBrands() {
 
     useEffect(() => {
         if (isSuccess) setBrands(data.items)
-    }, [isSuccess])
+    }, [isSuccess, data?.items])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     return {
@@ -116,14 +116,14 @@ export function useGetNotes() {
 
     useEffect(() => {
         if (isSuccess) setNotes(data.items)
-    }, [isSuccess])
+    }, [isSuccess, data?.items])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
             const messages = (error.data as { message: string[] }).message;
             messages.map(message => toast.error(message))
         }
-    }, [isError])
+    }, [isError, error])
 
 
     return {

@@ -2,7 +2,6 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { toast } from "@/components/ui/sonner"
 import {
     Form,
     FormControl,
@@ -15,10 +14,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { useSigninEmailOrUsernameMutation } from "@/services/auth"
 import Button from "@/components/shared/Button"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 import { PasswordInput } from "../shared/PasswordInput"
 import Link from "next/link"
+import useAuth from "@/hooks/use-auth"
 
 
 const FormSchema = z.object({
@@ -35,21 +33,7 @@ const resolver = zodResolver(FormSchema)
 
 export default function SigninUsername() {
     const form = useForm<TForm>({ resolver, defaultValues })
-    const [signin, { isError, error, isLoading, isSuccess }] = useSigninEmailOrUsernameMutation()
-    const router = useRouter()
-
-
-    useEffect(() => {
-        isSuccess && router.push('/')
-    }, [isSuccess])
-
-    useEffect(() => {
-        if (isError && 'status' in error && typeof error.data === 'object' && error.data !== null) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError])
-
+    const { func: signin, isLoading } = useAuth(useSigninEmailOrUsernameMutation)
 
 
     return (

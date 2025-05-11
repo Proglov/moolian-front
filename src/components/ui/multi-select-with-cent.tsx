@@ -55,7 +55,6 @@ interface MultiSelectWithCentProps extends VariantProps<typeof multiSelectVarian
     placeholder?: string;
     maxCount?: number;
     modalPopover?: boolean;
-    asChild?: boolean;
     className?: string;
 }
 
@@ -69,7 +68,6 @@ export const MultiSelectWithCent = React.forwardRef<HTMLButtonElement, MultiSele
             placeholder = "گزینه ها",
             maxCount = 3,
             modalPopover = false,
-            asChild = false,
             className,
             ...props
         },

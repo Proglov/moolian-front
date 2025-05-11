@@ -21,7 +21,7 @@ export function Account() {
     const [logout, { isSuccess: isLogoutSuccess }] = useLogoutMutation();
 
     useEffect(() => {
-        isLogoutSuccess && window.location.reload();
+        if (isLogoutSuccess) window.location.reload();
     }, [isLogoutSuccess])
 
 

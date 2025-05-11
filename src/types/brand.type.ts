@@ -6,4 +6,6 @@ export interface IBrand {
     nameFA: string;
 }
 
+
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface ICreateBrand extends Omit<IBrand, '_id'> { }

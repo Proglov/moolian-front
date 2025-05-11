@@ -5,4 +5,6 @@ export interface INote {
     imageKey: string;
 }
 
+
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface ICreateNote extends Omit<INote, '_id'> { }

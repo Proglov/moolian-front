@@ -53,7 +53,6 @@ interface MultiSelectProps
     placeholder?: string;
     maxCount?: number;
     modalPopover?: boolean;
-    asChild?: boolean;
     className?: string;
 }
 
@@ -67,7 +66,6 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             placeholder = "گزینه ها",
             maxCount = 3,
             modalPopover = false,
-            asChild = false,
             className,
             ...props
         },

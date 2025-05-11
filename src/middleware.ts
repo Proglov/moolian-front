@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
         if (!isAdmin) return NextResponse.redirect(new URL('/not-found', request.url));
 
         return NextResponse.next();
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.redirect(new URL('/not-found', request.url));
     }
 }

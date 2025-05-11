@@ -19,10 +19,12 @@ export function useAddImages() {
 
     // Cleanup intervals on unmount
     useEffect(() => {
+        const intervals = intervalRefs.current;
         return () => {
-            Object.values(intervalRefs.current).forEach(clearInterval)
+            Object.values(intervals).forEach(clearInterval);
         }
-    }, [])
+    }, []);
+
 
     const updateFileProgress = (key: string, progress: TProgress) => {
         setFileStates(prev => prev.map(file =>

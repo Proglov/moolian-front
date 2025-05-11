@@ -29,8 +29,8 @@ export function PaginationWithLinks({
 
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
-    const handleNextPage = useCallback(() => ((page < totalPageCount) && setCurrentPage(page + 1)), [page, totalPageCount])
-    const handlePreviousPage = useCallback(() => ((page > 1) && setCurrentPage(page - 1)), [page])
+    const handleNextPage = useCallback(() => ((page < totalPageCount) && setCurrentPage(page + 1)), [page, totalPageCount, setCurrentPage])
+    const handlePreviousPage = useCallback(() => ((page > 1) && setCurrentPage(page - 1)), [page, setCurrentPage])
 
 
     const renderPageNumbers = () => {
