@@ -8,12 +8,13 @@ import { useState } from 'react';
 interface PaginationProps<T> {
     queryHook: any;
     children: (data: T[]) => JSX.Element;
+    extraOptions?: any
 }
 
-export default function Pagination<T>({ queryHook, children }: PaginationProps<T>) {
+export default function Pagination<T>({ queryHook, children, extraOptions }: PaginationProps<T>) {
     const [currenPage, setCurrenPage] = useState(1);
     const [limit, setLimit] = useState(10);
-    const { data, isError, isLoading, isUninitialized, error } = queryHook({ limit, page: currenPage });
+    const { data, isError, isLoading, isUninitialized, error } = queryHook({ limit, page: currenPage, ...extraOptions });
 
 
     if (isLoading || isUninitialized) return <div className='flex justify-center mt-10'><Spinner /></div>;

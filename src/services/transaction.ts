@@ -1,15 +1,15 @@
-import { IToggleStatus, ITransaction } from '@/types/transaction'
+import { IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
 import { baseApi } from './baseApi'
-import { IGetResponse, IPagination } from '@/types/api.types'
+import { IGetResponse } from '@/types/api.types'
 
 
 export const transactionApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
-        getAllTransactions: build.query<IGetResponse<ITransaction>, IPagination>({
-            query: (pagination) => ({
+        getAllTransactions: build.query<IGetResponse<ITransaction>, IGetTransactionsQuery>({
+            query: (query) => ({
                 url: 'transaction',
                 method: "GET",
-                params: pagination
+                params: query
             }),
             providesTags: (result) =>
                 result

@@ -1,6 +1,6 @@
 import { IGetResponse, IPagination } from '@/types/api.types'
 import { baseApi } from './baseApi'
-import { ICreateProduct, IProduct, IUpdateProduct } from '@/types/product.type'
+import { ICreateProduct, IGetProductsQuery, IProduct, IUpdateProduct } from '@/types/product.type'
 
 
 export const productApi = baseApi.injectEndpoints({
@@ -13,11 +13,11 @@ export const productApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'product', id: 'LIST' }],
         }),
-        getAllProducts: build.query<IGetResponse<IProduct>, IPagination>({
-            query: (pagination) => ({
+        getAllProducts: build.query<IGetResponse<IProduct>, IGetProductsQuery>({
+            query: (query) => ({
                 url: 'product',
                 method: "GET",
-                params: pagination
+                params: query
             }),
             providesTags: (result) =>
                 result

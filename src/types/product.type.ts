@@ -1,3 +1,4 @@
+import { IPagination } from "./api.types";
 import { IBrand } from "./brand.type";
 import { INote } from "./note.type";
 
@@ -45,6 +46,13 @@ export interface IUpdateProduct extends Partial<ICreateProduct> {
     availability?: boolean;
 }
 
+export interface IGetProductsQuery extends IPagination {
+    onlyAvailable?: boolean;
+    category?: Category;
+    flavor?: Flavor;
+    gender?: Gender;
+    season?: Season;
+}
 
 export enum Gender {
     male = "male",

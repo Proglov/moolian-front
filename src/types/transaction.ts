@@ -1,3 +1,4 @@
+import { IPagination } from "./api.types";
 import { IProduct } from "./product.type";
 import { IUser } from "./user.type";
 
@@ -32,6 +33,10 @@ export interface IToggleStatus {
     status: TXStatus
 }
 
+export interface IGetTransactionsQuery extends IPagination {
+    onlyRequested?: boolean
+}
+
 export type TStatusValues = {
     color: string;
     fa: string;
@@ -39,4 +44,5 @@ export type TStatusValues = {
     nextFA?: string;
     nextColor?: string;
 }
+
 export type TStatusObject = Record<TXStatus, TStatusValues>

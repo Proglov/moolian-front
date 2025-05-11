@@ -15,17 +15,35 @@ import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools';
 import ShowMoreTransaction from './ShowMoreTransaction';
 import ToggleTransactionStatus from './ToggleTransactionStatus';
 import CancelTransaction from './CancelTransaction';
+import { useState } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 
 
 export default function Transactions() {
     const queryHook = useGetAllTransactionsQuery;
+    const [onlyRequested, setOnlyRequested] = useState<boolean>(false)
 
     return (
         <main dir='rtl'>
 
+            <div className="flex items-center space-x-2 mb-5">
+                <Checkbox id="terms"
+                    checked={onlyRequested}
+                    onCheckedChange={(v) => setOnlyRequested(!!v)} />
+                <label
+                    htmlFor="terms"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                    فقط سفارشات تایید
+                    <span className='text-destructive mx-1'>نشده</span>
+                    را نشان بده
+                </label>
+            </div>
+
             <Pagination<ITransaction>
                 queryHook={queryHook}
+                extraOptions={{ onlyRequested }}
             >
                 {(data: ITransaction[]) => <ChildComponent data={data} />}
             </Pagination>
