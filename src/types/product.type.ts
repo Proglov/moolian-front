@@ -1,5 +1,6 @@
 import { IPagination } from "./api.types";
 import { IBrand } from "./brand.type";
+import { IFestival } from "./festival";
 import { INote } from "./note.type";
 
 export interface INoteInProduct {
@@ -32,6 +33,7 @@ export interface IProduct {
     price: number;
     season: Season[];
     year?: number;
+    festival?: IFestival;
 }
 
 export interface ICreateProduct extends Omit<IProduct, 'brandId' | 'baseNoteObjects' | 'initialNoteObjects' | 'midNoteObjects' | '_id' | 'availability'> {
