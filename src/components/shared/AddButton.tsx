@@ -1,11 +1,10 @@
 'use client'
-import { useEffect, useState } from 'react';
 import { GiShoppingCart } from "react-icons/gi";
 import Button from './Button';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { digitsEnToFa } from '@persian-tools/persian-tools';
 import { useAppDispatch, useAppSelector } from '@/store/store';
-import { DecrementCart, IncrementCart } from '@/store/CartProductsSlice';
+import { DecrementCart, IncrementCart, selectCartProduct } from '@/store/CartProductsSlice';
 
 
 interface AddButtonProps {
@@ -17,35 +16,42 @@ interface AddButtonProps {
 
 export default function AddButton({ productId }: AddButtonProps) {
     const dispatch = useAppDispatch();
-    const cartProducts = useAppSelector((state) => state.CartProducts);
+    const product = useAppSelector((state) => selectCartProduct(state, productId, 10));
 
-    const [number, setNumber] = useState(0);
+    //!!!!!THIS IS A TEMPORARY SOLUTION
+    const volume = 10;
 
-    useEffect(() => {
-        const item = cartProducts.find((item) => item._id === productId)
-        setNumber(item?.number || 0);
-    }, [setNumber, cartProducts, productId]);
+    if (!product)
+        return (
+            <Button
+                variant="outline"
+                className="text-sm"
+                onClick={() => dispatch(IncrementCart({ _id: productId, volume }))}
+            >
+                افزودن به سبد
+                <GiShoppingCart />
+            </Button>)
 
 
-    if (number > 0) return (
+    return (
         <>
             <div className="border border-destructive rounded-lg w-fit flex items-center justify-center mx-auto">
                 <Button
                     variant='ghost'
                     className='text-destructive hover:text-destructive'
-                    onClick={() => dispatch(IncrementCart(productId))}
+                    onClick={() => dispatch(IncrementCart({ _id: productId, volume }))}
                 >
                     <Plus />
                 </Button>
                 <span className="text-destructive">
-                    {digitsEnToFa(number)}
+                    {digitsEnToFa(product.number)}
                 </span>
                 <Button
                     className="text-destructive hover:text-destructive"
                     variant='ghost'
-                    onClick={() => dispatch(DecrementCart(productId))}
+                    onClick={() => dispatch(DecrementCart({ _id: productId, volume }))}
                 >
-                    {number == 1 ? (
+                    {product.number == 1 ? (
                         <Trash2 />
                     ) : (
                         <Minus />
@@ -57,15 +63,15 @@ export default function AddButton({ productId }: AddButtonProps) {
                 which === 'major' &&
                 <div className='sm:text-sm text-xs text-teal-600 mt-1'>
                     {
-                        quantity > number ?
+                        quantity > product.number ?
                             <>
-                                {digitsEnToFa(quantity - number)}
+                                {digitsEnToFa(quantity - product.number)}
                                 {" "}
                                 عدد مونده تا تخفیف!
                             </>
                             :
                             <>
-                                {digitsEnToFa(addCommas(profit * number))}
+                                {digitsEnToFa(addCommas(profit * product.number))}
                                 {" "}
                                 تومان
                                 سود!
@@ -76,13 +82,4 @@ export default function AddButton({ productId }: AddButtonProps) {
         </>
     )
 
-    return (
-        <Button
-            variant="outline"
-            className="text-sm"
-            onClick={() => dispatch(IncrementCart(productId))}
-        >
-            افزودن به سبد
-            <GiShoppingCart />
-        </Button>)
 }
