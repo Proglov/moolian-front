@@ -54,6 +54,7 @@ export interface IGetProductsQuery extends IPagination {
     flavor?: Flavor;
     gender?: Gender;
     season?: Season;
+    orderBy?: OrderBy;
 }
 
 export enum Gender {
@@ -86,6 +87,11 @@ export enum Category {
     gift = "gift"
 }
 
+export enum OrderBy {
+    New = "New",
+    cheap = "cheap",
+    expensive = "expensive",
+}
 
 export enum Notes {
     initialNote,

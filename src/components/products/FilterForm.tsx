@@ -1,4 +1,4 @@
-import { TForm } from '@/hooks/use-getProducts'
+import { TFilterForm } from '@/hooks/use-getProducts'
 import React from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Button from "@/components/shared/Button";
@@ -13,10 +13,9 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { categoriesObject, flavorsObject, seasonsObject } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MultiSelect } from "@/components/ui/multi-select";
 
 
-export default function FilterForm({ form, submit }: { form: UseFormReturn<TForm>, submit: (data: TForm) => void }) {
+export default function FilterForm({ form, submit }: { form: UseFormReturn<TFilterForm>, submit: (data: TFilterForm) => void }) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submit)} className="space-y-6 max-w-md mx-auto p-1">

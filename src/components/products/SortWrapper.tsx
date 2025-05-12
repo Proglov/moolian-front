@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,12 +17,12 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { TFilterForm } from "@/hooks/use-getProducts"
+import { TSortForm } from "@/hooks/use-getProducts"
 import { UseFormReturn } from "react-hook-form"
-import FilterForm from "./FilterForm"
-import { Funnel } from "lucide-react"
+import SortForm from "./SortForm"
+import { ArrowDownNarrowWide } from "lucide-react"
 
-export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterForm>, submit: (data: TFilterForm) => void }) {
+export function SortWrapper({ form, submit }: { form: UseFormReturn<TSortForm>, submit: (data: TSortForm) => void }) {
     const [open, setOpen] = React.useState(false)
     const isMobile = useIsMobile()
 
@@ -32,20 +31,20 @@ export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterFor
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button variant="outline">
-                        <Funnel />
-                        فیلتر ها
+                        <ArrowDownNarrowWide />
+                        مرتب سازی
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>فیلتر ها</DialogTitle>
+                        <DialogTitle>مرتب سازی</DialogTitle>
                         <DialogDescription>
-                            فیلتر محصولات
+                            مرتب سازی محصولات
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="m-5">
-                        <FilterForm form={form} submit={submit} />
+                        <SortForm form={form} submit={submit} />
                     </div>
                 </DialogContent>
             </Dialog>
@@ -56,20 +55,20 @@ export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterFor
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
                 <Button variant="outline">
-                    <Funnel />
-                    فیلتر ها
+                    <ArrowDownNarrowWide />
+                    مرتب سازی
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader className="mr-4">
-                    <DrawerTitle>فیلتر ها</DrawerTitle>
+                    <DrawerTitle>مرتب سازی</DrawerTitle>
                     <DrawerDescription>
-                        فیلتر محصولات
+                        مرتب سازی محصولات
                     </DrawerDescription>
                 </DrawerHeader>
 
                 <div className="m-5">
-                    <FilterForm form={form} submit={submit} />
+                    <SortForm form={form} submit={submit} />
                 </div>
             </DrawerContent>
         </Drawer>

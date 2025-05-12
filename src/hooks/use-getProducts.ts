@@ -1,52 +1,62 @@
 import { useGetAllProductsQuery } from "@/services/products";
-import { Category, Flavor, Gender, IProduct, Season } from "@/types/product.type";
+import { Category, Flavor, Gender, IProduct, OrderBy, Season } from "@/types/product.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useInView } from "react-intersection-observer";
 import { z } from "zod";
 import { useRouter, useSearchParams } from 'next/navigation'
-import { isValidCategory, isValidFlavor, isValidGender, isValidSeason } from "@/lib/utils";
+import { isValidCategory, isValidFlavor, isValidGender, isValidOrderBy, isValidSeason } from "@/lib/utils";
 
 
 
-export const FormSchema = z.object({
+export const FilterFormSchema = z.object({
     gender: z.nativeEnum(Gender).optional(),
     category: z.nativeEnum(Category).optional(),
     flavor: z.nativeEnum(Flavor).optional(),
     season: z.nativeEnum(Season).optional(),
 })
-export type TForm = z.infer<typeof FormSchema>;
-const resolver = zodResolver(FormSchema)
+export type TFilterForm = z.infer<typeof FilterFormSchema>;
+const resolverFilter = zodResolver(FilterFormSchema)
+
+export const SortFormSchema = z.object({
+    orderBy: z.nativeEnum(OrderBy).optional()
+})
+export type TSortForm = z.infer<typeof SortFormSchema>;
+const resolverSort = zodResolver(SortFormSchema)
 
 export default function useGetProducts() {
     const searchParams = useSearchParams()
     const router = useRouter()
-    let categoryParam = searchParams.get('category');
-    let flavorParam = searchParams.get('flavor');
-    let genderParam = searchParams.get('gender');
-    let seasonParam = searchParams.get('season');
-    let category: Category | undefined = isValidCategory(categoryParam) ? (categoryParam as Category) : undefined;
-    let flavor: Flavor | undefined = isValidFlavor(flavorParam) ? (flavorParam as Flavor) : undefined;
-    let gender: Gender | undefined = isValidGender(genderParam) ? (genderParam as Gender) : undefined;
-    let season: Season | undefined = isValidSeason(seasonParam) ? (seasonParam as Season) : undefined;
-    const defaultValues: TForm = { gender, category, flavor, season }
-    const filterKey = JSON.stringify({ category, flavor, gender, season });
-    const form = useForm<TForm>({ resolver, defaultValues })
-    const limit = 2;
+    const categoryParam = searchParams.get('category');
+    const flavorParam = searchParams.get('flavor');
+    const genderParam = searchParams.get('gender');
+    const seasonParam = searchParams.get('season');
+    const orderByParam = searchParams.get('orderBy');
+    const category: Category | undefined = isValidCategory(categoryParam) ? (categoryParam as Category) : undefined;
+    const flavor: Flavor | undefined = isValidFlavor(flavorParam) ? (flavorParam as Flavor) : undefined;
+    const gender: Gender | undefined = isValidGender(genderParam) ? (genderParam as Gender) : undefined;
+    const season: Season | undefined = isValidSeason(seasonParam) ? (seasonParam as Season) : undefined;
+    const orderBy: OrderBy | undefined = isValidOrderBy(orderByParam) ? (orderByParam as OrderBy) : undefined;
+    const filterKey = JSON.stringify({ category, flavor, gender, season, orderBy });
+    const filterDefaultValues: TFilterForm = { gender, category, flavor, season }
+    const filterForm = useForm<TFilterForm>({ resolver: resolverFilter, defaultValues: filterDefaultValues })
+    const sortDefaultValues: TSortForm = { orderBy }
+    const sortForm = useForm<TSortForm>({ resolver: resolverSort, defaultValues: sortDefaultValues })
+    const limit = 10;
     const [page, setPage] = useState(1)
     const [products, setProducts] = useState<IProduct[]>([])
     const [isFinished, setIsFinished] = useState(false)
     const { ref, inView } = useInView()
-    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season })
+    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy })
 
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (isSuccess) {
             setProducts(prev => page === 1 ? data.items : [...prev, ...data.items]);
             setIsFinished(data.count <= page * limit);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isSuccess, filterKey, setProducts, setIsFinished]);
 
     useEffect(() => {
@@ -61,7 +71,7 @@ export default function useGetProducts() {
     }, [filterKey, setPage]);
 
 
-    const submit = async ({ category, flavor, gender, season }: TForm) => {
+    const filterSubmit = async ({ category, flavor, gender, season }: TFilterForm) => {
         const params = new URLSearchParams();
         if (category) params.set('category', category);
         if (flavor) params.set('flavor', flavor);
@@ -73,5 +83,14 @@ export default function useGetProducts() {
         router.refresh()
     };
 
-    return { products, ref, isFinished, form, submit }
+    const sortSubmit = async ({ orderBy }: TSortForm) => {
+        const params = new URLSearchParams();
+        if (orderBy) params.set('orderBy', orderBy);
+
+        const url = `/products?${params.toString()}`;
+        router.push(url);
+        router.refresh()
+    };
+
+    return { products, ref, isFinished, filterForm, filterSubmit, sortForm, sortSubmit }
 }

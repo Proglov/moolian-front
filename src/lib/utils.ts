@@ -1,4 +1,4 @@
-import { Category, Flavor, Gender, Season } from "@/types/product.type";
+import { Category, Flavor, Gender, OrderBy, Season } from "@/types/product.type";
 import { digitsEnToFa, digitsFaToEn, numberToWords as ntw, timeAgo } from "@persian-tools/persian-tools";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { clsx, type ClassValue } from "clsx"
@@ -53,6 +53,10 @@ export const flavorsObject: Record<Flavor, string> = {
 
 export function isValidFlavor(value: any): value is Flavor {
   return Object.values(Flavor).includes(value as Flavor);
+}
+
+export function isValidOrderBy(value: any): value is OrderBy {
+  return Object.values(OrderBy).includes(value as OrderBy);
 }
 
 export const isEmail = (input: string) => /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i.test(input)
