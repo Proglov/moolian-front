@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../shared/Button";
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "../shared/MotionDiv";
 
 export default function Hero() {
     return (
         <div className="relative w-full h-[50rem] overflow-hidden">
-            <motion.div
+            <MotionDiv
                 className="absolute inset-0 shadow-2xl"
                 variants={imageVariants}
                 initial="init"
@@ -20,8 +20,8 @@ export default function Hero() {
                     alt="Hero"
                     className="absolute inset-0 object-cover w-full h-full"
                 />
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
                 className="absolute inset-0 flex flex-col justify-center gap-4 p-4 md:gap-10"
                 initial="hidden"
                 animate="visible"
@@ -29,24 +29,24 @@ export default function Hero() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
                 <div className="grid gap-4">
-                    <motion.h1
+                    <MotionH1
                         className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         مولیان پرفیوم
-                    </motion.h1>
-                    <motion.p
+                    </MotionH1>
+                    <MotionP
                         className="max-w-[700px]"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
-                    </motion.p>
+                    </MotionP>
                 </div>
-                <motion.div
+                <MotionDiv
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.6 }}
@@ -60,8 +60,8 @@ export default function Hero() {
                             دکمه
                         </Link>
                     </Button>
-                </motion.div>
-            </motion.div>
+                </MotionDiv>
+            </MotionDiv>
         </div>
     );
 }

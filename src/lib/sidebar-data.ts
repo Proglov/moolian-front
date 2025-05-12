@@ -1,26 +1,24 @@
 import { categoriesObject, flavorsObject, gendersObject } from "./utils"
 
 
-const getFullFlavors = (sex: string) => Object.values(flavorsObject).map(flavor => ({
-    title: 'عطر ' + sex + ' ' + flavor,
-    url: '#'
+const getFullFlavors = (genderObj: [string, string]) => Object.entries(flavorsObject).map(flavorObj => ({
+    title: 'عطر ' + genderObj[1] + ' ' + flavorObj[1],
+    url: '/products?gender=' + genderObj[0] + '&flavor=' + flavorObj[0]
 }))
 
-const getFullCategories = () => Object.values(categoriesObject).map(category => ({
-    title: 'عطر ' + category,
-    url: '#'
+const getFullCategories = () => Object.entries(categoriesObject).map(categoryObj => ({
+    title: 'عطر ' + categoryObj[1],
+    url: '/products?category=' + categoryObj[0]
 }))
 
 
 export const sidebarData = [
-    ...Object.values(gendersObject).map(gender => ({
-        title: gender,
-        url: "#",
-        items: getFullFlavors(gender)
+    ...Object.entries(gendersObject).map(genderObj => ({
+        title: genderObj[1],
+        items: getFullFlavors(genderObj)
     })),
     {
         title: "مناسبتی",
-        url: "#",
         items: getFullCategories()
     }
 ]

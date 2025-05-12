@@ -11,10 +11,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const seasonsObject: Record<Season, string> = {
-  'autumn': "پاییز",
   'spring': "بهار",
   'summer': "تابستان",
+  'autumn': "پاییز",
   'winter': "زمستان",
+}
+
+export function isValidSeason(value: any): value is Season {
+  return Object.values(Season).includes(value as Season);
 }
 
 export const categoriesObject: Record<Category, string> = {
@@ -24,10 +28,18 @@ export const categoriesObject: Record<Category, string> = {
   'sport': "ورزشی",
 }
 
+export function isValidCategory(value: any): value is Category {
+  return Object.values(Category).includes(value as Category);
+}
+
 export const gendersObject: Record<Gender, string> = {
   'female': "زنانه",
   'male': "مردانه",
   'unisex': "یونیسکس"
+}
+
+export function isValidGender(value: any): value is Gender {
+  return Object.values(Gender).includes(value as Gender);
 }
 
 export const flavorsObject: Record<Flavor, string> = {
@@ -37,6 +49,10 @@ export const flavorsObject: Record<Flavor, string> = {
   'spicy': 'تند',
   'bitter': 'تلخ',
   'sweet': 'شیرین'
+}
+
+export function isValidFlavor(value: any): value is Flavor {
+  return Object.values(Flavor).includes(value as Flavor);
 }
 
 export const isEmail = (input: string) => /^(?!\.)(?!.*\.\.)([A-Z0-9_'+\-\.]*)[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i.test(input)

@@ -4,13 +4,13 @@ import Image from 'next/image'
 import React from 'react'
 import { Separator } from '../ui/separator'
 import { MdOutlineWoman, MdOutlineMan } from 'react-icons/md'
-import { motion } from 'framer-motion'
+import { MotionDiv } from '../shared/MotionDiv'
 
 export default function Card({ product }: { product: IProduct }) {
 
 
     return (
-        <motion.div
+        <MotionDiv
             initial='hidden'
             whileInView='visible'
             variants={{
@@ -54,20 +54,30 @@ export default function Card({ product }: { product: IProduct }) {
 
                 <h3 className='text-lg text-sky-800'>{product.nameFA} | {product.nameEN}</h3>
 
-                <div className='text-xl bottom-4 absolute flex gap-2 text-success'>
+                <div className='text-xl w-full bottom-4 absolute flex justify-center items-end gap-2 text-success'>
                     {
                         product.festival?._id ?
-                            <>
-                                <span className='text-base rotate-10 line-through text-gray-500'>{digitsEnToFa(addCommas(product.price))}</span>
-                                <span className=''>{digitsEnToFa(addCommas(product.price))}</span>
-                            </>
+                            <div className='flex flex-col'>
+                                <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{digitsEnToFa(addCommas(product.price))}</span>
+                                <span className=''>{digitsEnToFa(addCommas(product.price * (product.festival.offPercentage / 100)))}</span>
+                            </div>
                             :
                             <span>{digitsEnToFa(addCommas(product.price))}</span>
                     }
-                    تومان
+                    <div className='flex flex-col'>
+
+                        {
+                            product.festival?._id &&
+                            <span className='text-destructive text-sm translate-x-1/2'>تخفیف ویژه</span>
+                        }
+
+                        <span>
+                            تومان
+                        </span>
+                    </div>
                 </div>
 
             </div>
-        </motion.div>
+        </MotionDiv>
     )
 }
