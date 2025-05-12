@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from 'react-redux'
-import CartProductsReducer from "./cart-products/CartProductsSlice";
+import CartProductsReducer from "./CartProductsSlice";
 import authReducer from "./auth";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { baseApi } from "@/services/baseApi";
@@ -18,6 +18,14 @@ export const makeStore = () => {
     });
 
     setupListeners(store.dispatch);
+
+    // Sync CartProducts to localStorage on any state change
+    if (typeof window !== "undefined") {
+        store.subscribe(() => {
+            const state = store.getState();
+            localStorage.setItem("cart", JSON.stringify(state.CartProducts));
+        });
+    }
 
     return store;
 }

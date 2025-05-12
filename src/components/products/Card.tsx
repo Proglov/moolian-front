@@ -5,6 +5,7 @@ import React from 'react'
 import { Separator } from '../ui/separator'
 import { MdOutlineWoman, MdOutlineMan } from 'react-icons/md'
 import { MotionDiv } from '../shared/MotionDiv'
+import AddButton from '../shared/AddButton'
 
 export default function Card({ product }: { product: IProduct }) {
 
@@ -77,6 +78,9 @@ export default function Card({ product }: { product: IProduct }) {
                     </div>
                 </div>
 
+                <div>
+                    <AddButton productId={product._id} />
+                </div>
             </div>
         </MotionDiv>
     )
