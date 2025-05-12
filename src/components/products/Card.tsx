@@ -5,11 +5,10 @@ import React from 'react'
 import { Separator } from '../ui/separator'
 import { MdOutlineWoman, MdOutlineMan } from 'react-icons/md'
 import { MotionDiv } from '../shared/MotionDiv'
-import AddButton from '../shared/AddButton'
+import Link from 'next/link'
+import Button from '../shared/Button'
 
 export default function Card({ product }: { product: IProduct }) {
-
-
     return (
         <MotionDiv
             initial='hidden'
@@ -23,16 +22,17 @@ export default function Card({ product }: { product: IProduct }) {
                 duration: 0.5,
             }}
             viewport={{ amount: 0.25, once: true }}
-            className='flex flex-col gap-4 border border-gray-300 rounded-2xl overflow-hidden hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center relative h-[28rem]'
+            className="flex flex-col gap-4 border border-gray-300 rounded-2xl overflow-hidden hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center relative h-full"
         >
 
             {
                 product?.festival && <div className='absolute top-0 left-0 bg-red-500 text-white p-1 rounded-br-lg'>{digitsEnToFa(product.festival.offPercentage)}%</div>
             }
 
-            <Image width={200} height={200} src={product.imageKeys[0]} alt={product.nameFA} className='w-full h-48 object-cover' />
+            <Image width={800} height={600} src={product.imageKeys[0]} alt={product.nameFA} className='w-full aspect-[4/3] object-cover' />
 
-            <div className='p-2 flex flex-col gap-2'>
+
+            <div className="flex-1 flex flex-col gap-4 p-2">
 
                 <span className='flex justify-center gap-1 text-2xl'>
                     {
@@ -55,7 +55,8 @@ export default function Card({ product }: { product: IProduct }) {
 
                 <h3 className='text-lg text-sky-800'>{product.nameFA} | {product.nameEN}</h3>
 
-                <div className='text-xl w-full bottom-4 absolute flex justify-center items-end gap-2 text-success'>
+
+                <div className='text-xl flex justify-center items-end gap-2 text-success'>
                     {
                         product.festival?._id ?
                             <div className='flex flex-col'>
@@ -65,12 +66,11 @@ export default function Card({ product }: { product: IProduct }) {
                             :
                             <span>{digitsEnToFa(addCommas(product.price))}</span>
                     }
-                    <div className='flex flex-col'>
 
-                        {
-                            product.festival?._id &&
-                            <span className='text-destructive text-sm translate-x-1/2'>تخفیف ویژه</span>
-                        }
+                    <div className='flex flex-col'>
+                        <span className="text-destructive text-sm translate-x-1/2">
+                            {product.festival?._id ? 'تخفیف ویژه' : '\u00A0'}
+                        </span>
 
                         <span>
                             تومان
@@ -78,10 +78,16 @@ export default function Card({ product }: { product: IProduct }) {
                     </div>
                 </div>
 
-                <div>
-                    <AddButton productId={product._id} />
-                </div>
             </div>
+
+            <div>
+                <Button asChild className='mb-3'>
+                    <Link href={`/products/${product._id}`} >
+                        مشاهده محصول
+                    </Link>
+                </Button>
+            </div>
+
         </MotionDiv>
     )
 }
