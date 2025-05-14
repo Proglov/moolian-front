@@ -11,13 +11,6 @@ export const userApi = baseApi.injectEndpoints({
                 method: 'GET'
             }),
         }),
-        //!!!!!!! DELETE THIS
-        makeAdmin: build.query<void, void>({
-            query: () => ({
-                url: '/users/make-admin',
-                method: 'GET'
-            }),
-        }),
         getAllUsers: build.query<IGetResponse<IUser>, IPagination>({
             query: (pagination) => ({
                 url: 'users',
@@ -38,4 +31,4 @@ export const userApi = baseApi.injectEndpoints({
 
 
 
-export const { useGetMeQuery, useGetAllUsersQuery, useMakeAdminQuery } = userApi
+export const { useGetMeQuery, useGetAllUsersQuery } = userApi
