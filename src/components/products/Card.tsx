@@ -8,6 +8,7 @@ import { MotionDiv } from '../shared/MotionDiv'
 import Link from 'next/link'
 import Button from '../shared/Button'
 import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
+import { Card as ShadCNCard, CardContent } from "@/components/ui/card"
 
 export default function Card({ product }: { product: IProduct }) {
     return (
@@ -23,103 +24,109 @@ export default function Card({ product }: { product: IProduct }) {
                 duration: 0.5,
             }}
             viewport={{ amount: 0.25, once: true }}
-            className="flex flex-col gap-4 border border-gray-300 rounded-2xl overflow-hidden hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center relative h-full"
         >
+            <ShadCNCard className="hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center h-full p-0 overflow-hidden">
+                <CardContent className="flex flex-col gap-4 relative h-full p-0">
 
-            {
-                product?.festival && <div className='absolute top-0 left-0 bg-red-500 text-white p-1 rounded-br-lg'>{digitsEnToFa(product.festival.offPercentage)}%</div>
-            }
-
-            <Image width={800} height={600} src={product.imageKeys[0]} alt={product.nameFA} className='w-full aspect-[4/3] object-cover' />
-
-            {/* gender */}
-            <span className='flex justify-center gap-1 text-2xl'>
-                {
-                    (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
-                }
-                {
-                    (product.gender === Gender.unisex) && <Separator orientation='vertical' className='border-1' />
-                }
-                {
-                    (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
-                }
-            </span>
-
-            {/* details */}
-            <div className="flex-1 flex flex-col gap-4 p-2 mr-3">
-
-                {/* brand */}
-                <div className='flex items-center justify-start gap-1'>
-                    <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
-                    <h4 className='flex justify-start gap-1'>
-                        {product.brandId.nameFA} | {product.brandId.nameEN}
-                    </h4>
-                </div>
-
-                {/* name */}
-                <h3 className='text-lg flex justify-start gap-1'>
-                    {product.nameFA}
-                    <Separator orientation='vertical' className='border-1' />
-                    {product.nameEN}
-                </h3>
-
-                {/* flavor */}
-                <div className='text-start'>
-                    طبع:
-                    {' '}
-                    {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
-                        .format(product.flavor.map(flavor => flavorsObject[flavor]))}
-                </div>
-
-                {/* season */}
-                <div className='text-start'>
-                    فصل:
-                    {' '}
-                    {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
-                        .format(product.season.map(season => seasonsObject[season]))}
-                </div>
-
-                {/* category */}
-                <div className='text-start'>
-                    دسته بندی:
-                    {' '}
-                    {categoriesObject[product.category]}
-                </div>
-
-                {/* price */}
-                <div className='text-xl flex justify-center items-end gap-2 text-success'>
                     {
-                        product.festival?._id ?
-                            <div className='flex flex-col'>
-                                <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{digitsEnToFa(addCommas(product.price))}</span>
-                                <span className=''>{digitsEnToFa(addCommas(product.price * ((100 - product.festival.offPercentage) / 100)))}</span>
-                            </div>
-                            :
-                            <span>{digitsEnToFa(addCommas(product.price))}</span>
+                        product?.festival && <div className='absolute top-0 left-0 bg-destructive text-white p-1 rounded-br-lg'>{digitsEnToFa(product.festival.offPercentage)}
+                            %
+                            تخفیف
+                        </div>
                     }
 
-                    <div className='flex flex-col'>
-                        <span className="text-destructive text-sm translate-x-1/2">
-                            {product.festival?._id ? 'تخفیف ویژه' : '\u00A0'}
-                        </span>
+                    <Image width={800} height={600} src={product.imageKeys[0]} alt={product.nameFA} className='w-full aspect-[4/3] object-cover' />
 
-                        <span>
-                            تومان
-                        </span>
+                    {/* gender */}
+                    <span className='flex justify-center gap-1 text-2xl'>
+                        {
+                            (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
+                        }
+                        {
+                            (product.gender === Gender.unisex) && <Separator orientation='vertical' className='border-1' />
+                        }
+                        {
+                            (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
+                        }
+                    </span>
+
+                    {/* details */}
+                    <div className="flex-1 flex flex-col gap-4 p-2 mr-3">
+
+                        {/* brand */}
+                        <div className='flex items-center justify-start gap-1'>
+                            <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
+                            <h4 className='flex justify-start gap-1'>
+                                {product.brandId.nameFA} | {product.brandId.nameEN}
+                            </h4>
+                        </div>
+
+                        {/* name */}
+                        <h3 className='text-lg flex justify-start gap-1'>
+                            {product.nameFA}
+                            <Separator orientation='vertical' className='border-1' />
+                            {product.nameEN}
+                        </h3>
+
+                        {/* flavor */}
+                        <div className='text-start'>
+                            طبع:
+                            {' '}
+                            {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
+                                .format(product.flavor.map(flavor => flavorsObject[flavor]))}
+                        </div>
+
+                        {/* season */}
+                        <div className='text-start'>
+                            فصل:
+                            {' '}
+                            {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
+                                .format(product.season.map(season => seasonsObject[season]))}
+                        </div>
+
+                        {/* category */}
+                        <div className='text-start'>
+                            دسته بندی:
+                            {' '}
+                            {categoriesObject[product.category]}
+                        </div>
+
+                        {/* price */}
+                        <div className='text-xl flex justify-center items-end gap-2 text-success'>
+                            {
+                                product.festival?._id ?
+                                    <div className='flex flex-col'>
+                                        <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{digitsEnToFa(addCommas(product.price))}</span>
+                                        <span className=''>{digitsEnToFa(addCommas(product.price * ((100 - product.festival.offPercentage) / 100)))}</span>
+                                    </div>
+                                    :
+                                    <span>{digitsEnToFa(addCommas(product.price))}</span>
+                            }
+
+                            <div className='flex flex-col'>
+                                <span className="text-destructive text-sm translate-x-1/2">
+                                    {product.festival?._id ? 'تخفیف ویژه' : '\u00A0'}
+                                </span>
+
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-            </div>
+                    {/* link */}
+                    <div>
+                        <Button asChild className='mb-3'>
+                            <Link href={`/products/${product._id}`} >
+                                مشاهده محصول
+                            </Link>
+                        </Button>
+                    </div>
 
-            {/* link */}
-            <div>
-                <Button asChild className='mb-3'>
-                    <Link href={`/products/${product._id}`} >
-                        مشاهده محصول
-                    </Link>
-                </Button>
-            </div>
-
+                </CardContent>
+            </ShadCNCard>
         </MotionDiv>
     )
 }

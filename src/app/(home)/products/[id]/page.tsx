@@ -1,4 +1,4 @@
-import SingleProduct from "@/components/products/SingleProduct"
+import SingleProduct from "@/components/products/single-product/SingleProduct"
 
 
 export default async function Page({
