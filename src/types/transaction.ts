@@ -10,9 +10,27 @@ export enum TXStatus {
     Canceled = "Canceled"
 }
 
+
+export enum Volume {
+    V30 = 30,
+    V50 = 50,
+    V100 = 100
+}
+
 export interface IBoughtProduct {
     productId: { _id: string, nameFA: string };
-    quantity: number
+    quantity: number;
+    volume: Volume;
+}
+
+export interface ICanceled {
+    didSellerCanceled: boolean;
+    reason: string;
+}
+
+export interface IOpinion {
+    rate: number;
+    comment?: string;
 }
 
 export interface ITransaction {
@@ -26,11 +44,18 @@ export interface ITransaction {
     shippingCost: number;
     status: TXStatus;
     boughtProducts: IBoughtProduct[];
+    canceled?: ICanceled;
+    opinion?: IOpinion;
 }
 
 export interface IToggleStatus {
     _id: string;
     status: TXStatus
+}
+
+export interface ICancelTX {
+    _id: string;
+    reason: string;
 }
 
 export interface IGetTransactionsQuery extends IPagination {

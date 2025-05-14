@@ -1,4 +1,4 @@
-import { IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
+import { ICancelTX, IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
 import { baseApi } from './baseApi'
 import { IGetResponse } from '@/types/api.types'
 
@@ -29,10 +29,11 @@ export const transactionApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'transaction', id: 'LIST' }],
         }),
-        cancelTransactionBySeller: build.mutation<void, string>({
-            query: (_id) => ({
+        cancelTransactionBySeller: build.mutation<void, ICancelTX>({
+            query: ({ _id, reason }) => ({
                 url: `/transaction/${_id}/cancel`,
-                method: 'PATCH'
+                method: 'PATCH',
+                body: { reason }
             }),
             invalidatesTags: [{ type: 'transaction', id: 'LIST' }],
         }),
