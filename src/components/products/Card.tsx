@@ -7,6 +7,7 @@ import { MdOutlineWoman, MdOutlineMan } from 'react-icons/md'
 import { MotionDiv } from '../shared/MotionDiv'
 import Link from 'next/link'
 import Button from '../shared/Button'
+import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
 
 export default function Card({ product }: { product: IProduct }) {
     return (
@@ -31,37 +32,67 @@ export default function Card({ product }: { product: IProduct }) {
 
             <Image width={800} height={600} src={product.imageKeys[0]} alt={product.nameFA} className='w-full aspect-[4/3] object-cover' />
 
+            {/* gender */}
+            <span className='flex justify-center gap-1 text-2xl'>
+                {
+                    (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
+                }
+                {
+                    (product.gender === Gender.unisex) && <Separator orientation='vertical' className='border-1' />
+                }
+                {
+                    (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
+                }
+            </span>
 
-            <div className="flex-1 flex flex-col gap-4 p-2">
+            {/* details */}
+            <div className="flex-1 flex flex-col gap-4 p-2 mr-3">
 
-                <span className='flex justify-center gap-1 text-2xl'>
-                    {
-                        (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
-                    }
-                    {
-                        (product.gender === Gender.unisex) && <Separator orientation='vertical' />
-                    }
-                    {
-                        (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
-                    }
-                </span>
-
-                <div className='flex items-center justify-center gap-1 text-teal-400'>
+                {/* brand */}
+                <div className='flex items-center justify-start gap-1'>
                     <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
-                    <h4 className='flex justify-center gap-1'>
+                    <h4 className='flex justify-start gap-1'>
                         {product.brandId.nameFA} | {product.brandId.nameEN}
                     </h4>
                 </div>
 
-                <h3 className='text-lg text-sky-800'>{product.nameFA} | {product.nameEN}</h3>
+                {/* name */}
+                <h3 className='text-lg flex justify-start gap-1'>
+                    {product.nameFA}
+                    <Separator orientation='vertical' className='border-1' />
+                    {product.nameEN}
+                </h3>
 
+                {/* flavor */}
+                <div className='text-start'>
+                    طبع:
+                    {' '}
+                    {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
+                        .format(product.flavor.map(flavor => flavorsObject[flavor]))}
+                </div>
 
+                {/* season */}
+                <div className='text-start'>
+                    فصل:
+                    {' '}
+                    {new Intl.ListFormat('fa', { style: 'short', type: 'unit' })
+                        .format(product.season.map(season => seasonsObject[season]))}
+                </div>
+
+                {/* category */}
+                <div className='text-start'>
+                    دسته بندی:
+                    {' '}
+                    {categoriesObject[product.category]}
+                </div>
+
+                {/* price */}
                 <div className='text-xl flex justify-center items-end gap-2 text-success'>
                     {
                         product.festival?._id ?
                             <div className='flex flex-col'>
                                 <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{digitsEnToFa(addCommas(product.price))}</span>
-                                <span className=''>{digitsEnToFa(addCommas(product.price * (product.festival.offPercentage / 100)))}</span>
+                                <span className=''>{digitsEnToFa(addCommas(product.price * ((100 - product.festival.offPercentage) / 100)))}</span>
                             </div>
                             :
                             <span>{digitsEnToFa(addCommas(product.price))}</span>
@@ -80,6 +111,7 @@ export default function Card({ product }: { product: IProduct }) {
 
             </div>
 
+            {/* link */}
             <div>
                 <Button asChild className='mb-3'>
                     <Link href={`/products/${product._id}`} >

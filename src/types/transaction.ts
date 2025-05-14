@@ -17,6 +17,12 @@ export enum Volume {
     V100 = 100
 }
 
+export const volumeMultipliers: Record<number, number> = {
+    30: 1,
+    50: 1.4,
+    100: 2.1,
+};
+
 export interface IBoughtProduct {
     productId: { _id: string, nameFA: string };
     quantity: number;

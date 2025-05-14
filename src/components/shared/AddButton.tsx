@@ -9,33 +9,35 @@ import { DecrementCart, IncrementCart, selectCartProduct } from '@/store/CartPro
 
 interface AddButtonProps {
     productId: string;
+    volume: number;
     // quantity: number;
     // which: string;
     // profit: number;
 }
 
-export default function AddButton({ productId }: AddButtonProps) {
-    const dispatch = useAppDispatch();
-    const product = useAppSelector((state) => selectCartProduct(state, productId, 10));
 
-    //!!!!!THIS IS A TEMPORARY SOLUTION
-    const volume = 10;
+export default function AddButton({ productId, volume }: AddButtonProps) {
+    const dispatch = useAppDispatch();
+    const product = useAppSelector((state) => selectCartProduct(state, productId, volume));
 
     if (!product)
         return (
-            <Button
-                variant="outline"
-                className="text-sm"
-                onClick={() => dispatch(IncrementCart({ _id: productId, volume }))}
-            >
-                افزودن به سبد
-                <GiShoppingCart />
-            </Button>)
+            <div className="flex justify-center">
+                <Button
+                    variant="outline"
+                    className="text-sm"
+                    onClick={() => dispatch(IncrementCart({ _id: productId, volume }))}
+                >
+                    افزودن به سبد
+                    <GiShoppingCart />
+                </Button>
+            </div>
+        )
 
 
     return (
         <>
-            <div className="border border-destructive rounded-lg w-fit flex items-center justify-center mx-auto">
+            <div className="border border-destructive rounded-lg flex items-center justify-around w-[130px]">
                 <Button
                     variant='ghost'
                     className='text-destructive hover:text-destructive'

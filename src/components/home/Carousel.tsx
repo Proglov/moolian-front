@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel as CarouselShadCn,
@@ -10,17 +9,17 @@ import {
 } from "@/components/ui/carousel"
 import Image from "next/image"
 
-export function Carousel() {
+export function Carousel({ images = [
+    '/img/1.jpg',
+    '/img/2.png',
+    '/img/3.png',
+    '/img/4.jpg',
+    '/img/5.jpg',
+] }: { images?: string[] }) {
     return (
         <CarouselShadCn className="w-[calc(100%-200px)] max-w-xl mt-3">
             <CarouselContent >
-                {[
-                    '/img/1.jpg',
-                    '/img/2.png',
-                    '/img/3.png',
-                    '/img/4.jpg',
-                    '/img/5.jpg',
-                ].map((src, index) => (
+                {images.map((src, index) => (
                     <CarouselItem key={index}>
                         <div className="p-1">
                             <Card>

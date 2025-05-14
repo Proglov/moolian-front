@@ -369,7 +369,7 @@ export default function AddProduct() {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>
-                                                طعم‌ها
+                                                طبع‌ها
                                                 <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
                                             <FormControl>
@@ -377,7 +377,7 @@ export default function AddProduct() {
                                                     options={Object.entries(flavorsObject).map(([value, label]) => ({ value, label }))}
                                                     onValueChange={field.onChange}
                                                     value={field.value || []}
-                                                    placeholder="انتخاب طعم ها"
+                                                    placeholder="انتخاب طبع ها"
                                                     variant="secondary"
                                                     modalPopover={true}
                                                     maxCount={3}

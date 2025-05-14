@@ -90,12 +90,12 @@ export default function FilterForm({ form, submit }: { form: UseFormReturn<TFilt
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>
-                                طعم
+                                طبع
                             </FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value} dir="rtl">
                                 <FormControl className="w-full">
                                     <SelectTrigger>
-                                        <SelectValue placeholder="انتخاب طعم" />
+                                        <SelectValue placeholder="انتخاب طبع" />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>

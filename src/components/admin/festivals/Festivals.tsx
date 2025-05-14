@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table"
 import { IFestival } from '@/types/festival';
 import DeleteFestival from './DeleteFestival';
-import { formattedTime, timeAGO } from '@/lib/utils';
+import { formattedTime, timeFromNow } from '@/lib/utils';
 import { digitsEnToFa } from '@persian-tools/persian-tools';
 import AddFestival from './AddFestival';
 
@@ -56,7 +56,7 @@ function ChildComponent({ data }: { data: IFestival[] | [] }) {
                         <TableCell>
                             {formattedTime(new Date(parseInt(festival.until)))}
                             <br />
-                            {timeAGO(new Date(parseInt(festival.until)))}
+                            {timeFromNow(new Date(parseInt(festival.until)))}
                         </TableCell>
                         <TableCell>
                             <DeleteFestival _id={festival._id} />

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { useState } from "react";
 import { ITransaction, TXStatus } from "@/types/transaction";
-import { formattedTime, timeAGO } from "@/lib/utils";
+import { formattedTime, timeFromNow } from "@/lib/utils";
 import { addCommas, digitsEnToFa } from "@persian-tools/persian-tools";
 import { IoIosStar } from "react-icons/io";
 
@@ -61,7 +61,7 @@ export default function ShowMoreTransaction({ transaction }: { transaction: ITra
 
                             {formattedTime(new Date(transaction.createdAt))}
                             {' ، '}
-                            {timeAGO(new Date(transaction.createdAt))}
+                            {timeFromNow(new Date(transaction.createdAt))}
                         </div>
 
                         <div>

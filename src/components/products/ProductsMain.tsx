@@ -11,7 +11,6 @@ export default function ProductsMain() {
 
     return (
         <div>
-
             <div className="mx-5 mt-5 flex gap-2">
                 <FilterWrapper form={filterForm} submit={filterSubmit} />
                 <SortWrapper form={sortForm} submit={sortSubmit} />

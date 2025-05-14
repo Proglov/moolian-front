@@ -10,7 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { ITransaction } from '@/types/transaction';
-import { formattedTime, statusObject, timeAGO } from '@/lib/utils';
+import { formattedTime, statusObject, timeFromNow } from '@/lib/utils';
 import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools';
 import ShowMoreTransaction from './ShowMoreTransaction';
 import ToggleTransactionStatus from './ToggleTransactionStatus';
@@ -80,7 +80,7 @@ function ChildComponent({ data }: { data: ITransaction[] | [] }) {
                         <TableCell>
                             {formattedTime(new Date(parseInt(transaction.shouldBeSentAt)))}
                             <br />
-                            {timeAGO(new Date(parseInt(transaction.shouldBeSentAt)))}
+                            {timeFromNow(new Date(parseInt(transaction.shouldBeSentAt)))}
                         </TableCell>
                         <TableCell>{digitsEnToFa(addCommas(transaction.totalPrice))}</TableCell>
                         <TableCell className={`text-${statusObject[transaction.status].color}`}>{statusObject[transaction.status].fa}</TableCell>

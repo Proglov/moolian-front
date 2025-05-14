@@ -133,7 +133,7 @@ export const getDateParts = (date: Date) => {
 
 }
 
-export const timeAGO = (date: Date) => {
+export const timeFromNow = (date: Date) => {
 
   const dateParts = getDateParts(date)
   // Construct formatted string yyyy/mm/dd hh:mm:ss

@@ -361,14 +361,14 @@ export default function EditProduct({ product }: { product: IProduct }) {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>
-                                                طعم‌ها
+                                                طبع‌ها
                                             </FormLabel>
                                             <FormControl>
                                                 <MultiSelect
                                                     options={Object.entries(flavorsObject).map(([value, label]) => ({ value, label }))}
                                                     onValueChange={field.onChange}
                                                     value={field.value || []}
-                                                    placeholder="انتخاب طعم ها"
+                                                    placeholder="انتخاب طبع ها"
                                                     variant="secondary"
                                                     modalPopover={true}
                                                     maxCount={3}
