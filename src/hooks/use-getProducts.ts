@@ -43,7 +43,7 @@ export default function useGetProducts() {
     const filterForm = useForm<TFilterForm>({ resolver: resolverFilter, defaultValues: filterDefaultValues })
     const sortDefaultValues: TSortForm = { orderBy }
     const sortForm = useForm<TSortForm>({ resolver: resolverSort, defaultValues: sortDefaultValues })
-    const limit = 10;
+    const limit = 20;
     const [page, setPage] = useState(1)
     const [products, setProducts] = useState<IProduct[]>([])
     const [isFinished, setIsFinished] = useState(false)

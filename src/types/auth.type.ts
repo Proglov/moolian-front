@@ -20,6 +20,7 @@ export interface ISigninEmailOrUsername {
 }
 
 export interface IUserInfo {
+    _id: string;
     name?: string;
-    isLoggedIn: boolean
+    isLoggedIn: boolean;
 }

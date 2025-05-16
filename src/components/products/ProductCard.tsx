@@ -8,9 +8,9 @@ import { MotionDiv } from '../shared/MotionDiv'
 import Link from 'next/link'
 import Button from '../shared/Button'
 import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
-import { Card as ShadCNCard, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 
-export default function Card({ product }: { product: IProduct }) {
+export default function ProductCard({ product }: { product: IProduct }) {
     return (
         <MotionDiv
             initial='hidden'
@@ -25,7 +25,7 @@ export default function Card({ product }: { product: IProduct }) {
             }}
             viewport={{ amount: 0.25, once: true }}
         >
-            <ShadCNCard className="hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center h-full p-0 overflow-hidden">
+            <Card className="hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center h-full p-0 overflow-hidden">
                 <CardContent className="flex flex-col gap-4 relative h-full p-0">
 
                     {
@@ -126,7 +126,7 @@ export default function Card({ product }: { product: IProduct }) {
                     </div>
 
                 </CardContent>
-            </ShadCNCard>
+            </Card>
         </MotionDiv>
     )
 }

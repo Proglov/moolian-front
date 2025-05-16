@@ -9,21 +9,31 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LogIn, LogOut, User } from "lucide-react"
+import { LogIn, LogOut as LogOutIcon, User } from "lucide-react"
 import Link from "next/link";
 import Button from "../shared/Button";
 import { useGetMeQuery } from "@/services/users";
 import Spinner from "../shared/Spinner";
 import { useLogoutMutation } from "@/services/auth";
+import { useAppDispatch } from "@/store/store";
+import { LogOut, SetUserInfo } from "@/store/auth";
 
 export function Account() {
-    const { isError, isLoading, isUninitialized, data } = useGetMeQuery();
-    const [logout, { isSuccess: isLogoutSuccess }] = useLogoutMutation();
+    const dispatch = useAppDispatch();
+    const { isError, isLoading, isUninitialized, data, isSuccess } = useGetMeQuery();
+    const [logoutQuery, { isSuccess: isLogoutSuccess }] = useLogoutMutation();
 
     useEffect(() => {
-        if (isLogoutSuccess) window.location.reload();
+        if (isLogoutSuccess) {
+            window.location.reload();
+            dispatch(LogOut())
+        }
     }, [isLogoutSuccess])
 
+    useEffect(() => {
+        if (isSuccess)
+            dispatch(SetUserInfo({ _id: data._id, name: data.name }))
+    }, [data])
 
     if (isUninitialized || isLoading) return <Spinner />
 
@@ -58,9 +68,9 @@ export function Account() {
                         سفارشات من
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem className="flex gap-2" onClick={() => logout()}>
+                    <DropdownMenuItem className="flex gap-2" onClick={() => logoutQuery()}>
                         خروج
-                        <LogOut className="text-destructive" />
+                        <LogOutIcon className="text-destructive" />
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
 

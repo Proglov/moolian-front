@@ -1,10 +1,9 @@
 'use client'
-
-import Cards from "./Cards";
 import Spinner from "../shared/Spinner"
 import useGetProducts from "@/hooks/use-getProducts"
 import { FilterWrapper } from "./FilterWrapper";
 import { SortWrapper } from "./SortWrapper";
+import ProductCard from "./ProductCard";
 
 export default function ProductsMain() {
     const { isFinished, products, ref, filterForm, filterSubmit, sortForm, sortSubmit } = useGetProducts()
@@ -17,7 +16,18 @@ export default function ProductsMain() {
             </div>
 
             <div className="m-5">
-                <Cards products={products} />
+                {
+                    (!products || products.length === 0) && isFinished ?
+                        <div className='w-full flex justify-center'>نتیجه ای یافت نشد</div>
+                        :
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4 border-2 border-muted rounded-xl p-4'>
+                            {
+                                products.map(product => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))
+                            }
+                        </div>
+                }
             </div>
 
             {!isFinished && <div className="w-full flex justify-center" ref={ref}><Spinner /></div>}

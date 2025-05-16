@@ -80,7 +80,7 @@ export default function CancelTransaction({ _id, status }: { _id: string, status
 
                                     <div className="flex gap-2 mt-2 justify-center">
                                         <Button type="submit" variant='destructive' disabled={isLoading} loading={isLoading}>کنسل شود</Button>
-                                        <Button variant='outline' disabled={isLoading} onClick={() => setDialogIsOpen(false)}>
+                                        <Button type='reset' variant='outline' disabled={isLoading} onClick={() => setDialogIsOpen(false)}>
                                             کنسل نشود
                                         </Button>
                                     </div>
