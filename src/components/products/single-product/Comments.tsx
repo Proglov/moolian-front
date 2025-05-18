@@ -23,7 +23,10 @@ export default function Comments({ productId }: { productId: string }) {
         </>
     )
 
-    if (!comments) return (
+    if (!comments) return null
+
+
+    if (!comments.length) return (
         <div>
             هنوز دیدگاهی ثبت نشده است. نظر خود را با ما در میان بگذارید!
             {CommonComponent}
