@@ -73,21 +73,6 @@ export default function Details({ product }: { product: IProduct }) {
                             <TableCell className='pr-5'>{product.olfactory}</TableCell>
                         </TableRow>
 
-                        <TableRow className='text-start'>
-                            <TableHead className="w-[6rem] border-e">نوت های ابتدایی</TableHead>
-                            <TableCell className='pr-5'>{new Intl.ListFormat('fa', { style: 'long', type: 'unit' }).format(product.initialNoteObjects.map(noteObj => noteObj.noteId.name))}</TableCell>
-                        </TableRow>
-
-                        <TableRow className='text-start'>
-                            <TableHead className="w-[6rem] border-e">نوت های میانی</TableHead>
-                            <TableCell className='pr-5'>{new Intl.ListFormat('fa', { style: 'long', type: 'unit' }).format(product.midNoteObjects.map(noteObj => noteObj.noteId.name))}</TableCell>
-                        </TableRow>
-
-                        <TableRow className='text-start'>
-                            <TableHead className="w-[6rem] border-e">نوت های پایه</TableHead>
-                            <TableCell className='pr-5'>{new Intl.ListFormat('fa', { style: 'long', type: 'unit' }).format(product.baseNoteObjects.map(noteObj => noteObj.noteId.name))}</TableCell>
-                        </TableRow>
-
                     </TableBody>
                 </Table>
             </div>

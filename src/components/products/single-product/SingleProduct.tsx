@@ -21,6 +21,7 @@ import Countdown from "../../shared/Countdown";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Comments from "./Comments";
 import Details from "./Details";
+import Charts from "./Charts";
 
 
 export default function SingleProduct({ id }: { id: string }) {
@@ -204,6 +205,7 @@ const CustomTabs = ({ product }: { product: IProduct }) => (
             <TabsContent value="details">
                 <CardContent>
                     <Details product={product} />
+                    <Charts product={product} />
                 </CardContent>
             </TabsContent>
 
