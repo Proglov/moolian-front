@@ -3,6 +3,7 @@ import { Account } from '../home/Account'
 import NavigationMenuWithDropdown from '../home/Menu'
 import Searchbar from '../home/Searchbar'
 import ShoppingCart from '../home/ShoppingCart'
+import ShoppingCartIcon from '../home/ShoppingCartIcon'
 import { ModeToggle } from '../home/toggle-theme'
 import { SidebarTrigger } from "@/components/ui/sidebar"
 

@@ -1,3 +1,4 @@
+import { ICartProductItem } from "@/store/CartProductsSlice";
 import { IPagination } from "./api.types";
 import { IBrand } from "./brand.type";
 import { IFestival } from "./festival";
@@ -56,6 +57,10 @@ export interface IGetProductsQuery extends IPagination {
     season?: Season;
     orderBy?: OrderBy;
 }
+
+export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys'> { }
+
+export interface IProductGetByIdsWithDetails extends IProductGetByIds, ICartProductItem { }
 
 export enum Gender {
     male = "male",

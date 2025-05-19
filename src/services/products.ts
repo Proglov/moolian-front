@@ -1,6 +1,6 @@
 import { IGetResponse, IPagination } from '@/types/api.types'
 import { baseApi } from './baseApi'
-import { ICreateProduct, IGetProductsQuery, IProduct, IUpdateProduct } from '@/types/product.type'
+import { ICreateProduct, IGetProductsQuery, IProduct, IProductGetByIds, IUpdateProduct } from '@/types/product.type'
 
 
 export const productApi = baseApi.injectEndpoints({
@@ -26,6 +26,13 @@ export const productApi = baseApi.injectEndpoints({
                         { type: 'product', id: 'LIST' },
                     ]
                     : [{ type: 'product', id: 'LIST' }],
+        }),
+        getAllProductsByIds: build.mutation<IProductGetByIds[], { ids: string[] }>({
+            query: (query) => ({
+                url: 'product/ids',
+                method: "POST",
+                body: query
+            }),
         }),
         getSingleProduct: build.query<IProduct, string>({
             query: (id) => ({
@@ -91,4 +98,4 @@ export const productApi = baseApi.injectEndpoints({
 
 
 
-export const { useGetAllProductsQuery, useAddNewProductMutation, useGetSingleProductQuery, useGetInfiniteProductsInfiniteQuery, useUpdateProductMutation } = productApi
+export const { useGetAllProductsQuery, useGetAllProductsByIdsMutation, useAddNewProductMutation, useGetSingleProductQuery, useGetInfiniteProductsInfiniteQuery, useUpdateProductMutation } = productApi
