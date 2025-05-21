@@ -2,13 +2,13 @@ import { Card, CardContent } from '../ui/card'
 import Countdown from './Countdown'
 import AddButton from './AddButton'
 import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools'
-import { IProduct, IProductGetByIdsWithDetails } from '@/types/product.type'
+import { IProduct, IProductGetByIds } from '@/types/product.type'
 import { volumeMultipliers } from '@/types/transaction'
 import Link from 'next/link'
 
 
 interface IAddButtonsProps {
-    product: IProduct | IProductGetByIdsWithDetails | undefined
+    product: IProduct | IProductGetByIds | undefined
     isShoppingCart?: boolean
 }
 

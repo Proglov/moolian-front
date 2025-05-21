@@ -14,7 +14,8 @@ import Link from "next/link"
 
 
 export default function ShoppingCart() {
-    const { open, setOpen, products, isLoading } = useCart()
+    const { open, setOpen, products, isLoading, totalPrice, totalDiscount } = useCart()
+    const endPrice = totalDiscount ? totalPrice - totalDiscount : totalPrice
 
     return (
         <Drawer open={open && !!products.length} onOpenChange={setOpen}>
@@ -26,41 +27,60 @@ export default function ShoppingCart() {
                     }
                 </Button>
             </DrawerTrigger>
-            <DrawerContent>
-                <DrawerHeader className="mr-4">
+            <DrawerContent className="mb-5">
+                <DrawerHeader className="pr-10 w-full max-w-2xl mx-auto">
                     <DrawerTitle>سبد خرید</DrawerTitle>
                 </DrawerHeader>
 
-                {
-                    isLoading ?
-                        <div className="flex justify-center items-center h-[50vh]">
-                            <Spinner />
-                        </div>
-                        :
-                        products.length ? (
-                            <div className="m-5">
-                                <div>
-                                    {
-                                        products.map((product) => (
-                                            <div key={product._id + product.volume}>
-                                                <AddButtons product={product} isShoppingCart={true} />
-                                            </div>
-                                        ))
-                                    }
+                <div className="mb-5 overflow-y-auto" dir="ltr">
+                    <div dir="rtl">
+                        {
+                            isLoading ?
+                                <div className="flex justify-center items-center min-h-[50vh]">
+                                    <Spinner />
                                 </div>
+                                :
+                                products.length ? (
+                                    <div className="m-5">
+                                        <div>
+                                            {
+                                                products.map((product) => (
+                                                    <div key={product._id}>
+                                                        <AddButtons product={product} isShoppingCart={true} />
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
 
-                                <div className="flex justify-center items-center mt-5">
-                                    <Button asChild>
-                                        <Link href='/checkout' >
-                                            تایید و ادامه
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </div>
-                        )
-                            :
-                            <>سبد شما خالیست</>
-                }
+                                        <div className="w-full max-w-xl mx-auto mt-5 bg-success/10 p-2 rounded-md">
+                                            {
+                                                totalDiscount !== 0 && (
+                                                    <div className="text-sm text-muted-foreground">
+                                                        جمع تخفیف:
+                                                        {totalDiscount.toLocaleString('fa-IR')} تومان
+                                                    </div>
+                                                )
+                                            }
+                                            <div className="mt-1">
+                                                مبلغ نهایی:
+                                                {endPrice.toLocaleString('fa-IR')} تومان
+                                            </div>
+                                        </div>
+
+                                        <div className="flex justify-center items-center mt-5">
+                                            <Button asChild>
+                                                <Link href='/checkout' >
+                                                    تایید و ادامه
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )
+                                    :
+                                    <>سبد شما خالیست</>
+                        }
+                    </div>
+                </div>
             </DrawerContent>
         </Drawer>
     )
