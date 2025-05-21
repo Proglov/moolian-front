@@ -23,4 +23,5 @@ export interface IUserInfo {
     _id: string;
     name?: string;
     isLoggedIn: boolean;
+    isAuthLoaded: boolean;
 }

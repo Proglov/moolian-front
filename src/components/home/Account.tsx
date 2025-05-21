@@ -31,8 +31,10 @@ export function Account() {
     }, [isLogoutSuccess])
 
     useEffect(() => {
-        if (isSuccess)
+        if (isSuccess && data)
             dispatch(SetUserInfo({ _id: data._id, name: data.name }))
+        else if (isError)
+            dispatch(SetUserInfo({ _id: '', name: '' }))
     }, [data])
 
     if (isUninitialized || isLoading) return <Spinner />
