@@ -12,7 +12,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         SetUserInfo: (state, action: PayloadAction<Omit<IUserInfo, 'isLoggedIn' | 'isAuthLoaded'>>) => {
-            console.log(action.payload);
             state._id = action.payload._id;
             state.name = action.payload.name;
             state.isLoggedIn = action.payload._id !== '';

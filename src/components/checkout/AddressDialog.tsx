@@ -5,9 +5,8 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TAddCommentForm } from "@/hooks/use-comment";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { Dispatch, SetStateAction } from "react";
@@ -18,31 +17,23 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from "@/components/ui/drawer"
+import { TAddressForm } from "@/hooks/use-checkout";
+
 
 interface IProps {
     dialogIsOpen: boolean,
     setDialogIsOpen: Dispatch<SetStateAction<boolean>>,
-    form: UseFormReturn<TAddCommentForm>,
-    submit: SubmitHandler<{ body: string; }>,
-    isLoading: boolean,
-    parentName?: string
+    form: UseFormReturn<TAddressForm>,
+    submit: SubmitHandler<{ address: string; }>,
+    isLoading: boolean
 }
 
-export default function AddCommentDialog({ dialogIsOpen, form, isLoading, setDialogIsOpen, submit, parentName }: IProps) {
+export default function AddressDialog({ dialogIsOpen, form, isLoading, setDialogIsOpen, submit }: IProps) {
     const isMobile = useIsMobile()
 
     const TitleComponent = (
         <>
-            {
-                parentName ?
-                    <>
-                        پاسخ به دیدگاه {parentName}
-                    </>
-                    :
-                    <>
-                        دیدگاه خود را با ما به اشتراک بگذارید
-                    </>
-            }
+            افزودن آدرس جدید
         </>
     )
 
@@ -52,17 +43,20 @@ export default function AddCommentDialog({ dialogIsOpen, form, isLoading, setDia
                 <form onSubmit={form.handleSubmit(submit)} className="space-y-6">
                     <FormField
                         control={form.control}
-                        name="body"
+                        name="address"
                         disabled={isLoading}
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>
-                                    دیدگاه شما
+                                    آدرس جدید
                                     <span className="text-destructive pt-1.5">*</span>
                                 </FormLabel>
                                 <FormControl>
                                     <Input {...field} />
                                 </FormControl>
+                                <FormDescription className="text-destructive text-right">
+                                    آدرس شما باید شامل نام خیابان، نام ساختمان، شماره واحد ساختمان و شماره پلاک باشد.
+                                </FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}

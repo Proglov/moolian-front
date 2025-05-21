@@ -9,3 +9,5 @@ export interface IUser {
     phone: string;
     username: string;
 }
+
+export interface IUpdateUser extends Partial<Omit<IUser, '_id' | 'isEmailVerified' | 'isPhoneVerified'>> { }

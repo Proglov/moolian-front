@@ -1,4 +1,4 @@
-import { ICancelTX, IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
+import { ICancelTX, ICreateTransaction, IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
 import { baseApi } from './baseApi'
 import { IGetResponse } from '@/types/api.types'
 
@@ -37,10 +37,18 @@ export const transactionApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'transaction', id: 'LIST' }],
         }),
+        addTransaction: build.mutation<void, ICreateTransaction>({
+            query: (body) => ({
+                url: '/transaction',
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: [{ type: 'transaction', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 })
 
 
 
-export const { useGetAllTransactionsQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation } = transactionApi
+export const { useGetAllTransactionsQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation, useAddTransactionMutation } = transactionApi

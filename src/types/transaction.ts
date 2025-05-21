@@ -23,10 +23,14 @@ export const volumeMultipliers: Record<number, number> = {
     100: 2.1,
 };
 
-export interface IBoughtProduct {
-    productId: { _id: string, nameFA: string };
+export interface IUnPopulatedBoughtProduct {
+    productId: string;
     quantity: number;
     volume: Volume;
+}
+
+export interface IBoughtProduct extends Omit<IUnPopulatedBoughtProduct, 'productId'> {
+    productId: { _id: string, nameFA: string };
 }
 
 export interface ICanceled {
@@ -52,6 +56,11 @@ export interface ITransaction {
     boughtProducts: IBoughtProduct[];
     canceled?: ICanceled;
     opinion?: IOpinion;
+}
+
+export interface ICreateTransaction {
+    address: string;
+    boughtProducts: IUnPopulatedBoughtProduct[];
 }
 
 export interface IToggleStatus {

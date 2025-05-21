@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user.type'
+import { IUpdateUser, IUser } from '@/types/user.type'
 import { baseApi } from './baseApi'
 import { IGetResponse, IPagination } from '@/types/api.types'
 
@@ -25,10 +25,18 @@ export const userApi = baseApi.injectEndpoints({
                     ]
                     : [{ type: 'user', id: 'LIST' }],
         }),
+        updateUser: build.mutation<IUser, IUpdateUser>({
+            query: (body) => ({
+                url: `/users`,
+                method: 'PATCH',
+                body
+            }),
+            invalidatesTags: [{ type: 'user', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 })
 
 
 
-export const { useGetMeQuery, useGetAllUsersQuery } = userApi
+export const { useGetMeQuery, useGetAllUsersQuery, useUpdateUserMutation } = userApi
