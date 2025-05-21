@@ -14,7 +14,7 @@ import Link from "next/link"
 
 
 export default function ShoppingCart() {
-    const { open, setOpen, products, isLoading, totalPrice, totalDiscount } = useCart()
+    const { open, setOpen, products, isLoading, totalPrice, totalDiscount, isLoggedIn } = useCart()
     const endPrice = totalDiscount ? totalPrice - totalDiscount : totalPrice
 
     return (
@@ -69,9 +69,16 @@ export default function ShoppingCart() {
 
                                         <div className="flex justify-center items-center mt-5">
                                             <Button asChild>
-                                                <Link href='/checkout' >
-                                                    تایید و ادامه
-                                                </Link>
+                                                {
+                                                    isLoggedIn ?
+                                                        <Link href='/checkout' >
+                                                            تایید و ادامه
+                                                        </Link>
+                                                        :
+                                                        <Link href='/auth/signin' >
+                                                            ورود به حساب کاربری
+                                                        </Link>
+                                                }
                                             </Button>
                                         </div>
                                     </div>

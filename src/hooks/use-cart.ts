@@ -10,6 +10,7 @@ import { volumeMultipliers } from '@/types/transaction'
 export default function useCart() {
     const [open, setOpen] = useState(false)
     const cart = useAppSelector(state => state.CartProducts)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const [getProductsByIds, { isLoading, isError, error, data, isSuccess }] = useGetAllProductsByIdsMutation()
     const [products, setProducts] = useState<IProductGetByIds[]>([])
 
@@ -67,6 +68,7 @@ export default function useCart() {
     }, [isError, error])
 
     return {
+        isLoggedIn,
         open,
         setOpen,
         products,
