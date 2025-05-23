@@ -8,8 +8,8 @@ export default function page() {
         <div className='w-full max-w-xl mx-auto mt-5'>
             <Tabs className="w-full" defaultValue="transactions" dir="rtl">
                 <TabsList>
-                    <TabsTrigger value="specification">اطلاعات من</TabsTrigger>
                     <TabsTrigger value="transactions">سفارشات من</TabsTrigger>
+                    <TabsTrigger value="specification">اطلاعات من</TabsTrigger>
                     <TabsTrigger value="password">رمز عبور</TabsTrigger>
                 </TabsList>
 

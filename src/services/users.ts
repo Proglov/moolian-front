@@ -10,6 +10,7 @@ export const userApi = baseApi.injectEndpoints({
                 url: '/users/get-me',
                 method: 'GET'
             }),
+            providesTags: [{ type: 'user', id: 'LIST' }],
         }),
         getAllUsers: build.query<IGetResponse<IUser>, IPagination>({
             query: (pagination) => ({

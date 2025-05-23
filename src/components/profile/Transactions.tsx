@@ -11,6 +11,7 @@ import { UseFormReturn } from "react-hook-form"
 import { Dispatch, SetStateAction } from "react"
 import Button from "../shared/Button"
 import TransactionOpinion from "./TransactionOpinion"
+import SemiColon from "../shared/SemiColon"
 
 export default function Transactions() {
     const { transactions, isFinished, ref, CancelTransactionForm, isCancelTransactionLoading, cancelTransactionDialogIsOpen, setCancelTransactionDialogIsOpen, cancelTransactionSubmit, onCancelDialogOpen, cancelTransactionId, OpinionTransactionForm, isOpinionTransactionLoading, onOpinionDialogOpen, opinionTransactionDialogIsOpen, opinionTransactionId, opinionTransactionSubmit, setOpinionTransactionDialogIsOpen } = useMyTransactions()
@@ -204,5 +205,3 @@ const TransactionCard = ({ transaction, CancelTransactionForm, isCancelTransacti
     )
 }
 
-
-const SemiColon = () => <span className="text-destructive">:</span>
