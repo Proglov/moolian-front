@@ -24,7 +24,7 @@ interface IProps {
     dialogIsOpen: boolean,
     setDialogIsOpen: Dispatch<SetStateAction<boolean>>,
     form: UseFormReturn<TAddressForm>,
-    submit: SubmitHandler<{ address: string; }>,
+    submit: SubmitHandler<TAddressForm>,
     isLoading: boolean
 }
 

@@ -67,7 +67,7 @@ function arrangeComments(oldComments: IArrangedComment[], newComments: IComment[
 
 
 export default function useComment(productId: string) {
-    const limit = 2;
+    const limit = 20;
     const { ref, inView } = useInView();
     const [page, setPage] = useState(1)
     const [refetchPage, setRefetchPage] = useState(0)
