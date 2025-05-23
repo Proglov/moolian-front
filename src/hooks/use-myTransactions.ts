@@ -52,6 +52,7 @@ export default function useMyTransactions() {
             setIsFinished(data.count <= page * limit);
             setRefetchPage(0);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isSuccess, setTransactions, setIsFinished]);
 
     useEffect(() => {

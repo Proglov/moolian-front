@@ -58,6 +58,7 @@ export interface IGetProductsQuery extends IPagination {
     orderBy?: OrderBy;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys'> { }
 
 export interface IProductGetByIdsWithDetails extends IProductGetByIds, ICartProductItem { }

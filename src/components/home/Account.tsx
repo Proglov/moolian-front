@@ -28,14 +28,14 @@ export function Account() {
             window.location.reload();
             dispatch(LogOut())
         }
-    }, [isLogoutSuccess])
+    }, [isLogoutSuccess, dispatch])
 
     useEffect(() => {
         if (isSuccess && data)
             dispatch(SetUserInfo({ _id: data._id, name: data.name }))
         else if (isError)
             dispatch(SetUserInfo({ _id: '', name: '' }))
-    }, [data])
+    }, [data, dispatch, isError, isSuccess])
 
     if (isUninitialized || isLoading) return <Spinner />
 

@@ -50,6 +50,7 @@ export default function useCart() {
     useEffect(() => {
         if (cart && cart.length) getProductsByIds({ ids: cart.map(item => item._id) })
         else setProducts([])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cartProductIdsKey])
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export default function useCart() {
             cart.forEach(item => productsMap.set(item._id, item));
             setProducts(data)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isSuccess])
 
     useEffect(() => {

@@ -1,7 +1,7 @@
-import { CartProduct } from "./CartProductsSlice";
+import { ICartProductItem } from "./CartProductsSlice";
 
 
-export const loadCartState = (): CartProduct[] => {
+export const loadCartState = (): ICartProductItem[] => {
   try {
     const serialState = localStorage.getItem("cart");
     if (!serialState) return [];

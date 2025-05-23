@@ -10,4 +10,5 @@ export interface IUser {
     username: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IUpdateUser extends Partial<Omit<IUser, '_id' | 'isEmailVerified' | 'isPhoneVerified'>> { }

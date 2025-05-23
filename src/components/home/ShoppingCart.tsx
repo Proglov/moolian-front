@@ -71,7 +71,7 @@ export default function ShoppingCart() {
                                             <Button asChild>
                                                 {
                                                     isLoggedIn ?
-                                                        <Link href='/checkout' >
+                                                        <Link href='/checkout' onClick={() => setOpen(false)}>
                                                             تایید و ادامه
                                                         </Link>
                                                         :

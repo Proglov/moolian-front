@@ -100,6 +100,7 @@ export default function useComment(productId: string) {
             setIsFinished(data.count <= page * limit);
             setRefetchPage(0);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isSuccess, setIsFinished]);
 
     useEffect(() => {

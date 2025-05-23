@@ -1,8 +1,8 @@
 import { isFetchBaseQueryError } from "@/lib/utils";
 import { useAddTransactionMutation } from "@/services/transaction";
 import { useGetMeQuery, useUpdateUserMutation } from "@/services/users";
-import { ICartProductItem } from "@/store/CartProductsSlice";
-import { useAppSelector } from "@/store/store";
+import { ICartProductItem, ResetCartProducts } from "@/store/CartProductsSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -88,7 +88,7 @@ const useAddAddress = (previousAddresses: string[], setAddresses: Dispatch<SetSt
             setDialogIsOpen(false);
             toast.success('با موفقیت انجام شد')
         }
-    }, [isSuccess, data])
+    }, [isSuccess, data, form, setAddresses])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
@@ -113,13 +113,16 @@ const useAddAddress = (previousAddresses: string[], setAddresses: Dispatch<SetSt
 }
 
 const useAddTransaction = (address: string, cart: ICartProductItem[], setStep: Dispatch<SetStateAction<number>>) => {
+    const dispatch = useAppDispatch();
     const [addNewTransaction, { isError, error, isSuccess, isLoading, data }] = useAddTransactionMutation()
 
     useEffect(() => {
         if (isSuccess) {
             setStep(4);
+            dispatch(ResetCartProducts())
         }
-    }, [isSuccess, data])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess, data, setStep])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
