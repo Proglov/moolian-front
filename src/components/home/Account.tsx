@@ -64,7 +64,7 @@ export function Account() {
 
                 <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                        <Link href='/profile?tab=profile'>
+                        <Link href='/profile?tab=specification'>
                             پروفایل من
                         </Link>
                     </DropdownMenuItem>
