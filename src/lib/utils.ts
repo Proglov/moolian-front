@@ -157,7 +157,7 @@ export const statusObject: TStatusObject = {
   },
   'Accepted': {
     color: 'orange',
-    fa: 'قبول شده',
+    fa: 'تایید شده و در حال آماده سازی',
     next: TXStatus.Sent,
     nextFA: 'ارسال شد',
     nextColor: 'info'
@@ -167,6 +167,38 @@ export const statusObject: TStatusObject = {
     fa: 'ارسال شده',
     next: TXStatus.Received,
     nextFA: 'دریافت شد',
+    nextColor: 'success'
+  },
+  'Received': {
+    color: 'success',
+    fa: 'دریافت شده'
+  },
+  'Canceled': {
+    color: 'destructive',
+    fa: 'کنسل شده'
+  },
+}
+
+export const statusObjectUser: TStatusObject = {
+  'Requested': {
+    color: 'warning',
+    fa: 'در حال بررسی',
+    next: TXStatus.Accepted,
+    nextFA: 'آماده سازی محصول',
+    nextColor: 'orange'
+  },
+  'Accepted': {
+    color: 'orange',
+    fa: 'تایید شده و در حال آماده سازی',
+    next: TXStatus.Sent,
+    nextFA: 'ارسال محصول',
+    nextColor: 'info'
+  },
+  'Sent': {
+    color: 'info',
+    fa: 'ارسال شده',
+    next: TXStatus.Received,
+    nextFA: 'دریافت توسط شما',
     nextColor: 'success'
   },
   'Received': {

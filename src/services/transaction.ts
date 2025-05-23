@@ -1,6 +1,6 @@
-import { ICancelTX, ICreateTransaction, IGetTransactionsQuery, IToggleStatus, ITransaction } from '@/types/transaction'
+import { IAddOpinion, ICancelTX, ICancelTXUser, ICreateTransaction, IGetTransactionsQuery, IToggleStatus, ITransaction, TXStatus } from '@/types/transaction'
 import { baseApi } from './baseApi'
-import { IGetResponse } from '@/types/api.types'
+import { IGetResponse, IPagination } from '@/types/api.types'
 
 
 export const transactionApi = baseApi.injectEndpoints({
@@ -18,6 +18,26 @@ export const transactionApi = baseApi.injectEndpoints({
                         { type: 'transaction', id: 'LIST' },
                     ]
                     : [{ type: 'transaction', id: 'LIST' }],
+        }),
+        getMyTransactions: build.query<IGetResponse<ITransaction>, IPagination>({
+            query: (query) => ({
+                url: 'transaction/mine',
+                method: "GET",
+                params: query
+            }),
+            providesTags: (result, _error, arg) =>
+                result
+                    ? [
+                        ...result.items.map(({ _id }) => ({ type: 'transaction' as const, _id })),
+                        { type: 'transaction', id: 'LIST' },
+                        { type: 'transaction', id: `TRANSACTION` },
+                        { type: 'transaction', id: `TRANSACTION_PAGE_${arg.page}` },
+                    ]
+                    : [
+                        { type: 'transaction', id: 'LIST' },
+                        { type: 'transaction', id: `TRANSACTION` },
+                        { type: 'transaction', id: `TRANSACTION_PAGE_${arg.page}` },
+                    ],
         }),
         toggleTransactionStatus: build.mutation<void, IToggleStatus>({
             query: (input) => ({
@@ -37,6 +57,71 @@ export const transactionApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'transaction', id: 'LIST' }],
         }),
+        cancelTransactionByUser: build.mutation<void, ICancelTXUser>({
+            query: ({ _id, reason }) => ({
+                url: `/transaction/${_id}/cancel/user`,
+                method: 'PATCH',
+                body: { reason }
+            }),
+            // Optimistic update logic here!
+            async onQueryStarted({ _id, page, limit, reason }, { dispatch, queryFulfilled }) {
+                // Patch the cache for the relevant page
+                const patchResult = dispatch(
+                    transactionApi.util.updateQueryData(
+                        'getMyTransactions',
+                        { page, limit },
+                        (draft) => {
+                            const transaction = draft.items.find(t => t._id === _id);
+                            if (transaction) {
+                                transaction.status = TXStatus.Canceled;
+                                transaction.canceled = {
+                                    didSellerCanceled: false,
+                                    reason
+                                }
+                            }
+                        }
+                    )
+                );
+                try {
+                    await queryFulfilled;
+                } catch {
+                    // Rollback if the mutation fails
+                    patchResult.undo();
+                }
+            },
+        }),
+        addOpinionTransaction: build.mutation<void, IAddOpinion>({
+            query: ({ _id, comment, rate }) => ({
+                url: `/transaction/${_id}/opinion`,
+                method: 'PATCH',
+                body: { comment, rate }
+            }),
+            // Optimistic update logic here!
+            async onQueryStarted({ _id, page, limit, comment, rate }, { dispatch, queryFulfilled }) {
+                // Patch the cache for the relevant page
+                const patchResult = dispatch(
+                    transactionApi.util.updateQueryData(
+                        'getMyTransactions',
+                        { page, limit },
+                        (draft) => {
+                            const transaction = draft.items.find(t => t._id === _id);
+                            if (transaction) {
+                                transaction.opinion = {
+                                    comment,
+                                    rate
+                                }
+                            }
+                        }
+                    )
+                );
+                try {
+                    await queryFulfilled;
+                } catch {
+                    // Rollback if the mutation fails
+                    patchResult.undo();
+                }
+            },
+        }),
         addTransaction: build.mutation<void, ICreateTransaction>({
             query: (body) => ({
                 url: '/transaction',
@@ -51,4 +136,4 @@ export const transactionApi = baseApi.injectEndpoints({
 
 
 
-export const { useGetAllTransactionsQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation, useAddTransactionMutation } = transactionApi
+export const { useGetAllTransactionsQuery, useGetMyTransactionsQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation, useCancelTransactionByUserMutation, useAddOpinionTransactionMutation, useAddTransactionMutation } = transactionApi

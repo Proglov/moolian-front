@@ -47,15 +47,19 @@ export interface ITransaction {
     _id: string;
     address: string;
     userId: Pick<IUser, '_id' | 'name' | 'phone'>;
-    productId: Pick<IProduct, '_id' | 'nameFA'>;
     createdAt: string;
     shouldBeSentAt: string;
     totalPrice: number;
+    totalDiscount?: number;
     shippingCost: number;
     status: TXStatus;
     boughtProducts: IBoughtProduct[];
     canceled?: ICanceled;
     opinion?: IOpinion;
+}
+
+export interface ITransactionWithPage extends ITransaction {
+    page: number
 }
 
 export interface ICreateTransaction {
@@ -71,6 +75,19 @@ export interface IToggleStatus {
 export interface ICancelTX {
     _id: string;
     reason: string;
+}
+
+export interface ICancelTXUser extends ICancelTX {
+    limit: number;
+    page: number;
+}
+
+export interface IAddOpinion {
+    _id: string;
+    rate: number;
+    comment: string;
+    limit: number;
+    page: number;
 }
 
 export interface IGetTransactionsQuery extends IPagination {

@@ -63,11 +63,15 @@ export function Account() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        پروفایل من
+                    <DropdownMenuItem asChild>
+                        <Link href='/profile?tab=profile'>
+                            پروفایل من
+                        </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        سفارشات من
+                    <DropdownMenuItem asChild>
+                        <Link href='/profile?tab=tx'>
+                            سفارشات من
+                        </Link>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="flex gap-2" onClick={() => logoutQuery()}>
