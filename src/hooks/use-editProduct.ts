@@ -40,7 +40,8 @@ export function useEditProduct(product: IProduct) {
             toast.success('محصول با موفقیت ویرایش شد')
             onFinished()
         }
-    }, [isSuccess, onFinished])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess])
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
@@ -58,18 +59,18 @@ export function useEditProduct(product: IProduct) {
 
     const submit = (data: TForm) => {
         const prevImages: string[] = [];
-        product.imageKeys.map(key => {
+        reformedProduct.imageKeys.forEach(key => {
             const filename = extractFileName(key)
             if (!!filename) prevImages.push(filename)
         })
         const imageKeys = [...uploadRes, ...prevImages];
         _.pull(imageKeys, ...deletedImages)
 
+        const newReformedProduct = { ...reformedProduct, imageKeys: prevImages }
         const newObj = {
-            _id: product._id,
-            ...getChangedFields(reformedProduct, { ...data, imageKeys } as TForm)
+            _id: reformedProduct._id,
+            ...getChangedFields(newReformedProduct, { ...data, imageKeys } as TForm)
         }
-
         updateProduct(newObj)
     };
 
