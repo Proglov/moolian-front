@@ -15,31 +15,44 @@ import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools';
 import ShowMoreTransaction from './ShowMoreTransaction';
 import ToggleTransactionStatus from './ToggleTransactionStatus';
 import CancelTransaction from './CancelTransaction';
-import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { Checkbox } from '@/components/ui/checkbox';
 
-
+type FormFields = {
+    onlyRequested: boolean;
+};
 
 export default function Transactions() {
+    const { control, watch } = useForm<FormFields>({ defaultValues: { onlyRequested: false } });
+    const onlyRequested = watch('onlyRequested');
+
     const queryHook = useGetAllTransactionsQuery;
-    const [onlyRequested, setOnlyRequested] = useState<boolean>(false)
 
     return (
         <main dir='rtl'>
-
-            <div className="flex items-center space-x-2 mb-5">
-                <Checkbox id="terms"
-                    checked={onlyRequested}
-                    onCheckedChange={(v) => setOnlyRequested(!!v)} />
-                <label
-                    htmlFor="terms"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                    فقط سفارشات تایید
-                    <span className='text-destructive mx-1'>نشده</span>
-                    را نشان بده
-                </label>
-            </div>
+            <form>
+                <div className="flex items-center space-x-2 mb-5">
+                    <Controller
+                        name="onlyRequested"
+                        control={control}
+                        render={({ field }) => (
+                            <Checkbox
+                                id="onlyRequested"
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                            />
+                        )}
+                    />
+                    <label
+                        htmlFor="onlyRequested"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        فقط سفارشات تایید
+                        <span className='text-destructive mx-1'>نشده</span>
+                        را نشان بده
+                    </label>
+                </div>
+            </form>
 
             <Pagination<ITransaction>
                 queryHook={queryHook}
@@ -50,7 +63,6 @@ export default function Transactions() {
         </main>
     );
 }
-
 
 function ChildComponent({ data }: { data: ITransaction[] | [] }) {
     if (!data) return <div>تراکنشی یافت نشد</div>;
@@ -69,7 +81,6 @@ function ChildComponent({ data }: { data: ITransaction[] | [] }) {
                     </TableHead>
                     <TableHead>وضعیت ارسال</TableHead>
                     <TableHead>عملیات</TableHead>
-
                 </TableRow>
             </TableHeader>
             <TableBody>
