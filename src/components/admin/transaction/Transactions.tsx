@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/table"
 import { ITransaction } from '@/types/transaction';
 import { formattedTime, statusObject, timeFromNow } from '@/lib/utils';
-import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools';
 import ShowMoreTransaction from './ShowMoreTransaction';
 import ToggleTransactionStatus from './ToggleTransactionStatus';
 import CancelTransaction from './CancelTransaction';
@@ -82,7 +81,7 @@ function ChildComponent({ data }: { data: ITransaction[] | [] }) {
                             <br />
                             {timeFromNow(new Date(parseInt(transaction.shouldBeSentAt)))}
                         </TableCell>
-                        <TableCell>{digitsEnToFa(addCommas(transaction.totalPrice))}</TableCell>
+                        <TableCell>{transaction.totalPrice.toLocaleString('fa-IR')}</TableCell>
                         <TableCell className={`text-${statusObject[transaction.status].color}`}>{statusObject[transaction.status].fa}</TableCell>
                         <TableCell className='flex flex-col'>
                             <ToggleTransactionStatus _id={transaction._id} object={statusObject[transaction.status]} />

@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { ITransaction, TXStatus } from "@/types/transaction";
 import { formattedTime, timeFromNow } from "@/lib/utils";
-import { addCommas, digitsEnToFa } from "@persian-tools/persian-tools";
+import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { IoIosStar } from "react-icons/io";
 
 
@@ -67,7 +67,7 @@ export default function ShowMoreTransaction({ transaction }: { transaction: ITra
                         <div>
                             هزینه ارسال<span className="text-destructive ml-2">:</span>
 
-                            {digitsEnToFa(addCommas(transaction.shippingCost))}
+                            {transaction.shippingCost.toLocaleString('fa-IR')}
                             {' '}
                             تومان
                         </div>

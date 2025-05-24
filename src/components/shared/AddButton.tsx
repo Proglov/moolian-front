@@ -73,7 +73,7 @@ export default function AddButton({ productId, volume }: AddButtonProps) {
                             </>
                             :
                             <>
-                                {digitsEnToFa(addCommas(profit * product.number))}
+                                {(profit * product.number).toLocaleString('fa-IR')}
                                 {" "}
                                 تومان
                                 سود!

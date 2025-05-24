@@ -1,5 +1,5 @@
 import { Gender, IProduct, IProductGetByIds } from '@/types/product.type'
-import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools'
+import { digitsEnToFa } from '@persian-tools/persian-tools'
 import Image from 'next/image'
 import React from 'react'
 import { Separator } from '../ui/separator'
@@ -96,11 +96,11 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                             {
                                 product.festival?._id ?
                                     <div className='flex flex-col'>
-                                        <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{digitsEnToFa(addCommas(product.price))}</span>
-                                        <span className=''>{digitsEnToFa(addCommas(product.price * ((100 - product.festival.offPercentage) / 100)))}</span>
+                                        <span className='text-base translate-y-2 translate-x-1/2 rotate-25 line-through text-destructive'>{product.price.toLocaleString('fa-IR')}</span>
+                                        <span className=''>{(product.price * ((100 - product.festival.offPercentage) / 100)).toLocaleString('fa-IR')}</span>
                                     </div>
                                     :
-                                    <span>{digitsEnToFa(addCommas(product.price))}</span>
+                                    <span>{product.price.toLocaleString('fa-IR')}</span>
                             }
 
                             <div className='flex flex-col'>

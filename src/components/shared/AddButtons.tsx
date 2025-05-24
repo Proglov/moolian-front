@@ -1,7 +1,7 @@
 import { Card, CardContent } from '../ui/card'
 import Countdown from './Countdown'
 import AddButton from './AddButton'
-import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools'
+import { digitsEnToFa } from '@persian-tools/persian-tools'
 import { IProduct, IProductGetByIds } from '@/types/product.type'
 import { volumeMultipliers } from '@/types/transaction'
 import Link from 'next/link'
@@ -58,11 +58,11 @@ export default function AddButtons({ product, isShoppingCart = false }: IAddButt
                                             {
                                                 !!product.festival ?
                                                     <div className='flex flex-col'>
-                                                        <span className='text-base translate-y-2 line-through text-destructive'>{digitsEnToFa(addCommas(thisPrice))}</span>
-                                                        <span className=''>{digitsEnToFa(addCommas(thisPrice * ((100 - product.festival.offPercentage) / 100)))}</span>
+                                                        <span className='text-base translate-y-2 line-through text-destructive'>{thisPrice.toLocaleString('fa-IR')}</span>
+                                                        <span className=''>{(thisPrice * ((100 - product.festival.offPercentage) / 100)).toLocaleString('fa-IR')}</span>
                                                     </div>
                                                     :
-                                                    <span>{digitsEnToFa(addCommas(thisPrice))}</span>
+                                                    <span>{thisPrice.toLocaleString('fa-IR')}</span>
                                             }
 
                                             <span>
