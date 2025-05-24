@@ -1,4 +1,4 @@
-import { Gender, IProduct } from '@/types/product.type'
+import { Gender, IProduct, IProductGetByIds } from '@/types/product.type'
 import { addCommas, digitsEnToFa } from '@persian-tools/persian-tools'
 import Image from 'next/image'
 import React from 'react'
@@ -10,7 +10,7 @@ import Button from '../shared/Button'
 import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
 import { Card, CardContent } from "@/components/ui/card"
 
-export default function ProductCard({ product }: { product: IProduct }) {
+export default function ProductCard({ product }: { product: IProduct | IProductGetByIds }) {
     return (
         <MotionDiv
             initial='hidden'

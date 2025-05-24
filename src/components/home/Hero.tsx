@@ -1,11 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
-import Button from "../shared/Button";
 import { MotionDiv, MotionH1, MotionP } from "../shared/MotionDiv";
 
 export default function Hero() {
     return (
-        <div className="relative w-full h-[50rem] overflow-hidden">
+        <div className="relative w-full h-[50rem] overflow-hidden text-white">
             <MotionDiv
                 className="absolute inset-0 shadow-2xl"
                 variants={imageVariants}
@@ -16,7 +14,7 @@ export default function Hero() {
                 <Image
                     width={1000}
                     height={1000}
-                    src="/img/5.jpg"
+                    src="/img/perf4.jpeg"
                     alt="Hero"
                     className="absolute inset-0 object-cover w-full h-full"
                 />
@@ -46,21 +44,6 @@ export default function Hero() {
                         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
                     </MotionP>
                 </div>
-                <MotionDiv
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                >
-                    <Button asChild variant={'default'}>
-                        <Link
-                            href="#"
-                            className="inline-flex h-10 items-center justify-center rounded-md shadow-sm w-24 transition-colors"
-                            prefetch={false}
-                        >
-                            دکمه
-                        </Link>
-                    </Button>
-                </MotionDiv>
             </MotionDiv>
         </div>
     );

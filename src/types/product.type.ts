@@ -60,7 +60,7 @@ export interface IGetProductsQuery extends IPagination {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys'> { }
+export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys' | 'season' | 'category' | 'brandId' | 'flavor' | 'gender'> { }
 
 export interface IProductGetByIdsWithDetails extends IProductGetByIds, ICartProductItem { }
 
