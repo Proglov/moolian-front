@@ -56,6 +56,7 @@ export interface IGetProductsQuery extends IPagination {
     gender?: Gender;
     season?: Season;
     orderBy?: OrderBy;
+    search?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type

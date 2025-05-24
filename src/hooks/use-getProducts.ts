@@ -33,6 +33,7 @@ export default function useGetProducts() {
     const genderParam = searchParams.get('gender');
     const seasonParam = searchParams.get('season');
     const orderByParam = searchParams.get('orderBy');
+    const search = decodeURIComponent(searchParams.get('search') || '');
     const category: Category | undefined = isValidCategory(categoryParam) ? (categoryParam as Category) : undefined;
     const flavor: Flavor | undefined = isValidFlavor(flavorParam) ? (flavorParam as Flavor) : undefined;
     const gender: Gender | undefined = isValidGender(genderParam) ? (genderParam as Gender) : undefined;
@@ -48,7 +49,7 @@ export default function useGetProducts() {
     const [products, setProducts] = useState<IProduct[]>([])
     const [isFinished, setIsFinished] = useState(false)
     const { ref, inView } = useInView()
-    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy })
+    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy, search })
 
 
     useEffect(() => {
@@ -72,7 +73,7 @@ export default function useGetProducts() {
 
 
     const filterSubmit = async ({ category, flavor, gender, season }: TFilterForm) => {
-        const params = new URLSearchParams();
+        const params = new URLSearchParams(searchParams.toString());
         if (category) params.set('category', category);
         if (flavor) params.set('flavor', flavor);
         if (gender) params.set('gender', gender);
@@ -84,7 +85,7 @@ export default function useGetProducts() {
     };
 
     const sortSubmit = async ({ orderBy }: TSortForm) => {
-        const params = new URLSearchParams();
+        const params = new URLSearchParams(searchParams.toString());
         if (orderBy) params.set('orderBy', orderBy);
 
         const url = `/products?${params.toString()}`;

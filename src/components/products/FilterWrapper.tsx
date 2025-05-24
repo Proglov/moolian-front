@@ -27,6 +27,11 @@ export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterFor
     const [open, setOpen] = React.useState(false)
     const isMobile = useIsMobile()
 
+    const submitHandler = (data: TFilterForm) => {
+        submit(data);
+        setOpen(false);
+    }
+
     if (!isMobile) {
         return (
             <Dialog open={open} onOpenChange={setOpen}>
@@ -45,7 +50,7 @@ export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterFor
                     </DialogHeader>
 
                     <div className="m-5">
-                        <FilterForm form={form} submit={submit} />
+                        <FilterForm form={form} submit={submitHandler} />
                     </div>
                 </DialogContent>
             </Dialog>
@@ -69,7 +74,7 @@ export function FilterWrapper({ form, submit }: { form: UseFormReturn<TFilterFor
                 </DrawerHeader>
 
                 <div className="m-5">
-                    <FilterForm form={form} submit={submit} />
+                    <FilterForm form={form} submit={submitHandler} />
                 </div>
             </DrawerContent>
         </Drawer>

@@ -26,6 +26,11 @@ export function SortWrapper({ form, submit }: { form: UseFormReturn<TSortForm>, 
     const [open, setOpen] = React.useState(false)
     const isMobile = useIsMobile()
 
+    const submitHandler = (data: TSortForm) => {
+        submit(data);
+        setOpen(false);
+    }
+
     if (!isMobile) {
         return (
             <Dialog open={open} onOpenChange={setOpen}>
@@ -44,7 +49,7 @@ export function SortWrapper({ form, submit }: { form: UseFormReturn<TSortForm>, 
                     </DialogHeader>
 
                     <div className="m-5">
-                        <SortForm form={form} submit={submit} />
+                        <SortForm form={form} submit={submitHandler} />
                     </div>
                 </DialogContent>
             </Dialog>
@@ -68,7 +73,7 @@ export function SortWrapper({ form, submit }: { form: UseFormReturn<TSortForm>, 
                 </DrawerHeader>
 
                 <div className="m-5">
-                    <SortForm form={form} submit={submit} />
+                    <SortForm form={form} submit={submitHandler} />
                 </div>
             </DrawerContent>
         </Drawer>
