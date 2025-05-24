@@ -20,7 +20,6 @@ export default function ProductsCarousel() {
     const [getProductsByIds, { isLoading, isError, error, data }] = useGetAllProductsByIdsMutation()
     const productIds = (process.env.NEXT_PUBLIC_HomeProductIds || '').split(',');
 
-    if (!productIds.length) return null
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
@@ -31,10 +30,13 @@ export default function ProductsCarousel() {
 
     useEffect(() => {
         getProductsByIds({ ids: productIds })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getProductsByIds])
 
+    if (!productIds.length) return null
+
     if (isLoading || !data) return (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mt-5">
             <Spinner />
         </div>
     )
