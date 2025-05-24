@@ -77,18 +77,18 @@ const TransactionCard = ({ transaction, CancelTransactionForm, isCancelTransacti
                 <CardContent className="flex flex-col gap-4 relative h-full p-0">
 
                     {/* status */}
-                    <div className="flex justify-start gap-2">
-                        <p>
+                    <div className="flex justify-start items-center text-xs sm:text-base">
+                        <p className="text-base">
                             وضعیت سفارش<SemiColon />
                         </p>
 
-                        <div className={`text-${statusObjectUser[transaction.status].color}`}>{statusObjectUser[transaction.status].fa}</div>
+                        <div className="ml-0.5" style={{ color: statusObjectUser[transaction.status].color }}>{statusObjectUser[transaction.status].fa}</div>
 
                         {
                             (transaction.status !== TXStatus.Received && transaction.status !== TXStatus.Canceled) &&
-                            <div className={`text-${statusObjectUser[transaction.status].nextColor}`}>
+                            <div style={{ color: statusObjectUser[transaction.status].nextColor }}>
                                 (
-                                مرحله بعدی
+                                مرحله بعد
                                 <SemiColon />
                                 {' '}
                                 {

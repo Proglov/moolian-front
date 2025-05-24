@@ -146,66 +146,74 @@ export const formattedTime = (date: Date) => {
   return `${dateParts.year}/${dateParts.month}/${dateParts.day} ${dateParts.hour}:${dateParts.minute}`;
 }
 
+const textColors = {
+  warning: 'oklch(0.89 0.1554 115)',
+  destructive: 'oklch(0.577 0.245 27.325)',
+  success: 'oklch(0.7 0.2393 154.91)',
+  info: 'oklch(0.9 0.185 194.61)',
+  orange: 'oklch(0.74 0.1776 76.02)'
+}
+
 export const statusObject: TStatusObject = {
   'Requested': {
-    color: 'warning',
+    color: textColors.warning,
     fa: 'درخواست داده شده',
     next: TXStatus.Accepted,
     nextFA: 'قبول',
-    nextColor: 'orange'
+    nextColor: textColors.orange
   },
   'Accepted': {
-    color: 'orange',
+    color: textColors.orange,
     fa: 'تایید شده و در حال آماده سازی',
     next: TXStatus.Sent,
     nextFA: 'ارسال شد',
-    nextColor: 'info'
+    nextColor: textColors.info
   },
   'Sent': {
-    color: 'info',
+    color: textColors.info,
     fa: 'ارسال شده',
     next: TXStatus.Received,
     nextFA: 'دریافت شد',
-    nextColor: 'success'
+    nextColor: textColors.success
   },
   'Received': {
-    color: 'success',
+    color: textColors.success,
     fa: 'دریافت شده'
   },
   'Canceled': {
-    color: 'destructive',
+    color: textColors.destructive,
     fa: 'کنسل شده'
   },
 }
 
 export const statusObjectUser: TStatusObject = {
   'Requested': {
-    color: 'warning',
+    color: textColors.warning,
     fa: 'در حال بررسی',
     next: TXStatus.Accepted,
     nextFA: 'آماده سازی محصول',
-    nextColor: 'orange'
+    nextColor: textColors.orange
   },
   'Accepted': {
-    color: 'orange',
+    color: textColors.orange,
     fa: 'تایید شده و در حال آماده سازی',
     next: TXStatus.Sent,
     nextFA: 'ارسال محصول',
-    nextColor: 'info'
+    nextColor: textColors.info
   },
   'Sent': {
-    color: 'info',
+    color: textColors.info,
     fa: 'ارسال شده',
     next: TXStatus.Received,
     nextFA: 'دریافت توسط شما',
-    nextColor: 'success'
+    nextColor: textColors.success
   },
   'Received': {
-    color: 'success',
+    color: textColors.success,
     fa: 'دریافت شده'
   },
   'Canceled': {
-    color: 'destructive',
+    color: textColors.destructive,
     fa: 'کنسل شده'
   },
 }

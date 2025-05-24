@@ -82,7 +82,7 @@ function ChildComponent({ data }: { data: ITransaction[] | [] }) {
                             {timeFromNow(new Date(parseInt(transaction.shouldBeSentAt)))}
                         </TableCell>
                         <TableCell>{transaction.totalPrice.toLocaleString('fa-IR')}</TableCell>
-                        <TableCell className={`text-${statusObject[transaction.status].color}`}>{statusObject[transaction.status].fa}</TableCell>
+                        <TableCell style={{ color: statusObject[transaction.status].color }}>{statusObject[transaction.status].fa}</TableCell>
                         <TableCell className='flex flex-col'>
                             <ToggleTransactionStatus _id={transaction._id} object={statusObject[transaction.status]} />
                             <CancelTransaction _id={transaction._id} status={transaction.status} />

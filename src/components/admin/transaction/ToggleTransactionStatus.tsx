@@ -33,7 +33,7 @@ export default function ToggleTransactionStatus({ _id, object }: { _id: string, 
 
         <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
             <DialogTrigger asChild>
-                <Button className={`m-3 border-${object.nextColor} text-${object.nextColor}`} variant='outline' size='sm'>
+                <Button className='m-3 border' style={{ borderColor: object.nextColor, color: object.nextColor }} variant='outline' size='sm'>
                     {object.nextFA}
                 </Button>
             </DialogTrigger>
