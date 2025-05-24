@@ -17,9 +17,10 @@ import { MotionDiv } from "../shared/MotionDiv";
 
 
 export default function ProductsCarousel() {
-    const [getProductsByIds, { isLoading, isError, error, data, isSuccess }] = useGetAllProductsByIdsMutation()
+    const [getProductsByIds, { isLoading, isError, error, data }] = useGetAllProductsByIdsMutation()
     const productIds = (process.env.NEXT_PUBLIC_HomeProductIds || '').split(',');
 
+    if (!productIds.length) return null
 
     useEffect(() => {
         if (isFetchBaseQueryError(error)) {
