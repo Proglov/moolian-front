@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { MotionDiv, MotionH1, MotionP } from "../shared/MotionDiv";
+import { GiPerfumeBottle } from "react-icons/gi";
+import { Heart, Sparkles } from "lucide-react";
 
 export default function Hero() {
     return (
@@ -33,15 +35,28 @@ export default function Hero() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        مولیان پرفیوم
+                        <div className="flex justify-start items-center gap-2">
+                            <div>
+                                مولیان پرفیوم
+                            </div>
+                            <div className="h-15 w-1 border-r-2 border-muted-foreground" />
+                            <Image
+                                width={100}
+                                height={100}
+                                src="/img/logo.jpg"
+                                alt="Hero"
+                                className="inset-0 object-cover w-16 h-16 border rounded-full"
+                            />
+                        </div>
                     </MotionH1>
                     <MotionP
-                        className="max-w-[700px]"
+                        className="max-w-[700px] text-lg flex items-center gap-1"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                     >
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                        با مولیان عطر مخصوص خودت رو پیدا کن
+                        <Heart className="text-3xl text-primary" />
                     </MotionP>
                 </div>
             </MotionDiv>
