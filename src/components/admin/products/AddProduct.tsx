@@ -328,7 +328,7 @@ export default function AddProduct() {
                                                         <FormControl>
                                                             <RadioGroupItem value='unisex' />
                                                         </FormControl>
-                                                        <FormLabel>یونیسکس</FormLabel>
+                                                        <FormLabel>اسپورت</FormLabel>
                                                     </FormItem>
                                                 </RadioGroup>
                                             </FormControl>

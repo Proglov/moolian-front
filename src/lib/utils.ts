@@ -35,7 +35,7 @@ export function isValidCategory(value: any): value is Category {
 export const gendersObject: Record<Gender, string> = {
   'female': "زنانه",
   'male': "مردانه",
-  'unisex': "یونیسکس"
+  'unisex': "اسپورت"
 }
 
 export function isValidGender(value: any): value is Gender {

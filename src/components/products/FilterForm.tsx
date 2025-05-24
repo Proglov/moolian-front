@@ -50,7 +50,7 @@ export default function FilterForm({ form, submit }: { form: UseFormReturn<TFilt
                                         <FormControl>
                                             <RadioGroupItem value='unisex' />
                                         </FormControl>
-                                        <FormLabel>یونیسکس</FormLabel>
+                                        <FormLabel>اسپورت</FormLabel>
                                     </FormItem>
                                 </RadioGroup>
                             </FormControl>

@@ -321,7 +321,7 @@ export default function EditProduct({ product }: { product: IProduct }) {
                                                         <FormControl>
                                                             <RadioGroupItem value='unisex' />
                                                         </FormControl>
-                                                        <FormLabel>یونیسکس</FormLabel>
+                                                        <FormLabel>اسپورت</FormLabel>
                                                     </FormItem>
                                                 </RadioGroup>
                                             </FormControl>
