@@ -1,10 +1,10 @@
 'use client'
 import useMyTransactions, { TCancelTransactionForm, TOpinionTransactionForm } from "@/hooks/use-myTransactions"
-import { ITransaction, ITransactionWithPage, TXStatus } from "@/types/transaction"
+import { ITransactionWithPage, TXStatus } from "@/types/transaction"
 import Spinner from "../shared/Spinner"
 import { MotionDiv } from "../shared/MotionDiv"
 import { Card, CardContent } from "../ui/card"
-import { formattedTime, statusObject, statusObjectUser, timeFromNow } from "@/lib/utils"
+import { formattedTime, statusObjectUser, timeFromNow } from "@/lib/utils"
 import { digitsEnToFa } from "@persian-tools/persian-tools"
 import TransactionCancel from "./TransactionCancel"
 import { UseFormReturn } from "react-hook-form"
@@ -12,6 +12,8 @@ import { Dispatch, SetStateAction } from "react"
 import Button from "../shared/Button"
 import TransactionOpinion from "./TransactionOpinion"
 import SemiColon from "../shared/SemiColon"
+
+const CancellationLimit = 60 * 60 * 1000;
 
 export default function Transactions() {
     const { transactions, isFinished, ref, CancelTransactionForm, isCancelTransactionLoading, cancelTransactionDialogIsOpen, setCancelTransactionDialogIsOpen, cancelTransactionSubmit, onCancelDialogOpen, cancelTransactionId, OpinionTransactionForm, isOpinionTransactionLoading, onOpinionDialogOpen, opinionTransactionDialogIsOpen, opinionTransactionId, opinionTransactionSubmit, setOpinionTransactionDialogIsOpen } = useMyTransactions()
@@ -183,7 +185,7 @@ const TransactionCard = ({ transaction, CancelTransactionForm, isCancelTransacti
                             </Button>
                         }
                         {
-                            transaction.status === TXStatus.Requested &&
+                            (transaction.status === TXStatus.Requested && Date.now() - new Date(transaction.createdAt).getTime() <= CancellationLimit) &&
                             <Button
                                 variant='destructive'
                                 onClick={() => onCancelDialogOpen(transaction._id)}
