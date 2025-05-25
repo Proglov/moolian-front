@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "https": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -30,6 +31,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "embla-carousel-react": "^8.6.0",
+    "firebase": "^11.8.1",
     "framer-motion": "^12.9.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.488.0",

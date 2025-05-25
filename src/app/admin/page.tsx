@@ -6,6 +6,7 @@ import Products from '@/components/admin/products/Products'
 import Transactions from '@/components/admin/transaction/Transactions';
 import Users from '@/components/admin/Users';
 import Button from '@/components/shared/Button';
+import PushNotificationManager from '@/components/shared/Notification';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Undo } from 'lucide-react';
 import Link from 'next/link';
@@ -15,13 +16,14 @@ import Link from 'next/link';
 export default async function page() {
     return (
         <div className='m-5'>
-            <Button asChild variant='secondary' className='text-destructive'>
+            <PushNotificationManager />
+            <Button asChild variant='outline' className='text-destructive hover:text-destructive hover:bg-destructive/10 border-dashed border-destructive'>
                 <Link href={'/'}>
                     <Undo />
-                    بازگشت
+                    بازگشت به خانه
                 </Link>
             </Button>
-            <Tabs defaultValue="products" className='max-w-5xl mx-auto relative'>
+            <Tabs defaultValue="products" className='max-w-5xl mx-auto relative mt-2'>
                 <TabsList dir='rtl' className='z-20 mb-3'>
                     <TabsTrigger value="products">محصولات</TabsTrigger>
                     <TabsTrigger value="users">کاربران</TabsTrigger>

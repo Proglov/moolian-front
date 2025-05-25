@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+
+//Todo fix this
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -9,10 +12,53 @@ const nextConfig: NextConfig = {
         port: '3000',
       },
       {
+        hostname: 'moolian-image.storage.c2.liara.space'
+      },
+      {
         hostname: 'shopiing.storage.iran.liara.space'
       }
     ],
   },
 };
 
-export default nextConfig;
+export default {
+  ...nextConfig,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+      {
+        source: '/firebase-messaging-sw.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self'",
+          },
+        ],
+      },
+    ]
+  }
+};
