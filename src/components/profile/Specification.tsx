@@ -4,6 +4,10 @@ import Spinner from "../shared/Spinner"
 import SemiColon from "../shared/SemiColon"
 import Button from "../shared/Button"
 import SpecificationDialog from "./SpecificationDialog"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
+import Link from "next/link"
+
 
 export default function Specification() {
     const { data: user, isLoading, dialogIsOpen, form, isUserUpdateLoading, setDialogIsOpen, submit } = useMySpecification()
@@ -21,40 +25,59 @@ export default function Specification() {
 
 
     return (
-        <div className="flex flex-col gap-2 m-2">
-            <div>
-                نام
-                <SemiColon />
-                {user.name || 'فاقد نام'}
-            </div>
+        <div>
+            {
+                !user.isEmailVerified &&
+                <Alert variant='destructive'>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>ایمیل خود را فعال کنید</AlertTitle>
+                    <AlertDescription>
+                        <div>
+                            در صورت فراموشی رمز عبور، رمز جدید فقط برای ایمیل های فعال ارسال خواهد شد
+                        </div>
+                        <Link href='/profile?tab=email' className="text-purple-700 underline hover:text-[1rem]">
+                            {'< '} فعال کردن {' >'}
+                        </Link>
+                    </AlertDescription>
+                </Alert>
 
-            <div>
-                نام کاربری
-                <SemiColon />
-                {user.username}
-            </div>
+            }
 
-            <div>
-                ایمیل
-                <SemiColon />
-                {user.email}
-            </div>
+            <div className="flex flex-col gap-2 m-2">
+                <div>
+                    نام
+                    <SemiColon />
+                    {user.name || 'فاقد نام'}
+                </div>
 
-            <div>
-                شماره همراه
-                <SemiColon />
-                {user.phone}
-            </div>
+                <div>
+                    نام کاربری
+                    <SemiColon />
+                    {user.username}
+                </div>
 
-            <div className="self-center">
-                <Button
-                    onClick={() => setDialogIsOpen(true)}
-                >
-                    ویرایش اطلاعات
-                </Button>
-            </div>
+                <div>
+                    ایمیل
+                    <SemiColon />
+                    {user.email}
+                </div>
 
-            <SpecificationDialog dialogIsOpen={dialogIsOpen} form={form} isLoading={isUserUpdateLoading} setDialogIsOpen={setDialogIsOpen} submit={submit} />
+                <div>
+                    شماره همراه
+                    <SemiColon />
+                    {user.phone}
+                </div>
+
+                <div className="self-center">
+                    <Button
+                        onClick={() => setDialogIsOpen(true)}
+                    >
+                        ویرایش اطلاعات
+                    </Button>
+                </div>
+
+                <SpecificationDialog dialogIsOpen={dialogIsOpen} form={form} isLoading={isUserUpdateLoading} setDialogIsOpen={setDialogIsOpen} submit={submit} />
+            </div>
         </div>
     )
 }
