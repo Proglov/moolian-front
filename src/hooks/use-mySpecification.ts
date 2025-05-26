@@ -10,7 +10,7 @@ import { IUser } from "@/types/user.type";
 
 export default function useMySpecification() {
     const { data, isLoading, isError, error } = useGetMeQuery()
-    const { isUserUpdateLoading, dialogIsOpen, form, setDialogIsOpen, submit } = useUserUpdate(data as IUser)
+    const { isUserUpdateLoading, dialogIsOpen, form, setDialogIsOpen, submit } = useUserUpdate(data)
 
 
     useEffect(() => {
@@ -48,17 +48,34 @@ const updateUserFormSchema = z.object({
 export type TUpdateUserForm = z.infer<typeof updateUserFormSchema>;
 const updateUserResolver = zodResolver(updateUserFormSchema)
 
-const useUserUpdate = (user: IUser) => {
+const useUserUpdate = (user: IUser | undefined) => {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
-    const updateUserDefaultValues: TUpdateUserForm = { name: user.name, username: user.username, email: user.email, phone: user.phone }
+    const updateUserDefaultValues: TUpdateUserForm = {
+        name: user?.name ?? '',
+        username: user?.username ?? '',
+        email: user?.email ?? '',
+        phone: user?.phone ?? '',
+    }
     const form = useForm<TUpdateUserForm>({ resolver: updateUserResolver, defaultValues: updateUserDefaultValues })
     const [updateUser, { isLoading, isError, error, isSuccess }] = useUpdateUserMutation()
 
     const submit = (data: TUpdateUserForm) => {
+        if (!user) return
         const newObj = getChangedFields(user, data)
         if (!Object.keys(newObj).length) return
         updateUser(newObj)
     }
+
+    useEffect(() => {
+        if (user) {
+            form.reset({
+                name: user.name ?? '',
+                username: user.username ?? '',
+                email: user.email ?? '',
+                phone: user.phone ?? '',
+            });
+        }
+    }, [user]);
 
     useEffect(() => {
         if (isSuccess) {
