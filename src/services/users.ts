@@ -12,6 +12,12 @@ export const userApi = baseApi.injectEndpoints({
             }),
             providesTags: [{ type: 'user', id: 'LIST' }],
         }),
+        isAdmin: build.query<boolean, void>({
+            query: () => ({
+                url: '/users/admin',
+                method: 'GET'
+            }),
+        }),
         getAllUsers: build.query<IGetResponse<IUser>, IPagination>({
             query: (pagination) => ({
                 url: 'users',
@@ -40,4 +46,4 @@ export const userApi = baseApi.injectEndpoints({
 
 
 
-export const { useGetMeQuery, useGetAllUsersQuery, useUpdateUserMutation } = userApi
+export const { useGetMeQuery, useGetAllUsersQuery, useUpdateUserMutation, useIsAdminQuery } = userApi
