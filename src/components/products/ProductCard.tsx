@@ -40,13 +40,13 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                     {/* gender */}
                     <span className='flex justify-center gap-1 text-2xl'>
                         {
-                            (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
+                            (product.gender === Gender.female || product.gender === Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
                         }
                         {
                             (product.gender === Gender.unisex) && <Separator orientation='vertical' className='border-1' />
                         }
                         {
-                            (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
+                            (product.gender === Gender.male || product.gender === Gender.unisex) && <MdOutlineMan className='text-sky-400' />
                         }
                     </span>
 

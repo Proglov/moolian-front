@@ -14,10 +14,6 @@ import {
 import { Gender, IProduct } from "@/types/product.type";
 import { MdOutlineMan, MdOutlineWoman } from "react-icons/md";
 import { Separator } from "../../ui/separator";
-import AddButton from "../../shared/AddButton";
-import { volumeMultipliers } from "@/types/transaction";
-import { addCommas, digitsEnToFa } from "@persian-tools/persian-tools";
-import Countdown from "../../shared/Countdown";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Comments from "./Comments";
 import Details from "./Details";
@@ -70,7 +66,7 @@ export default function SingleProduct({ id }: { id: string }) {
                                     جنسیت:
                                 </span>
                                 {
-                                    (product.gender === Gender.female || Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
+                                    (product.gender === Gender.female || product.gender === Gender.unisex) && <MdOutlineWoman className='text-purple-400' />
                                 }
                                 {
                                     (product.gender === Gender.unisex) &&
@@ -79,7 +75,7 @@ export default function SingleProduct({ id }: { id: string }) {
                                     </div>
                                 }
                                 {
-                                    (product.gender === Gender.male || Gender.unisex) && <MdOutlineMan className='text-sky-400' />
+                                    (product.gender === Gender.male || product.gender === Gender.unisex) && <MdOutlineMan className='text-sky-400' />
                                 }
                             </div>
 
