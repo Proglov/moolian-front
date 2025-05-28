@@ -7,10 +7,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { IUser } from "@/types/user.type";
+import { useAddNewEmailOTPMutation, useIsEmailOTPSentQuery } from "@/services/emailOTP";
 
 export default function useMySpecification() {
     const { data, isLoading, isError, error } = useGetMeQuery()
     const { isUserUpdateLoading, dialogIsOpen, form, setDialogIsOpen, submit } = useUserUpdate(data)
+    const { isEmailOTPSent, isEmailOTPSentLoading } = useIsEmailSent();
+    const { createEmailOTP } = useAddEmailOTP();
 
 
     useEffect(() => {
@@ -27,7 +30,10 @@ export default function useMySpecification() {
         dialogIsOpen,
         setDialogIsOpen,
         form,
-        submit
+        submit,
+        isEmailOTPSent,
+        isEmailOTPSentLoading,
+        createEmailOTP
     }
 }
 
@@ -97,5 +103,44 @@ const useUserUpdate = (user: IUser | undefined) => {
         dialogIsOpen,
         setDialogIsOpen,
         submit
+    }
+}
+
+
+const useIsEmailSent = () => {
+    const { data, isLoading, isError, error } = useIsEmailOTPSentQuery()
+
+    useEffect(() => {
+        if (isFetchBaseQueryError(error)) {
+            const messages = (error.data as { message: string[] }).message;
+            messages.map(message => toast.error(message))
+        }
+    }, [isError, error])
+
+    return {
+        isEmailOTPSent: data,
+        isEmailOTPSentLoading: isLoading
+    }
+}
+
+const useAddEmailOTP = () => {
+    const [createEmailOTP, { isError, error, isSuccess }] = useAddNewEmailOTPMutation();
+
+    useEffect(() => {
+        if (isFetchBaseQueryError(error)) {
+            const messages = (error.data as { message: string[] }).message;
+            messages.map(message => toast.error(message))
+        }
+    }, [isError, error])
+
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('لینک تایید به ایمیل شما ارسال شد')
+        }
+    }, [isSuccess])
+
+    return {
+        createEmailOTP
     }
 }

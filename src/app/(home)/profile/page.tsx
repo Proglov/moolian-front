@@ -1,5 +1,4 @@
 "use client"
-import Email from "@/components/profile/Email"
 import Password from "@/components/profile/Password"
 import Specification from "@/components/profile/Specification"
 import Transactions from "@/components/profile/Transactions"
@@ -8,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 
-const TABS = ["transactions", "specification", "email", "password"] as const;
+const TABS = ["transactions", "specification", "password"] as const;
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -35,7 +34,6 @@ export default function ProfilePage() {
                 <TabsList>
                     <TabsTrigger value="transactions">سفارشات من</TabsTrigger>
                     <TabsTrigger value="specification">اطلاعات من</TabsTrigger>
-                    <TabsTrigger value="email">فعال کردن ایمیل</TabsTrigger>
                     <TabsTrigger value="password">رمز عبور</TabsTrigger>
                 </TabsList>
                 <div className="border border-muted-foreground/50 rounded-lg w-full p-4">
@@ -44,9 +42,6 @@ export default function ProfilePage() {
                     </TabsContent>
                     <TabsContent value="transactions">
                         <Transactions />
-                    </TabsContent>
-                    <TabsContent value="email">
-                        <Email />
                     </TabsContent>
                     <TabsContent value="password">
                         <Password />

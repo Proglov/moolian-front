@@ -10,7 +10,7 @@ import Link from "next/link"
 
 
 export default function Specification() {
-    const { data: user, isLoading, dialogIsOpen, form, isUserUpdateLoading, setDialogIsOpen, submit } = useMySpecification()
+    const { data: user, isLoading, dialogIsOpen, form, isUserUpdateLoading, setDialogIsOpen, submit, createEmailOTP, isEmailOTPSent, isEmailOTPSentLoading } = useMySpecification()
 
     if (isLoading) return (
         <div className="w-full flex justify-center">
@@ -26,19 +26,40 @@ export default function Specification() {
 
     return (
         <div>
+            {/* email verification check */}
             {
-                !user.isEmailVerified &&
+                (!user.isEmailVerified) &&
                 <Alert variant='destructive'>
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>ایمیل خود را فعال کنید</AlertTitle>
-                    <AlertDescription>
-                        <div>
-                            در صورت فراموشی رمز عبور، رمز جدید فقط برای ایمیل های فعال ارسال خواهد شد
-                        </div>
-                        <Link href='/profile?tab=email' className="text-purple-700 underline hover:text-[1rem]">
-                            {'< '} فعال کردن {' >'}
-                        </Link>
-                    </AlertDescription>
+                    {
+                        isEmailOTPSentLoading ?
+                            <Spinner />
+                            :
+                            isEmailOTPSent ?
+                                <>
+                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertTitle>ایمیل خود را بررسی کنید</AlertTitle>
+                                    <AlertDescription>
+                                        لینک تایید به ایمیل شما ارسال شد
+                                    </AlertDescription>
+                                </>
+                                :
+                                <>
+                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertTitle>ایمیل خود را فعال کنید</AlertTitle>
+                                    <AlertDescription>
+                                        <div>
+                                            در صورت فراموشی رمز عبور، رمز جدید فقط برای ایمیل های فعال ارسال خواهد شد
+                                        </div>
+                                        <Button
+                                            variant='ghost'
+                                            className="text-purple-700 underline hover:text-[1rem] hover:text-purple-800"
+                                            onClick={() => createEmailOTP()}
+                                        >
+                                            {'< '} فعال کردن {' >'}
+                                        </Button>
+                                    </AlertDescription>
+                                </>
+                    }
                 </Alert>
 
             }

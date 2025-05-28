@@ -18,7 +18,6 @@ import {
     DrawerTitle,
 } from "@/components/ui/drawer"
 import { TUpdateUserForm } from "@/hooks/use-mySpecification";
-import { IUser } from "@/types/user.type";
 
 
 interface IProps {
