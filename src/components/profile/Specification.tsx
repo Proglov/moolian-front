@@ -6,7 +6,6 @@ import Button from "../shared/Button"
 import SpecificationDialog from "./SpecificationDialog"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
-import Link from "next/link"
 
 
 export default function Specification() {

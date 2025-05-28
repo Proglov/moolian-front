@@ -1,4 +1,4 @@
-import { IUpdateUser, IUser } from '@/types/user.type'
+import { IChangePAssword, IUpdateUser, IUser } from '@/types/user.type'
 import { baseApi } from './baseApi'
 import { IGetResponse, IPagination } from '@/types/api.types'
 
@@ -40,10 +40,18 @@ export const userApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'user', id: 'LIST' }],
         }),
+        changePassword: build.mutation<void, IChangePAssword>({
+            query: (body) => ({
+                url: `/users/password`,
+                method: 'PATCH',
+                body
+            }),
+            invalidatesTags: [{ type: 'user', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 })
 
 
 
-export const { useGetMeQuery, useGetAllUsersQuery, useUpdateUserMutation, useIsAdminQuery } = userApi
+export const { useGetMeQuery, useGetAllUsersQuery, useUpdateUserMutation, useIsAdminQuery, useChangePasswordMutation } = userApi
