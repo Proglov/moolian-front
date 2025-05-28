@@ -13,13 +13,26 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'storage.c2.liara.space'
+        hostname: 'storage.c2.liara.space',
+        pathname: '/moolian-image/**',
       },
       {
         protocol: 'https',
-        hostname: 'storage.iran.liara.space'
-      }
+        hostname: 'moolian-image.storage.c2.liara.space',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shopiing.storage.iran.liara.space',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.iran.liara.space',
+        pathname: '/**',
+      },
     ],
+
   },
 };
 
