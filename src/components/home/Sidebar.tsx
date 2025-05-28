@@ -18,12 +18,18 @@ import {
 } from "@/components/ui/sidebar"
 import { sidebarData } from "@/lib/sidebar-data"
 import SidebarMotionDiv from "./SidebarMotionDiv"
+import Link from "next/link"
 
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
+
+      <Link href='/' className="m-3 underline text-purple-700">
+        خانه
+      </Link>
+
       <SidebarHeader>
         دسته بندی
       </SidebarHeader>
