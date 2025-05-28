@@ -12,9 +12,11 @@ const nextConfig: NextConfig = {
         port: '3000',
       },
       {
+        protocol: 'https',
         hostname: 'moolian-image.storage.c2.liara.space'
       },
       {
+        protocol: 'https',
         hostname: 'shopiing.storage.iran.liara.space'
       }
     ],
