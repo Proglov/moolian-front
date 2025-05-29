@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-console.log('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEEEXXXXXXXXXXXXXXXXXXXXXXTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -32,10 +30,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-};
 
-export default {
-  ...nextConfig,
   async headers() {
     return [
       {
@@ -72,7 +67,10 @@ export default {
           },
         ],
       },
-    ]
+    ];
   },
+
   output: 'standalone',
 };
+
+export default nextConfig;

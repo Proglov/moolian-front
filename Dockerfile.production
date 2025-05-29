@@ -3,14 +3,14 @@ FROM node AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps
+RUN npm ci --legacy-peer-deps
 
 COPY . .
 
 ARG NEXT_PUBLIC_BackEnd_API
 ARG NEXT_PUBLIC_BackEnd_API_SSR
 ENV NEXT_PUBLIC_BackEnd_API=${NEXT_PUBLIC_BackEnd_API}
-ENV NEXT_PUBLIC_BackEnd_API=${NEXT_PUBLIC_BackEnd_API_SSR}
+ENV NEXT_PUBLIC_BackEnd_API_SSR=${NEXT_PUBLIC_BackEnd_API_SSR}
 
 RUN npm run build
 
