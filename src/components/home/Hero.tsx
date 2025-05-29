@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { MotionDiv, MotionH1, MotionP } from "../shared/MotionDiv";
-import { GiPerfumeBottle } from "react-icons/gi";
-import { Heart, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function Hero() {
     return (
@@ -16,6 +15,7 @@ export default function Hero() {
                 <Image
                     width={1000}
                     height={1000}
+                    priority
                     src="/img/perf4.jpeg"
                     alt="Hero"
                     className="absolute inset-0 object-cover w-full h-full"
@@ -60,6 +60,10 @@ export default function Hero() {
                     </MotionP>
                 </div>
             </MotionDiv>
+            <div
+                className="absolute bottom-0 h-10 w-full bg-background"
+                style={{ borderRadius: '50% 50% 0 0' }}
+            />
         </div>
     );
 }

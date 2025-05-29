@@ -36,7 +36,7 @@ export default function Gallery({
                 کیفیت بالا با نازل ترین قیمت
             </MotionDiv>
 
-            <Carousel className="w-[calc(100%-200px)] max-w-4xl">
+            <Carousel className="max-w-4xl" style={{ width: '70vw' }}>
                 <Card className="p-0 md:p-2">
                     <CardContent className="p-0">
                         <CarouselContent>

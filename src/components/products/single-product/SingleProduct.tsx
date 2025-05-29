@@ -42,11 +42,11 @@ export default function SingleProduct({ id }: { id: string }) {
                     </div>
 
                     {/* basic info */}
-                    <Card className="w-[calc(100%-6rem)] sm:w-full lg:w-[calc(100%-6rem)] max-w-xl mx-auto p-4 mt-2 sm:mt-5 border-purple-900">
-                        <CardContent className="p-3 grid gap-4 sm:grid-cols-[2fr_1fr] sm:items-center">
+                    <Card className="w-[calc(100%-6rem)] sm:w-full lg:w-[calc(100%-6rem)] max-w-xl mx-auto p-2 mt-2 sm:mt-5 border-purple-900">
+                        <CardContent className="p-1 grid gap-4 sm:grid-cols-[2fr_1fr] sm:items-center text-center text-xs sm:text-base">
 
                             {/* name */}
-                            <div className="flex justify-start gap-2 text-purple-800">
+                            <div className="flex justify-start gap-2 text-purple-800 w-full">
                                 <span className="text-center">
                                     عطر
                                     {' '}

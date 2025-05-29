@@ -16,8 +16,8 @@ export default function AddButtons({ product, isShoppingCart = false }: IAddButt
     if (!product) return null
 
     return (
-        <Card className="w-full h-fit max-w-xl mx-auto p-4 mt-2 sm:mt-5 border-success">
-            <CardContent className="p-3">
+        <Card className="w-full h-fit max-w-xl mx-auto p-2 mt-2 sm:mt-5 border-success">
+            <CardContent className="p-1">
                 <span className="text-success">
                     {
                         isShoppingCart ?
@@ -36,7 +36,7 @@ export default function AddButtons({ product, isShoppingCart = false }: IAddButt
                 }
 
                 {/* volumes and buttons and prices */}
-                <div className="p-5 pb-0 sm:mr-5">
+                <div>
                     {
                         Object.entries(volumeMultipliers).map(volumeObj => {
                             const thisPrice = product.price * volumeObj[1]

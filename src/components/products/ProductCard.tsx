@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
             viewport={{ amount: 0.25, once: true }}
             className='h-full'
         >
-            <Card className="hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center h-full p-0 overflow-hidden">
+            <Card className="hover:border-purple-900 transition-all duration-300 text-center h-full p-0 overflow-hidden">
                 <CardContent className="flex flex-col gap-4 relative h-full p-0">
 
                     {
@@ -52,10 +52,10 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                     </span>
 
                     {/* details */}
-                    <div className="flex-1 flex flex-col gap-4 p-2 mr-3">
+                    <div className="flex-1 flex flex-col gap-4 p-2">
 
                         {/* brand */}
-                        <div className='flex items-center justify-start gap-1'>
+                        <div className='flex items-center justify-start gap-1 text-sm sm:text-base'>
                             <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
                             <h4 className='flex justify-start gap-1'>
                                 {product.brandId.nameFA} | {product.brandId.nameEN}
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                         </div>
 
                         {/* name */}
-                        <h3 className='text-lg flex justify-start gap-1'>
+                        <h3 className='flex justify-start gap-1 text-sm sm:text-lg'>
                             {product.nameFA}
                             <Separator orientation='vertical' className='border-1' />
                             {product.nameEN}
