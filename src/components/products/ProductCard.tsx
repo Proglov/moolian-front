@@ -24,6 +24,7 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                 duration: 0.5,
             }}
             viewport={{ amount: 0.25, once: true }}
+            className='h-full'
         >
             <Card className="hover:border-purple-900 hover:cursor-pointer transition-all duration-300 text-center h-full p-0 overflow-hidden">
                 <CardContent className="flex flex-col gap-4 relative h-full p-0">
