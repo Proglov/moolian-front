@@ -51,6 +51,7 @@ export interface IUpdateProduct extends Partial<ICreateProduct> {
 
 export interface IGetProductsQuery extends IPagination {
     onlyAvailable?: boolean;
+    brandId?: string;
     category?: Category;
     flavor?: Flavor;
     gender?: Gender;

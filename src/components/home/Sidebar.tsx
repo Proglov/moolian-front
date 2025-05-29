@@ -19,6 +19,8 @@ import {
 import { sidebarData } from "@/lib/sidebar-data"
 import SidebarMotionDiv from "./SidebarMotionDiv"
 import Link from "next/link"
+import { FaHome } from "react-icons/fa"
+import { TbPerfume } from "react-icons/tb";
 
 
 
@@ -26,8 +28,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
 
-      <Link href='/' className="m-3 underline text-purple-700">
+      <Link href='/' className="m-3 text-purple-700 flex items-center gap-1">
         خانه
+        <FaHome />
+      </Link>
+
+      <Link href='/brands' className="m-3 text-purple-700 flex items-center gap-1">
+        برندها
+        <TbPerfume />
       </Link>
 
       <SidebarHeader>

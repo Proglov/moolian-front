@@ -6,8 +6,8 @@ import { SortWrapper } from "./SortWrapper";
 import ProductCard from "./ProductCard";
 
 export default function ProductsMain() {
-    const { isFinished, products, ref, filterForm, filterSubmit, sortForm, sortSubmit } = useGetProducts()
-
+    const { isFinished, products, ref, filterForm, filterSubmit, sortForm, sortSubmit, brandId } = useGetProducts()
+    console.log(products[0]?.brandId.nameFA);
     return (
         <div>
             <div className="mx-5 mt-5 flex gap-2">
@@ -16,6 +16,14 @@ export default function ProductsMain() {
             </div>
 
             <div className="m-5">
+
+                {
+                    (brandId && products && products.length > 0) &&
+                    <h1 className="text-lg w-full text-center text-shadow-lg text-shadow-primary mb-1">
+                        {products[0].brandId.nameFA}
+                    </h1>
+                }
+
                 {
                     (!products || products.length === 0) && isFinished ?
                         <div className='w-full flex justify-center'>نتیجه ای یافت نشد</div>

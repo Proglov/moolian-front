@@ -34,6 +34,7 @@ export default function useGetProducts() {
     const seasonParam = searchParams.get('season');
     const orderByParam = searchParams.get('orderBy');
     const search = decodeURIComponent(searchParams.get('search') || '');
+    const brandId = searchParams.get('brandId') || '';
     const category: Category | undefined = isValidCategory(categoryParam) ? (categoryParam as Category) : undefined;
     const flavor: Flavor | undefined = isValidFlavor(flavorParam) ? (flavorParam as Flavor) : undefined;
     const gender: Gender | undefined = isValidGender(genderParam) ? (genderParam as Gender) : undefined;
@@ -49,7 +50,7 @@ export default function useGetProducts() {
     const [products, setProducts] = useState<IProduct[]>([])
     const [isFinished, setIsFinished] = useState(false)
     const { ref, inView } = useInView()
-    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy, search })
+    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy, search, brandId })
 
 
     useEffect(() => {
@@ -93,5 +94,5 @@ export default function useGetProducts() {
         router.refresh()
     };
 
-    return { products, ref, isFinished, filterForm, filterSubmit, sortForm, sortSubmit }
+    return { products, ref, isFinished, filterForm, filterSubmit, sortForm, sortSubmit, brandId }
 }
