@@ -1,4 +1,3 @@
-import "../globals.css";
 import HomeLayout from "@/components/home/HomeLayout";
 
 
