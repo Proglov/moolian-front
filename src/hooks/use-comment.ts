@@ -1,4 +1,3 @@
-import { isFetchBaseQueryError } from "@/lib/utils";
 import { useAddNewCommentMutation, useDisLikeCommentMutation, useGetAllCommentsOfAProductQuery, useLikeCommentMutation } from "@/services/comments";
 import { useAppSelector } from "@/store/store";
 import { IArrangedComment, IComment } from "@/types/comment.type";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useInView } from "react-intersection-observer";
 import { toast } from "sonner";
 import { z } from "zod";
+import useError from "./useError";
 
 
 
@@ -79,6 +79,9 @@ export default function useComment(productId: string) {
     const [disLikeComment, { isError: isDisLikingError, error: disLikingError }] = useDisLikeCommentMutation()
     const { dialogIsOpen, form, isLoading: isAddCommentLoading, setDialogIsOpen, parentReplyingComment, submit, onDialogOpen } = useAddComment(productId, userId)
 
+    useError(likingError, isLikingError)
+    useError(disLikingError, isDisLikingError)
+
     const handleLike = async (commentId: string, isLike: boolean, page: number) => {
         if (!userId) {
             toast.error('ابتدا وارد شوید')
@@ -109,20 +112,6 @@ export default function useComment(productId: string) {
         }
     }, [inView, isFinished, comments.length, isFetching, setPage]);
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(likingError)) {
-            const messages = (likingError.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isLikingError, likingError])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(disLikingError)) {
-            const messages = (disLikingError.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isDisLikingError, disLikingError])
-
     return {
         comments,
         ref,
@@ -152,20 +141,14 @@ const useAddComment = (productId: string, userId: string) => {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
     const [parentReplyingComment, setParentReplyingComment] = useState<{ _id: string; name: string } | null>(null);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
             toast.success('دیدگاه شما با موفقیت افزوده شد. پس از بررسی به سایت اضافه خواهد شد')
         }
     }, [isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
-
 
     const submit = ({ body }: TAddCommentForm) => {
         addNewComment({ productId, body, parentCommentId: parentReplyingComment?._id || undefined });

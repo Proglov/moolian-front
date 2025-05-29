@@ -4,8 +4,8 @@ import { toast } from "@/components/ui/sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { isFetchBaseQueryError } from "@/lib/utils"
 import { useAddImage } from "./use-addImage"
+import useError from "./useError"
 
 
 const FormSchema = z.object({
@@ -22,19 +22,14 @@ export function useAddNote() {
     const { data, uploadImage, fileState, setFileState } = useAddImage()
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
             toast.success('نوت با موفقیت افزوده شد')
         }
     }, [isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
     useEffect(() => {
         if (data) {

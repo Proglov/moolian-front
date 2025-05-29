@@ -4,11 +4,12 @@ import { toast } from "@/components/ui/sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { extractFileName, getChangedFields, isFetchBaseQueryError } from "@/lib/utils"
+import { extractFileName, getChangedFields } from "@/lib/utils"
 import { useAddImages } from "./use-addImages"
 import { FormSchema, useGetBrands, useGetNotes } from "./use-addProduct"
 import { IProduct } from "@/types/product.type"
 import _ from "lodash"
+import useError from "./useError"
 
 const EditFormSchema = FormSchema.extend({
     _id: z.string(),
@@ -34,6 +35,8 @@ export function useEditProduct(product: IProduct) {
     const { fileStates, onFilesAdded, setFileStates, uploadRes, onImageDelete, onFinished } = useAddImages()
     const [deletedImages, setDeletedImages] = useState<string[]>([])
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
@@ -42,13 +45,6 @@ export function useEditProduct(product: IProduct) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
     const onImageRemove = (id: string) => {
         onImageDelete(id);

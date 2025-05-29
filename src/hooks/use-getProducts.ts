@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer";
 import { z } from "zod";
 import { useRouter, useSearchParams } from 'next/navigation'
 import { isValidCategory, isValidFlavor, isValidGender, isValidOrderBy, isValidSeason } from "@/lib/utils";
+import useError from "./useError";
 
 
 
@@ -50,8 +51,10 @@ export default function useGetProducts() {
     const [products, setProducts] = useState<IProduct[]>([])
     const [isFinished, setIsFinished] = useState(false)
     const { ref, inView } = useInView()
-    const { data, isSuccess, isFetching } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy, search, brandId })
+    const { data, isSuccess, isFetching, error, isError } = useGetAllProductsQuery({ onlyAvailable: true, page, limit, category, flavor, gender, season, orderBy, search, brandId })
 
+
+    useError(error, isError)
 
     useEffect(() => {
         if (isSuccess) {

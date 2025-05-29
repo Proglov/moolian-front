@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { useAppSelector } from "@/store/store"
-import { toast } from "sonner"
-import { isFetchBaseQueryError } from "@/lib/utils"
 import { useGetAllProductsByIdsMutation } from "@/services/products"
 import { IProductGetByIds, IProductGetByIdsWithDetails } from "@/types/product.type"
 import { volumeMultipliers } from '@/types/transaction'
+import useError from "./useError"
 
 
 export default function useCart() {
@@ -13,6 +12,8 @@ export default function useCart() {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const [getProductsByIds, { isLoading, isError, error, data, isSuccess }] = useGetAllProductsByIdsMutation()
     const [products, setProducts] = useState<IProductGetByIds[]>([])
+
+    useError(error, isError)
 
     const cartProductIdsKey = useMemo(() => Array.from(new Set(cart.map(item => item._id))).sort().join(','), [cart]);
 
@@ -61,13 +62,6 @@ export default function useCart() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
     return {
         isLoggedIn,

@@ -6,14 +6,13 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import { isFetchBaseQueryError } from "@/lib/utils";
 import { useGetAllProductsByIdsMutation } from "@/services/products";
 import { useEffect } from "react";
-import { toast } from "sonner";
 import ProductCard from "../products/ProductCard";
 import Spinner from "../shared/Spinner";
 import { Card, CardContent } from "../ui/card";
 import { MotionDiv } from "../shared/MotionDiv";
+import useError from "@/hooks/useError";
 
 
 export default function ProductsCarousel() {
@@ -21,12 +20,7 @@ export default function ProductsCarousel() {
     const productIds = (process.env.NEXT_PUBLIC_HomeProductIds || '').split(',');
 
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
+    useError(error, isError)
 
     useEffect(() => {
         getProductsByIds({ ids: productIds })

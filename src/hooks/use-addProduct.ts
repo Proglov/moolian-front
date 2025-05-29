@@ -4,13 +4,13 @@ import { toast } from "@/components/ui/sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { isFetchBaseQueryError } from "@/lib/utils"
 import { Category, Flavor, Gender, Season } from "@/types/product.type"
 import { IBrand } from "@/types/brand.type"
 import { INote } from "@/types/note.type"
 import { useGetAllNotesQuery } from "@/services/notes"
 import { useGetAllBrandsQuery } from "@/services/brands"
 import { useAddImages } from "./use-addImages"
+import useError from "./useError"
 
 const noteSchema = z.object({
     noteId: z.string().nonempty({ message: 'نوت محصول الزامیست' }),
@@ -48,19 +48,14 @@ export function useAddProduct() {
     const { notes, isNoteQueryLoading } = useGetNotes()
     const { fileStates, onFilesAdded, setFileStates, uploadRes } = useAddImages()
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
             toast.success('محصول با موفقیت افزوده شد')
         }
     }, [isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     const submit = (data: TForm) => {
@@ -92,16 +87,11 @@ export function useGetBrands() {
     const { isError, error, isLoading, isSuccess, data } = useGetAllBrandsQuery({ page: 1, limit: 10000 })
     const [brands, setBrands] = useState<IBrand[]>([]);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) setBrands(data.items)
     }, [isSuccess, data?.items])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     return {
@@ -114,16 +104,11 @@ export function useGetNotes() {
     const { isError, error, isLoading, isSuccess, data } = useGetAllNotesQuery({ page: 1, limit: 10000 })
     const [notes, setNotes] = useState<INote[]>([]);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) setNotes(data.items)
     }, [isSuccess, data?.items])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     return {

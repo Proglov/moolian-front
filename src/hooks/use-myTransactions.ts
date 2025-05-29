@@ -1,4 +1,3 @@
-import { isFetchBaseQueryError } from "@/lib/utils";
 import { useAddOpinionTransactionMutation, useCancelTransactionByUserMutation, useGetMyTransactionsQuery } from "@/services/transaction";
 import { ITransaction, ITransactionWithPage } from "@/types/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,11 +6,12 @@ import { useForm } from "react-hook-form";
 import { useInView } from "react-intersection-observer";
 import { toast } from "sonner";
 import { z } from "zod";
+import useError from "./useError";
 
 
 
 export default function useMyTransactions() {
-    const limit = 2;
+    const limit = 20;
     const [page, setPage] = useState(1)
     const [refetchPage, setRefetchPage] = useState(0)
     const [transactions, setTransactions] = useState<ITransactionWithPage[]>([])
@@ -104,12 +104,7 @@ const useCancelTransaction = () => {
         }
     }, [isSuccess, data])
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
+    useError(error, isError)
 
 
     const onDialogOpen = (cancelTransactionId: string) => {
@@ -137,20 +132,14 @@ const useOpinionTransaction = () => {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
     const [opinionTransactionId, setOpinionTransactionId] = useState<string>('');
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
             toast.success('سپاس از نظر شما')
         }
     }, [isSuccess, data])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
-
 
     const onDialogOpen = (opinionTransactionId: string) => {
         setDialogIsOpen(true);

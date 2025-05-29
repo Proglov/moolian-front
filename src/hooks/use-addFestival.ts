@@ -3,10 +3,10 @@ import { toast } from "@/components/ui/sonner"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { isFetchBaseQueryError } from "@/lib/utils"
 import { useAddNewFestivalMutation } from "@/services/festival"
 import { IProduct } from "@/types/product.type"
 import { useGetAllProductsQuery } from "@/services/products"
+import useError from "./useError"
 
 
 const FormSchema = z.object({
@@ -25,19 +25,14 @@ export function useAddFestival() {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
     const { isProductQueryLoading, products } = useGetProducts()
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
             toast.success('جشنواره با موفقیت افزوده شد')
         }
     }, [isSuccess])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     const submit = (data: TForm) => {
@@ -62,16 +57,11 @@ export function useGetProducts() {
     const { isError, error, isLoading, isSuccess, data } = useGetAllProductsQuery({ page: 1, limit: 10000 })
     const [products, setProducts] = useState<IProduct[]>([]);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) setProducts(data.items)
     }, [isSuccess, data?.items])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     return {

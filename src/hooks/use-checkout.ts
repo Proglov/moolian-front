@@ -1,4 +1,3 @@
-import { isFetchBaseQueryError } from "@/lib/utils";
 import { useAddTransactionMutation } from "@/services/transaction";
 import { useGetMeQuery, useUpdateUserMutation } from "@/services/users";
 import { ICartProductItem, ResetCartProducts } from "@/store/CartProductsSlice";
@@ -9,6 +8,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import useError from "./useError";
 
 
 export function useCheckout() {
@@ -79,6 +79,8 @@ const useAddAddress = (previousAddresses: string[], setAddresses: Dispatch<SetSt
     const [addNewAddresses, { isError, error, isSuccess, isLoading, data }] = useUpdateUserMutation()
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setAddresses(data.address)
@@ -89,13 +91,6 @@ const useAddAddress = (previousAddresses: string[], setAddresses: Dispatch<SetSt
             toast.success('با موفقیت انجام شد')
         }
     }, [isSuccess, data, form, setAddresses])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
 
     const submit = (data: TAddressForm) => {
@@ -116,6 +111,8 @@ const useAddTransaction = (address: string, cart: ICartProductItem[], setStep: D
     const dispatch = useAppDispatch();
     const [addNewTransaction, { isError, error, isSuccess, isLoading, data }] = useAddTransactionMutation()
 
+    useError(error, isError)
+
     useEffect(() => {
         if (isSuccess) {
             setStep(4);
@@ -123,14 +120,6 @@ const useAddTransaction = (address: string, cart: ICartProductItem[], setStep: D
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, data, setStep])
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
-
 
     const submit = () => {
         const boughtProducts = cart.map(item => ({ productId: item._id, quantity: item.number, volume: item.volume }))

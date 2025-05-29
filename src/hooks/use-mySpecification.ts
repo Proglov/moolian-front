@@ -1,4 +1,4 @@
-import { getChangedFields, isEmail, isFetchBaseQueryError } from "@/lib/utils";
+import { getChangedFields, isEmail } from "@/lib/utils";
 import { phoneNumberValidator } from "@persian-tools/persian-tools";
 import { useGetMeQuery, useUpdateUserMutation } from "@/services/users";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { IUser } from "@/types/user.type";
 import { useAddNewEmailOTPMutation, useIsEmailOTPSentQuery } from "@/services/emailOTP";
+import useError from "./useError";
 
 export default function useMySpecification() {
     const { data, isLoading, isError, error } = useGetMeQuery()
@@ -15,13 +16,7 @@ export default function useMySpecification() {
     const { isEmailOTPSent, isEmailOTPSentLoading } = useIsEmailSent();
     const { createEmailOTP } = useAddEmailOTP();
 
-
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
+    useError(error, isError)
 
     return {
         data,
@@ -65,6 +60,8 @@ const useUserUpdate = (user: IUser | undefined) => {
     const form = useForm<TUpdateUserForm>({ resolver: updateUserResolver, defaultValues: updateUserDefaultValues })
     const [updateUser, { isLoading, isError, error, isSuccess }] = useUpdateUserMutation()
 
+    useError(error, isError)
+
     const submit = (data: TUpdateUserForm) => {
         if (!user) return
         const newObj = getChangedFields(user, data)
@@ -90,12 +87,6 @@ const useUserUpdate = (user: IUser | undefined) => {
         }
     }, [isSuccess])
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
 
     return {
         isUserUpdateLoading: isLoading,
@@ -110,12 +101,7 @@ const useUserUpdate = (user: IUser | undefined) => {
 const useIsEmailSent = () => {
     const { data, isLoading, isError, error } = useIsEmailOTPSentQuery()
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
+    useError(error, isError)
 
     return {
         isEmailOTPSent: data,
@@ -126,12 +112,7 @@ const useIsEmailSent = () => {
 const useAddEmailOTP = () => {
     const [createEmailOTP, { isError, error, isSuccess }] = useAddNewEmailOTPMutation();
 
-    useEffect(() => {
-        if (isFetchBaseQueryError(error)) {
-            const messages = (error.data as { message: string[] }).message;
-            messages.map(message => toast.error(message))
-        }
-    }, [isError, error])
+    useError(error, isError)
 
 
     useEffect(() => {
