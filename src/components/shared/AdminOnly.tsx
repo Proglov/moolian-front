@@ -16,7 +16,7 @@ export default function AdminOnly({
         if (isError || data === false) {
             router.push('/')
         }
-    }, [isError, router])
+    }, [isError, router, data])
 
     if (isLoading) return (
         <div className='w-full h-full mx-auto'>
