@@ -4,17 +4,12 @@ import Spinner from "../shared/Spinner"
 import Image from "next/image"
 import { IBrand } from "@/types/brand.type"
 import Link from "next/link"
+import { SkeletonBrand } from "../shared/Skeletons"
 
 export default function MainBrands() {
     const { brands, isBrandQueryLoading } = useGetBrands()
 
-    if (isBrandQueryLoading) return (
-        <div className="w-full flex justify-center mt-10">
-            <Spinner />
-        </div>
-    )
-
-    if (!brands || brands.length === 0) return (
+    if (!isBrandQueryLoading && brands.length === 0) return (
         <div className='w-full flex justify-center m-5'>نتیجه ای یافت نشد</div>
     )
 
@@ -22,9 +17,14 @@ export default function MainBrands() {
         <div className="m-5">
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-1 gap-y-4 border-2 border-muted rounded-xl p-4'>
                 {
-                    brands.map(brand => (
-                        <BrandCard key={brand._id} brand={brand} />
-                    ))
+                    isBrandQueryLoading ?
+                        Array(8).fill(0).map((_, i) => (
+                            <SkeletonBrand key={i} />
+                        ))
+                        :
+                        brands.map(brand => (
+                            <BrandCard key={brand._id} brand={brand} />
+                        ))
                 }
             </div>
         </div>

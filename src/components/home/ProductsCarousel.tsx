@@ -9,16 +9,15 @@ import {
 import { useGetAllProductsByIdsMutation } from "@/services/products";
 import { useEffect } from "react";
 import ProductCard from "../products/ProductCard";
-import Spinner from "../shared/Spinner";
 import { Card, CardContent } from "../ui/card";
 import { MotionDiv } from "../shared/MotionDiv";
 import useError from "@/hooks/useError";
+import { SkeletonProduct } from "../shared/Skeletons";
 
 
 export default function ProductsCarousel() {
     const [getProductsByIds, { isLoading, isError, error, data }] = useGetAllProductsByIdsMutation()
     const productIds = (process.env.NEXT_PUBLIC_HomeProductIds || '').split(',');
-
 
     useError(error, isError)
 
@@ -26,14 +25,6 @@ export default function ProductsCarousel() {
         getProductsByIds({ ids: productIds })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getProductsByIds])
-
-    if (!productIds.length) return null
-
-    if (isLoading || !data) return (
-        <div className="w-full flex justify-center mt-5">
-            <Spinner />
-        </div>
-    )
 
     return (
         <div className="w-full flex flex-col items-center justify-center mt-8 gap-1">
@@ -60,11 +51,18 @@ export default function ProductsCarousel() {
                     <CardContent className="p-0">
                         <CarouselContent>
                             {
-                                data.map(product => (
-                                    <CarouselItem key={product._id} className="md:basis-1/2" dir="rtl">
-                                        <ProductCard product={product} />
-                                    </CarouselItem>
-                                ))
+                                (isLoading || !data) ?
+                                    Array(6).fill(0).map((_, i) => (
+                                        <div key={i} className="mx-2 my-5">
+                                            <SkeletonProduct />
+                                        </div>
+                                    ))
+                                    :
+                                    data.map(product => (
+                                        <CarouselItem key={product._id} className="md:basis-1/2" dir="rtl">
+                                            <ProductCard product={product} />
+                                        </CarouselItem>
+                                    ))
                             }
                         </CarouselContent>
 
@@ -73,6 +71,7 @@ export default function ProductsCarousel() {
                 <CarouselNext />
                 <CarouselPrevious />
             </Carousel>
+
         </div>
     )
 }
