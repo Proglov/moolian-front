@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MotionDiv, MotionH1, MotionP } from "../shared/MotionDiv";
 import { Heart } from "lucide-react";
+import Logo from "../shared/Logo";
 
 export default function Hero() {
     return (
@@ -36,16 +37,8 @@ export default function Hero() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
                         <div className="flex justify-start items-center gap-2">
-                            <div>
-                                مولیان پرفیوم
-                            </div>
-                            <Image
-                                width={64}
-                                height={64}
-                                src="/img/logo-white.png"
-                                alt="Hero"
-                                className="inset-0 object-cover w-16 h-16"
-                            />
+                            مولیان پرفیوم
+                            <Logo length={16} defaultTheme="dark" />
                         </div>
                     </MotionH1>
                     <MotionP
