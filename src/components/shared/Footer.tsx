@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import { digitsEnToFa } from "@persian-tools/persian-tools";
-import Image from "next/image";
 import Logo from "./Logo";
 import { FaInstagram, FaTelegram } from "react-icons/fa";
 
@@ -56,12 +55,10 @@ const Footer = () => (
                         target="_blank"
                         title="نماد اعتماد الکترونیکی"
                     >
-                        <Image
+                        <img
                             referrerPolicy="origin"
                             src="https://trustseal.enamad.ir/logo.aspx?id=616357&Code=5oNHS7sIJ1zMiHwwEYFvTM34wB36nbHX"
                             alt="نماد اعتماد الکترونیکی"
-                            width={100}
-                            height={100}
                             className="object-contain"
                         />
                     </a>

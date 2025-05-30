@@ -27,11 +27,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'storage.iran.liara.space',
         pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'trustseal.enamad.ir',
-      },
+      }
     ],
   },
 
