@@ -145,7 +145,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, SingleImageDropzo
                             <UploadCloudIcon className="mb-2 h-7 w-7" />
                             <div className="text-gray-400">تصاویر را در اینجا رها کنید</div>
                             <div className="mt-3">
-                                <Button disabled={disabled} className='text-white'>انتخاب تصویر</Button>
+                                <Button disabled={disabled} type='button' className='text-white'>انتخاب تصویر</Button>
                             </div>
                         </div>
                     )}
