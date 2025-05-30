@@ -38,7 +38,7 @@ export default function EditBrand({ brand }: { brand: IBrand }) {
             </DialogTrigger>
             <DialogContent className="overflow-y-auto max-h-screen">
                 <DialogHeader>
-                    <DialogTitle className="mb-3">ویرایش محصول</DialogTitle>
+                    <DialogTitle className="mb-3">ویرایش برند</DialogTitle>
                     <DialogDescription asChild>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(submit)} className="space-y-6 max-w-md mx-auto">
@@ -49,7 +49,7 @@ export default function EditBrand({ brand }: { brand: IBrand }) {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>
-                                                نام محصول به انگلیسی
+                                                نام برند به انگلیسی
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} />
@@ -65,7 +65,7 @@ export default function EditBrand({ brand }: { brand: IBrand }) {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>
-                                                نام محصول به فارسی
+                                                نام برند به فارسی
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} />
