@@ -39,13 +39,12 @@ export default function Hero() {
                             <div>
                                 مولیان پرفیوم
                             </div>
-                            <div className="h-15 w-1 border-r-2 border-muted-foreground" />
                             <Image
-                                width={100}
-                                height={100}
-                                src="/img/logo.jpg"
+                                width={64}
+                                height={64}
+                                src="/img/logo-white.png"
                                 alt="Hero"
-                                className="inset-0 object-cover w-16 h-16 border rounded-full"
+                                className="inset-0 object-cover w-16 h-16"
                             />
                         </div>
                     </MotionH1>
