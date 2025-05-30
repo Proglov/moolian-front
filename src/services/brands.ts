@@ -1,4 +1,4 @@
-import { IBrand, ICreateBrand } from '@/types/brand.type'
+import { IBrand, ICreateBrand, IUpdateBrand } from '@/types/brand.type'
 import { baseApi } from './baseApi'
 import { IGetResponse, IPagination } from '@/types/api.types'
 
@@ -27,10 +27,31 @@ export const brandApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'brand', id: 'LIST' }],
         }),
+        updateBrand: build.mutation<IBrand, IUpdateBrand>({
+            query: ({ _id, ...body }) => ({
+                url: `/brand/${_id}`,
+                method: 'PATCH',
+                body
+            }),
+            invalidatesTags: [{ type: 'brand', id: 'LIST' }],
+        }),
+        deleteBrand: build.mutation<IBrand, string>({
+            query: (id) => ({
+                url: `/brand/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: (result) =>
+                result
+                    ? [
+                        { type: 'brand' as const, _id: result._id },
+                        { type: 'brand', id: 'LIST' },
+                    ]
+                    : [{ type: 'brand', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 })
 
 
 
-export const { useGetAllBrandsQuery, useAddNewBrandMutation } = brandApi
+export const { useGetAllBrandsQuery, useAddNewBrandMutation, useDeleteBrandMutation, useUpdateBrandMutation } = brandApi

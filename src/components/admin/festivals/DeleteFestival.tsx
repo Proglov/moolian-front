@@ -29,8 +29,8 @@ export default function DeleteFestival({ _id }: { _id: string }) {
         <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
             <DialogTrigger asChild>
                 <Button className="m-3 border-destructive text-destructive" variant='outline' size='sm'>
-                    <Trash2 />
                     حذف
+                    <Trash2 />
                 </Button>
             </DialogTrigger>
             <DialogContent className="overflow-y-auto max-h-screen">

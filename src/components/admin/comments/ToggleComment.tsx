@@ -1,11 +1,14 @@
 import { Check } from "lucide-react";
 import Button from "@/components/shared/Button";
 import { useToggleCommentMutation } from "@/services/comments";
+import useError from "@/hooks/useError";
 
 
 
 export default function ToggleComment({ _id, validated }: { _id: string, validated: boolean }) {
-    const [toggleComment, { isLoading }] = useToggleCommentMutation()
+    const [toggleComment, { isLoading, error, isError }] = useToggleCommentMutation()
+
+    useError(error, isError)
 
     if (validated) return null
 

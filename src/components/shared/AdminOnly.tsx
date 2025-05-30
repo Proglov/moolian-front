@@ -19,7 +19,7 @@ export default function AdminOnly({
     }, [isError, router, data])
 
     if (isLoading) return (
-        <div className='w-full h-full mx-auto'>
+        <div className='w-full h-full flex justify-center'>
             <Spinner />
         </div>
     )

@@ -70,10 +70,18 @@ export function useEditProduct(product: IProduct) {
         updateProduct(newObj)
     };
 
+    const handleOpenChange = (open: boolean) => {
+        setDialogIsOpen(open);
+        if (!open) {
+            form.reset();
+            onFinished();
+        }
+    };
+
     return {
         isLoading,
         dialogIsOpen,
-        setDialogIsOpen,
+        handleOpenChange,
         form,
         submit,
         brands,

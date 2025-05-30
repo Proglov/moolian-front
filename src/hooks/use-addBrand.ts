@@ -8,7 +8,7 @@ import { useAddImage } from "./use-addImage"
 import useError from "./useError"
 
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
     nameEN: z.string().nonempty({ message: 'نام انگلیسی برند الزامیست' }),
     nameFA: z.string().nonempty({ message: 'نام فارسی برند الزامیست' })
 })

@@ -34,10 +34,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 
 export default function EditProduct({ product }: { product: IProduct }) {
-    const { form, isLoading, fileStates, setFileStates, dialogIsOpen, setDialogIsOpen, submit, brands, isBrandQueryLoading, notes, isNoteQueryLoading, onFilesAdded, onImageRemove, isImageDeleted } = useEditProduct(product)
+    const { form, isLoading, fileStates, setFileStates, dialogIsOpen, handleOpenChange, submit, brands, isBrandQueryLoading, notes, isNoteQueryLoading, onFilesAdded, onImageRemove, isImageDeleted } = useEditProduct(product)
+
 
     return (
-        <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+        <Dialog open={dialogIsOpen} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button variant='outline'>
                     ویرایش
@@ -49,7 +50,7 @@ export default function EditProduct({ product }: { product: IProduct }) {
                     <DialogTitle className="mb-3">ویرایش محصول</DialogTitle>
                     <DialogDescription asChild>
                         <Form {...form}>
-                            <form onSubmit={form.handleSubmit(submit)} className="space-y-6 max-w-md">
+                            <form onSubmit={form.handleSubmit(submit)} className="space-y-6 max-w-md mx-auto">
                                 <FormField
                                     control={form.control}
                                     name="nameEN"
@@ -430,9 +431,9 @@ export default function EditProduct({ product }: { product: IProduct }) {
 
                                                 return <div key={src + i} className="text-center">
                                                     <Image
-                                                        className={`w-full ${isDeleted && 'blur-lg'}`}
-                                                        width={100}
-                                                        height={100}
+                                                        className={`w-full aspect-[4/3] object-cover ${isDeleted && 'blur-lg'}`}
+                                                        width={300}
+                                                        height={225}
                                                         alt="picture of the product"
                                                         src={src}
                                                     />

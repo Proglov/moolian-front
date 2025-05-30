@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table"
 import Image from 'next/image';
 import AddBrand from './AddBrand';
+import DeleteBrand from './DeleteBrand';
+import EditBrand from './EditBrand';
 
 
 
@@ -41,14 +43,19 @@ function ChildComponent({ data }: { data: IBrand[] | [] }) {
                 <TableRow>
                     <TableHead>نام</TableHead>
                     <TableHead>تصویر</TableHead>
+                    <TableHead>عملیات</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(p => (
-                    <TableRow key={p._id}>
-                        <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
+                {data.map(brand => (
+                    <TableRow key={brand._id}>
+                        <TableCell> {brand.nameFA} - {brand.nameEN} </TableCell>
                         <TableCell>
-                            <Image width={200} height={200} src={p.imageKey} alt={p.nameEN} />
+                            <Image width={200} height={200} src={brand.imageKey} alt={brand.nameEN} />
+                        </TableCell>
+                        <TableCell className='flex flex-col'>
+                            <DeleteBrand _id={brand._id} />
+                            <EditBrand brand={brand} />
                         </TableCell>
                     </TableRow>
                 ))}
