@@ -19,6 +19,7 @@ import Comments from "./Comments";
 import Details from "./Details";
 import Charts from "./Charts";
 import AddButtons from "@/components/shared/AddButtons";
+import Link from "next/link";
 
 
 export default function SingleProduct({ id }: { id: string }) {
@@ -82,7 +83,9 @@ export default function SingleProduct({ id }: { id: string }) {
                             {/* brand */}
                             <div className='flex items-center justify-start gap-1 text-teal-400 mt-2 w-full sm:col-span-3'>
                                 <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
-                                <h4 className='flex justify-center gap-2'>
+                                <Link
+                                    href={`/products?brandId=${product.brandId._id}`}
+                                    className='flex justify-center gap-2'>
                                     <span className="text-center">
                                         {product.brandId.nameFA}
                                     </span>
@@ -92,7 +95,7 @@ export default function SingleProduct({ id }: { id: string }) {
                                     <span>
                                         {product.brandId.nameEN}
                                     </span>
-                                </h4>
+                                </Link>
                             </div>
 
                         </CardContent>

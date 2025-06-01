@@ -15,8 +15,8 @@ export default function Details({ product }: { product: IProduct }) {
         <div>
             <div className='text-justify'>
                 توضیحات:
-                {' '}
-                {product.desc}
+
+                <div dangerouslySetInnerHTML={{ __html: product.desc }} />
             </div>
 
             <div className='mt-3'>
