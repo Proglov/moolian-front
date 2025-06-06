@@ -46,6 +46,26 @@ export const commentApi = baseApi.injectEndpoints({
                         { type: 'comment', id: `PRODUCT_${arg._id}_PAGE_${arg.page}` },
                     ],
         }),
+        getCommentsOfAUser: build.query<IGetResponse<IComment>, IPagination & { id: string }>({
+            query: ({ id, ...pagination }) => ({
+                url: `comment/user/${id}`,
+                method: "GET",
+                params: pagination
+            }),
+            providesTags: (result, _error, arg) =>
+                result
+                    ? [
+                        ...result.items.map(({ _id }) => ({ type: 'comment' as const, _id })),
+                        { type: 'comment', id: 'LIST' },
+                        { type: 'comment', id: `COMMENT_USER${arg.id}` },
+                        { type: 'comment', id: `COMMENT_USER${arg.id}_PAGE_${arg.page}` },
+                    ]
+                    : [
+                        { type: 'comment', id: 'LIST' },
+                        { type: 'comment', id: `COMMENT_USER${arg.id}` },
+                        { type: 'comment', id: `COMMENT_USER${arg.id}_PAGE_${arg.page}` },
+                    ],
+        }),
         deleteComment: build.mutation<void, string>({
             query: (_id) => ({
                 url: `/comment/${_id}`,
@@ -134,4 +154,4 @@ export const commentApi = baseApi.injectEndpoints({
 
 
 
-export const { useAddNewCommentMutation, useGetAllCommentsQuery, useGetAllCommentsOfAProductQuery, useDeleteCommentMutation, useToggleCommentMutation, useLikeCommentMutation, useDisLikeCommentMutation } = commentApi
+export const { useAddNewCommentMutation, useGetAllCommentsQuery, useGetAllCommentsOfAProductQuery, useGetCommentsOfAUserQuery, useDeleteCommentMutation, useToggleCommentMutation, useLikeCommentMutation, useDisLikeCommentMutation } = commentApi

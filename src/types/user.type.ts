@@ -10,6 +10,11 @@ export interface IUser {
     username: string;
 }
 
+export interface IFullUser extends IUser {
+    comments: string[];
+    tx: string[]
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface IUpdateUser extends Partial<Omit<IUser, '_id' | 'isEmailVerified' | 'isPhoneVerified'>> { }
 

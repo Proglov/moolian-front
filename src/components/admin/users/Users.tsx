@@ -1,7 +1,7 @@
 'use client';
 import { useGetAllUsersQuery } from '@/services/users';
 import { IUser } from '@/types/user.type';
-import Pagination from '../shared/Pagination';
+import Pagination from '../../shared/Pagination';
 import {
     Table,
     TableBody,
@@ -10,6 +10,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import Button from '@/components/shared/Button';
+import Link from 'next/link';
 
 
 
@@ -27,7 +29,7 @@ export default function Users() {
 
 
 function ChildComponent({ data }: { data: IUser[] | [] }) {
-    if (!data) return <div>محصولی یافت نشد</div>;
+    if (!data) return <div>کاربری یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
@@ -37,6 +39,7 @@ function ChildComponent({ data }: { data: IUser[] | [] }) {
                     <TableHead>نام کاربری</TableHead>
                     <TableHead>ایمیل</TableHead>
                     <TableHead>شماره همراه</TableHead>
+                    <TableHead>عملیات</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -46,6 +49,13 @@ function ChildComponent({ data }: { data: IUser[] | [] }) {
                         <TableCell>{user.username}</TableCell>
                         <TableCell>{user.email}</TableCell>
                         <TableCell>{user.phone}</TableCell>
+                        <TableCell>
+                            <Button asChild>
+                                <Link href={`/admin/users/${user._id}`}>
+                                    مشاهده بیشتر
+                                </Link>
+                            </Button>
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>

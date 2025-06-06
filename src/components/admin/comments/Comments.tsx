@@ -24,14 +24,14 @@ export default function Comments() {
             <Pagination<IComment>
                 queryHook={queryHook}
             >
-                {(data: IComment[]) => <ChildComponent data={data} />}
+                {(data: IComment[]) => <CommentsTable data={data} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: IComment[] | [] }) {
+export function CommentsTable({ data }: { data: IComment[] | [] }) {
     if (!data) return <div>کامنتی یافت نشد</div>;
 
     return (

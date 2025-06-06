@@ -67,7 +67,7 @@ const CommentComponent = (
             <div className="flex-1">
                 {/* User name */}
                 <div className="text-sm text-purple-700 mb-1">
-                    {comment.userId.name}
+                    {comment.userId.name || 'کاربر ناشناس'}
                 </div>
 
                 {/* Comment body */}
@@ -100,7 +100,7 @@ const CommentComponent = (
                         <span>{digitsEnToFa(comment.disLikes)}</span>
                     </Button>
                     {/* Reply  */}
-                    <Button variant='ghost' onClick={() => onDialogOpen(comment.parentCommentId || comment._id, comment.userId.name)} className="flex items-center gap-1 text-muted-foreground cursor-pointer pr-0">
+                    <Button variant='ghost' onClick={() => onDialogOpen(comment.parentCommentId || comment._id, comment.userId.name || 'کاربر ناشناس')} className="flex items-center gap-1 text-muted-foreground cursor-pointer pr-0">
                         <MessageCircle size={18} />
                         <span>پاسخ</span>
                     </Button>
