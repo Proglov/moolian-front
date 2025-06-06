@@ -132,7 +132,7 @@ interface StarRatingProps {
     onChange: (value: number) => void;
     disabled?: boolean;
 }
-function StarRating({ value, onChange, disabled }: StarRatingProps) {
+export function StarRating({ value, onChange, disabled }: StarRatingProps) {
     return (
         <div className="flex justify-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (

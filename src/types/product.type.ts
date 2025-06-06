@@ -14,9 +14,15 @@ export interface INoteInCreateProduct {
     cent: number
 }
 
+export interface IProductRate {
+    count: number;
+    userId: string;
+}
+
 export interface IProduct {
     _id: string;
     availability: boolean;
+    rates?: IProductRate[];
     brandId: IBrand;
     country?: string;
     desc: string;
@@ -49,6 +55,11 @@ export interface IUpdateProduct extends Partial<ICreateProduct> {
     availability?: boolean;
 }
 
+export interface IAddRateProduct {
+    _id: string;
+    count: number
+}
+
 export interface IGetProductsQuery extends IPagination {
     onlyAvailable?: boolean;
     brandId?: string;
@@ -61,7 +72,7 @@ export interface IGetProductsQuery extends IPagination {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys' | 'season' | 'category' | 'brandId' | 'flavor' | 'gender'> { }
+export interface IProductGetByIds extends Pick<IProduct, '_id' | 'price' | 'nameEN' | 'nameFA' | 'festival' | 'imageKeys' | 'season' | 'category' | 'brandId' | 'flavor' | 'gender' | 'rates'> { }
 
 export interface IProductGetByIdsWithDetails extends IProductGetByIds, ICartProductItem { }
 

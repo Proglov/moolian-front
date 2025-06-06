@@ -8,6 +8,7 @@ import { digitsEnToFa } from "@persian-tools/persian-tools";
 import { MessageCircle, ThumbsUp, ThumbsDown, CircleFadingPlus } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
 import AddCommentDialog from "./AddCommentDialog";
+import AddRateDialog from "./AddRateDialog";
 
 export default function Comments({ productId }: { productId: string }) {
     const { comments, ref, isFinished, handleLike, dialogIsOpen, form, isAddCommentLoading, setDialogIsOpen, parentReplyingComment, submit, onDialogOpen } = useComment(productId);
@@ -16,10 +17,14 @@ export default function Comments({ productId }: { productId: string }) {
         <>
             <AddCommentDialog dialogIsOpen={dialogIsOpen} form={form} isLoading={isAddCommentLoading} setDialogIsOpen={setDialogIsOpen} submit={submit} parentName={parentReplyingComment?.name} />
 
-            <Button variant='outline' size='lg' onClick={() => onDialogOpen()} className="flex items-center gap-2 cursor-pointer text-base my-4 border-success text-success hover:text-success">
-                <CircleFadingPlus />
-                <span>افزودن دیدگاه</span>
-            </Button>
+            <div className="flex justify-center gap-2">
+                <AddRateDialog _id={productId} />
+
+                <Button variant='outline' size='lg' onClick={() => onDialogOpen()} className="flex items-center gap-2 cursor-pointer text-base my-4 border-success text-success hover:text-success">
+                    <CircleFadingPlus />
+                    <span>افزودن دیدگاه</span>
+                </Button>
+            </div>
         </>
     )
 

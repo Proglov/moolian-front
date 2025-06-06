@@ -1,6 +1,6 @@
 import { IGetResponse, IPagination } from '@/types/api.types'
 import { baseApi } from './baseApi'
-import { ICreateProduct, IGetProductsQuery, IProduct, IProductGetByIds, IUpdateProduct } from '@/types/product.type'
+import { IAddRateProduct, ICreateProduct, IGetProductsQuery, IProduct, IProductGetByIds, IUpdateProduct } from '@/types/product.type'
 
 
 export const productApi = baseApi.injectEndpoints({
@@ -39,7 +39,7 @@ export const productApi = baseApi.injectEndpoints({
                 url: `product/${id}`,
                 method: "GET"
             }),
-            providesTags: (_result, _error, id) => [{ type: 'product', id }]
+            providesTags: (_result, _error, id) => [{ type: 'product', id }, { type: 'product', id: 'LIST' }]
         }),
         getInfiniteProducts: build.infiniteQuery<IGetResponse<IProduct>, void, IPagination>({
             infiniteQueryOptions: {
@@ -92,10 +92,18 @@ export const productApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'product', id: 'LIST' }],
         }),
+        addRateProduct: build.mutation<IProduct, IAddRateProduct>({
+            query: ({ _id, count }) => ({
+                url: `/product/${_id}/rate`,
+                method: 'PATCH',
+                body: { count }
+            }),
+            invalidatesTags: [{ type: 'product', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 })
 
 
 
-export const { useGetAllProductsQuery, useGetAllProductsByIdsMutation, useAddNewProductMutation, useGetSingleProductQuery, useGetInfiniteProductsInfiniteQuery, useUpdateProductMutation } = productApi
+export const { useGetAllProductsQuery, useGetAllProductsByIdsMutation, useAddNewProductMutation, useGetSingleProductQuery, useGetInfiniteProductsInfiniteQuery, useUpdateProductMutation, useAddRateProductMutation } = productApi

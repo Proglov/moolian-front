@@ -29,6 +29,7 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
             <Card className="hover:border-purple-900 transition-all duration-300 text-center h-full p-0 overflow-hidden">
                 <CardContent className="flex flex-col gap-4 relative h-full p-0">
 
+                    {/* off percentage */}
                     {
                         product?.festival && <div className='absolute top-0 left-0 bg-destructive text-white p-1 rounded-br-lg'>{digitsEnToFa(product.festival.offPercentage)}
                             %

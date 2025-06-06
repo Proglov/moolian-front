@@ -20,6 +20,7 @@ import Details from "./Details";
 import Charts from "./Charts";
 import AddButtons from "@/components/shared/AddButtons";
 import Link from "next/link";
+import ProductStars from "@/components/shared/ProductStars";
 
 
 export default function SingleProduct({ id }: { id: string }) {
@@ -41,6 +42,9 @@ export default function SingleProduct({ id }: { id: string }) {
                     <div className="flex justify-center mt-4">
                         <ImagesComponent product={product} />
                     </div>
+
+                    {/* rates */}
+                    <ProductStars rates={product.rates} />
 
                     {/* basic info */}
                     <Card className="w-[calc(100%-6rem)] sm:w-full lg:w-[calc(100%-6rem)] max-w-xl mx-auto p-2 mt-2 sm:mt-5 border-purple-900">

@@ -44,6 +44,7 @@ function ChildComponent({ data, page, perPage }: { data: IProduct[] | [], page: 
                     <TableHead>برند</TableHead>
                     <TableHead>دسته بندی</TableHead>
                     <TableHead>قیمت</TableHead>
+                    <TableHead>ستاره</TableHead>
                     <TableHead>عملیات</TableHead>
                 </TableRow>
             </TableHeader>
@@ -55,6 +56,14 @@ function ChildComponent({ data, page, perPage }: { data: IProduct[] | [], page: 
                         <TableCell>{p.brandId.nameFA}</TableCell>
                         <TableCell>{p.category}</TableCell>
                         <TableCell>{p.price}</TableCell>
+                        <TableCell>
+                            {
+                                !p.rates || !p.rates.length ?
+                                    '-'
+                                    :
+                                    p.rates.reduce((prev, curr) => prev + curr.count, 0) / p.rates.length
+                            }
+                        </TableCell>
                         <TableCell>
                             <EditProduct product={p} />
                         </TableCell>

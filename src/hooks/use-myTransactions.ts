@@ -119,7 +119,7 @@ const useCancelTransaction = () => {
 
 //* add opinion to transaction
 const OpinionTransactionFormSchema = z.object({
-    comment: z.string().nonempty({ message: 'علت لغو الزامیست' }),
+    comment: z.string().nonempty({ message: 'متن دیدگاه الزامیست' }),
     rate: z.number().min(1, { message: 'حداقل امتیاز 1 است' }).max(5, { message: 'حداکثر امتیاز 5 است' })
 })
 export type TOpinionTransactionForm = z.infer<typeof OpinionTransactionFormSchema>;
