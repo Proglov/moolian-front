@@ -39,6 +39,26 @@ export const transactionApi = baseApi.injectEndpoints({
                         { type: 'transaction', id: `TRANSACTION_PAGE_${arg.page}` },
                     ],
         }),
+        getTransactionsOfAUser: build.query<IGetResponse<ITransaction>, IPagination & { id: string }>({
+            query: ({ id, ...pagination }) => ({
+                url: `transaction/user/${id}`,
+                method: "GET",
+                params: pagination
+            }),
+            providesTags: (result, _error, arg) =>
+                result
+                    ? [
+                        ...result.items.map(({ _id }) => ({ type: 'transaction' as const, _id })),
+                        { type: 'transaction', id: 'LIST' },
+                        { type: 'transaction', id: `TRANSACTION_USER${arg.id}` },
+                        { type: 'transaction', id: `TRANSACTION_USER${arg.id}_PAGE_${arg.page}` },
+                    ]
+                    : [
+                        { type: 'transaction', id: 'LIST' },
+                        { type: 'transaction', id: `TRANSACTION_USER${arg.id}` },
+                        { type: 'transaction', id: `TRANSACTION_USER${arg.id}_PAGE_${arg.page}` },
+                    ],
+        }),
         toggleTransactionStatus: build.mutation<void, IToggleStatus>({
             query: (input) => ({
                 url: `/transaction/${input._id}/status`,
@@ -122,7 +142,7 @@ export const transactionApi = baseApi.injectEndpoints({
                 }
             },
         }),
-        addTransaction: build.mutation<void, ICreateTransaction>({
+        addTransaction: build.mutation<{ url: string }, ICreateTransaction>({
             query: (body) => ({
                 url: '/transaction',
                 method: 'POST',
@@ -136,4 +156,4 @@ export const transactionApi = baseApi.injectEndpoints({
 
 
 
-export const { useGetAllTransactionsQuery, useGetMyTransactionsQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation, useCancelTransactionByUserMutation, useAddOpinionTransactionMutation, useAddTransactionMutation } = transactionApi
+export const { useGetAllTransactionsQuery, useGetMyTransactionsQuery, useGetTransactionsOfAUserQuery, useToggleTransactionStatusMutation, useCancelTransactionBySellerMutation, useCancelTransactionByUserMutation, useAddOpinionTransactionMutation, useAddTransactionMutation } = transactionApi

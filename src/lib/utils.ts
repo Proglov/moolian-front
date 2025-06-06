@@ -155,6 +155,13 @@ const textColors = {
 }
 
 export const statusObject: TStatusObject = {
+  'Initial': {
+    color: textColors.destructive,
+    fa: 'ناتمام',
+    next: TXStatus.Requested,
+    nextFA: 'پرداخت سفارش',
+    nextColor: textColors.warning
+  },
   'Requested': {
     color: textColors.warning,
     fa: 'درخواست داده شده',
@@ -187,6 +194,13 @@ export const statusObject: TStatusObject = {
 }
 
 export const statusObjectUser: TStatusObject = {
+  'Initial': {
+    color: textColors.destructive,
+    fa: 'ناتمام',
+    next: TXStatus.Requested,
+    nextFA: 'پرداخت سفارش',
+    nextColor: textColors.warning
+  },
   'Requested': {
     color: textColors.warning,
     fa: 'در حال بررسی',

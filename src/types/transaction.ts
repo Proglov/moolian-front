@@ -1,8 +1,8 @@
 import { IPagination } from "./api.types";
-import { IProduct } from "./product.type";
 import { IUser } from "./user.type";
 
 export enum TXStatus {
+    Initial = "Initial",
     Requested = "Requested",
     Accepted = "Accepted",
     Sent = "Sent",

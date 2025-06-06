@@ -87,7 +87,7 @@ const TransactionCard = ({ transaction, CancelTransactionForm, isCancelTransacti
                         <div className="ml-0.5" style={{ color: statusObjectUser[transaction.status].color }}>{statusObjectUser[transaction.status].fa}</div>
 
                         {
-                            (transaction.status !== TXStatus.Received && transaction.status !== TXStatus.Canceled) &&
+                            (transaction.status !== TXStatus.Received && transaction.status !== TXStatus.Initial && transaction.status !== TXStatus.Canceled) &&
                             <div style={{ color: statusObjectUser[transaction.status].nextColor }}>
                                 (
                                 مرحله بعد

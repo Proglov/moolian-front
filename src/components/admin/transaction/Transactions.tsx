@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { ITransaction } from '@/types/transaction';
+import { ITransaction, TXStatus } from '@/types/transaction';
 import { formattedTime, statusObject, timeFromNow } from '@/lib/utils';
 import ShowMoreTransaction from './ShowMoreTransaction';
 import ToggleTransactionStatus from './ToggleTransactionStatus';
@@ -44,16 +44,16 @@ export default function Transactions() {
                 queryHook={queryHook}
                 extraOptions={{ onlyRequested }}
             >
-                {(data: ITransaction[]) => <ChildComponent data={data} />}
+                {(data: ITransaction[]) => <TransactionTable data={data} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: ITransaction[] | [] }) {
+export function TransactionTable({ data }: { data: ITransaction[] | [] }) {
     if (!data) return <div>تراکنشی یافت نشد</div>;
-
+    console.log(data);
     return (
         <Table dir='rtl'>
             <TableHeader>
@@ -84,8 +84,12 @@ function ChildComponent({ data }: { data: ITransaction[] | [] }) {
                         <TableCell>{transaction.totalPrice.toLocaleString('fa-IR')}</TableCell>
                         <TableCell style={{ color: statusObject[transaction.status].color }}>{statusObject[transaction.status].fa}</TableCell>
                         <TableCell className='flex flex-col'>
-                            <ToggleTransactionStatus _id={transaction._id} object={statusObject[transaction.status]} />
-                            <CancelTransaction _id={transaction._id} status={transaction.status} />
+                            {transaction.status !== TXStatus.Initial &&
+                                <>
+                                    <ToggleTransactionStatus _id={transaction._id} object={statusObject[transaction.status]} />
+                                    <CancelTransaction _id={transaction._id} status={transaction.status} />
+                                </>
+                            }
                             <ShowMoreTransaction transaction={transaction} />
                         </TableCell>
                     </TableRow>
