@@ -30,6 +30,7 @@ export function useAddFestival() {
     useEffect(() => {
         if (isSuccess) {
             setDialogIsOpen(false);
+            form.reset()
             toast.success('جشنواره با موفقیت افزوده شد')
         }
     }, [isSuccess])

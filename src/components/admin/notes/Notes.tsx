@@ -25,30 +25,32 @@ export default function Notes() {
             <Pagination<INote>
                 queryHook={queryHook}
             >
-                {(data: INote[]) => <ChildComponent data={data} />}
+                {(data: INote[], page, perPage) => <ChildComponent data={data} page={page} perPage={perPage} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: INote[] | [] }) {
+function ChildComponent({ data, page, perPage }: { data: INote[] | [], page: number, perPage: number }) {
     if (!data) return <div>نوتی یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
             <TableHeader>
                 <TableRow>
+                    <TableHead>ردیف</TableHead>
                     <TableHead>نام</TableHead>
                     <TableHead>تصویر</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(p => (
-                    <TableRow key={p._id}>
-                        <TableCell>{p.name}</TableCell>
+                {data.map((note, i) => (
+                    <TableRow key={note._id}>
+                        <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
+                        <TableCell>{note.name}</TableCell>
                         <TableCell>
-                            <Image width={200} height={200} src={p.imageKey} alt={p.name} />
+                            <Image width={200} height={200} src={note.imageKey} alt={note.name} />
                         </TableCell>
                     </TableRow>
                 ))}

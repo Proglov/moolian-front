@@ -44,20 +44,21 @@ export default function Transactions() {
                 queryHook={queryHook}
                 extraOptions={{ onlyRequested }}
             >
-                {(data: ITransaction[]) => <TransactionTable data={data} />}
+                {(data: ITransaction[], page, perPage) => <TransactionTable data={data} page={page} perPage={perPage} />}
             </Pagination>
         </main>
     );
 }
 
 
-export function TransactionTable({ data }: { data: ITransaction[] | [] }) {
+export function TransactionTable({ data, page, perPage }: { data: ITransaction[] | [], page: number, perPage: number }) {
     if (!data) return <div>تراکنشی یافت نشد</div>;
     console.log(data);
     return (
         <Table dir='rtl'>
             <TableHeader>
                 <TableRow>
+                    <TableHead>ردیف</TableHead>
                     <TableHead>نام خریدار</TableHead>
                     <TableHead>شماره خریدار</TableHead>
                     <TableHead>زمان ارسال</TableHead>
@@ -72,8 +73,9 @@ export function TransactionTable({ data }: { data: ITransaction[] | [] }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(transaction => (
+                {data.map((transaction, i) => (
                     <TableRow key={transaction._id}>
+                        <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{transaction.userId.name || 'فاقد نام'}</TableCell>
                         <TableCell>{transaction.userId.phone}</TableCell>
                         <TableCell>

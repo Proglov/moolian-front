@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 interface PaginationProps<T> {
     queryHook: any;
-    children: (data: T[]) => React.JSX.Element;
+    children: (data: T[], page: number, perPage: number) => React.JSX.Element;
     extraOptions?: any
 }
 
@@ -26,7 +26,7 @@ export default function Pagination<T>({ queryHook, children, extraOptions }: Pag
             موردی یافت نشد
         </div>
         :
-        children(data.items)
+        children(data.items, currenPage, limit)
 
     return (
         <div>

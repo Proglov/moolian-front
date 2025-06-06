@@ -22,19 +22,20 @@ export default function Users() {
         <Pagination<IUser>
             queryHook={queryHook}
         >
-            {(data: IUser[]) => <ChildComponent data={data} />}
+            {(data: IUser[], page, perPage) => <ChildComponent data={data} page={page} perPage={perPage} />}
         </Pagination>
     );
 }
 
 
-function ChildComponent({ data }: { data: IUser[] | [] }) {
+function ChildComponent({ data, page, perPage }: { data: IUser[] | [], page: number, perPage: number }) {
     if (!data) return <div>کاربری یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
             <TableHeader>
                 <TableRow>
+                    <TableHead>ردیف</TableHead>
                     <TableHead>نام</TableHead>
                     <TableHead>نام کاربری</TableHead>
                     <TableHead>ایمیل</TableHead>
@@ -43,8 +44,9 @@ function ChildComponent({ data }: { data: IUser[] | [] }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(user => (
+                {data.map((user, i) => (
                     <TableRow key={user._id}>
+                        <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{user.name || 'فاقد نام'}</TableCell>
                         <TableCell>{user.username}</TableCell>
                         <TableCell>{user.email}</TableCell>

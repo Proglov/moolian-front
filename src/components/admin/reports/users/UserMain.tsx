@@ -110,7 +110,7 @@ const Transactions = ({ id }: { id: string }) => {
                 queryHook={queryHook}
                 extraOptions={{ id }}
             >
-                {(data: ITransaction[]) => <TransactionTable data={data} />}
+                {(data: ITransaction[], page, perPage) => <TransactionTable data={data} page={page} perPage={perPage} />}
             </Pagination>
 
         </div>
@@ -126,7 +126,7 @@ const Comments = ({ id }: { id: string }) => {
                 queryHook={queryHook}
                 extraOptions={{ id }}
             >
-                {(data: IComment[]) => <CommentsTable data={data} />}
+                {(data: IComment[], page, perPage) => <CommentsTable data={data} page={page} perPage={perPage} />}
             </Pagination>
         </div>
     );

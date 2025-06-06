@@ -27,28 +27,30 @@ export default function Brands() {
             <Pagination<IBrand>
                 queryHook={queryHook}
             >
-                {(data: IBrand[]) => <ChildComponent data={data} />}
+                {(data: IBrand[], page, perPage) => <ChildComponent data={data} page={page} perPage={perPage} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: IBrand[] | [] }) {
+function ChildComponent({ data, page, perPage }: { data: IBrand[] | [], page: number, perPage: number }) {
     if (!data) return <div>برندی یافت نشد</div>;
 
     return (
         <Table dir='rtl'>
             <TableHeader>
                 <TableRow>
+                    <TableHead>ردیف</TableHead>
                     <TableHead>نام</TableHead>
                     <TableHead>تصویر</TableHead>
                     <TableHead>عملیات</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(brand => (
+                {data.map((brand, i) => (
                     <TableRow key={brand._id}>
+                        <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell> {brand.nameFA} - {brand.nameEN} </TableCell>
                         <TableCell>
                             <Image width={200} height={200} src={brand.imageKey} alt={brand.nameEN} />

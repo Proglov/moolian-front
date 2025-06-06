@@ -27,14 +27,14 @@ export default function Festivals() {
             <Pagination<IFestival>
                 queryHook={queryHook}
             >
-                {(data: IFestival[]) => <ChildComponent data={data} />}
+                {(data: IFestival[], page, perPage) => <ChildComponent data={data} page={page} perPage={perPage} />}
             </Pagination>
         </main>
     );
 }
 
 
-function ChildComponent({ data }: { data: IFestival[] | [] }) {
+function ChildComponent({ data, page, perPage }: { data: IFestival[] | [], page: number, perPage: number }) {
     if (!data) return <div>جشنواره ای یافت نشد</div>;
 
 
@@ -42,6 +42,7 @@ function ChildComponent({ data }: { data: IFestival[] | [] }) {
         <Table dir='rtl'>
             <TableHeader>
                 <TableRow>
+                    <TableHead>ردیف</TableHead>
                     <TableHead>نام محصول</TableHead>
                     <TableHead>تخفیف جشنواره</TableHead>
                     <TableHead>مدت زمان جشنواره</TableHead>
@@ -49,8 +50,9 @@ function ChildComponent({ data }: { data: IFestival[] | [] }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {data.map(festival => (
+                {data.map((festival, i) => (
                     <TableRow key={festival._id}>
+                        <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{festival.productId.nameFA}</TableCell>
                         <TableCell>{digitsEnToFa(festival.offPercentage)} %</TableCell>
                         <TableCell>
