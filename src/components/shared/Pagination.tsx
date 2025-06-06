@@ -21,7 +21,7 @@ export default function Pagination<T>({ queryHook, children, extraOptions }: Pag
     if (isError) return <div>{error.toString()}</div>;
 
 
-    const content = !data ?
+    const content = !data || !data.items || !data.items.length ?
         <div>
             موردی یافت نشد
         </div>
