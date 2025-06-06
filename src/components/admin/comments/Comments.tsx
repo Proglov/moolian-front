@@ -62,7 +62,7 @@ export function CommentsTable({ data, page, perPage }: { data: IComment[] | [], 
                                 <div className={`h-2 w-2 rounded-full ${comment.validated ? 'bg-green-600' : 'bg-red-600'}`} />
                             </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className='flex flex-col gap-2'>
                             <ToggleComment _id={comment._id} validated={comment.validated} />
                             <DeleteComment _id={comment._id} />
                         </TableCell>

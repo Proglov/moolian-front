@@ -118,8 +118,8 @@ export default function SingleProduct({ id }: { id: string }) {
 }
 
 
-const ImagesComponent = ({ product }: { product: IProduct }) => {
-    if (product.imageKeys.length === 0) return (
+export const ImagesComponent = ({ product }: { product: IProduct }) => {
+    if (product.imageKeys.length === 1) return (
         <div className="w-full max-w-xl lg:w-[calc(100%-6rem)] rounded-xl border shadow-sm overflow-hidden">
             <Image alt={product.nameFA} src={product.imageKeys[0]} width={800} height={600} />
         </div>

@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table"
 import EditProduct from './EditProduct';
 import AddProduct from './AddProduct';
+import Button from '@/components/shared/Button';
+import Link from 'next/link';
 
 
 
@@ -64,8 +66,13 @@ function ChildComponent({ data, page, perPage }: { data: IProduct[] | [], page: 
                                     p.rates.reduce((prev, curr) => prev + curr.count, 0) / p.rates.length
                             }
                         </TableCell>
-                        <TableCell>
+                        <TableCell className='flex flex-col gap-2'>
                             <EditProduct product={p} />
+                            <Button asChild>
+                                <Link href={`/admin/products/${p._id}`}>
+                                    مشاهده بیشتر
+                                </Link>
+                            </Button>
                         </TableCell>
                     </TableRow>
                 ))}

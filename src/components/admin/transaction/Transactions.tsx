@@ -53,7 +53,7 @@ export default function Transactions() {
 
 export function TransactionTable({ data, page, perPage }: { data: ITransaction[] | [], page: number, perPage: number }) {
     if (!data) return <div>تراکنشی یافت نشد</div>;
-    console.log(data);
+
     return (
         <Table dir='rtl'>
             <TableHeader>
