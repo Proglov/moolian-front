@@ -7,7 +7,7 @@ import ProductCard from "./ProductCard";
 
 export default function ProductsMain() {
     const { isFinished, products, ref, filterForm, filterSubmit, sortForm, sortSubmit, brandId } = useGetProducts()
-    console.log(products[0]?.brandId.nameFA);
+
     return (
         <div>
             <div className="mx-5 mt-5 flex gap-2">

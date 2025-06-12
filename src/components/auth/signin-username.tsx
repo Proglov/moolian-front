@@ -79,7 +79,7 @@ export default function SigninUsername() {
                         )}
                     />
                     <div className="w-full flex justify-center">
-                        <Button type="submit" loading={isLoading}>ارسال</Button>
+                        <Button type="submit" loading={isLoading}>ورود</Button>
                     </div>
                     <FormDescription>
                         میخواهید با شماره همراه وارد شوید؟ از

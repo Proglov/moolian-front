@@ -151,7 +151,7 @@ export default function Signup() {
                         )}
                     />
                     <div className="w-full flex justify-center">
-                        <Button type="submit" loading={isLoading}>ارسال</Button>
+                        <Button type="submit" loading={isLoading}>ثبت نام</Button>
                     </div>
                     <FormDescription>
                         قبلا ثبت نام کرده اید؟ از

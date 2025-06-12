@@ -27,24 +27,15 @@ export const productApi = baseApi.injectEndpoints({
                     ]
                     : [{ type: 'product', id: 'LIST' }],
         }),
-        getAllProductsByIds: build.mutation<IProductGetByIds[], { ids: string[] }>({
+        getInfiniteProducts: build.infiniteQuery<IGetResponse<IProduct>, IGetProductsQuery, IPagination>({
             query: (query) => ({
-                url: 'product/ids',
-                method: "POST",
-                body: query
+                url: `product`,
+                method: "GET",
+                params: query
             }),
-        }),
-        getSingleProduct: build.query<IProduct, string>({
-            query: (id) => ({
-                url: `product/${id}`,
-                method: "GET"
-            }),
-            providesTags: (_result, _error, id) => [{ type: 'product', id }, { type: 'product', id: 'LIST' }]
-        }),
-        getInfiniteProducts: build.infiniteQuery<IGetResponse<IProduct>, void, IPagination>({
             infiniteQueryOptions: {
                 // Must provide a default initial page param value
-                initialPageParam: { page: 1, limit: 10 },
+                initialPageParam: { page: 1, limit: 20 },
                 // Optionally limit the number of cached pages
                 maxPages: 20,
                 // Must provide a `getNextPageParam` function
@@ -77,12 +68,21 @@ export const productApi = baseApi.injectEndpoints({
                     }
                 },
             },
-            query: ({ pageParam: pagination }) => ({
-                url: `product`,
-                method: "GET",
-                params: pagination
-            }),
             providesTags: ['product']
+        }),
+        getAllProductsByIds: build.mutation<IProductGetByIds[], { ids: string[] }>({
+            query: (query) => ({
+                url: 'product/ids',
+                method: "POST",
+                body: query
+            }),
+        }),
+        getSingleProduct: build.query<IProduct, string>({
+            query: (id) => ({
+                url: `product/${id}`,
+                method: "GET"
+            }),
+            providesTags: (_result, _error, id) => [{ type: 'product', id }, { type: 'product', id: 'LIST' }]
         }),
         updateProduct: build.mutation<IProduct, IUpdateProduct>({
             query: ({ _id, ...body }) => ({

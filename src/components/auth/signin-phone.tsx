@@ -81,7 +81,7 @@ export default function SigninPhone() {
                         )}
                     />
                     <div className="w-full flex justify-center">
-                        <Button type="submit" loading={isLoading}>ارسال</Button>
+                        <Button type="submit" loading={isLoading}>ورود</Button>
                     </div>
                     <FormDescription>
                         میخواهید با نام کاربری یا ایمیل وارد شوید؟ از
