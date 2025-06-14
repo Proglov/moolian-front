@@ -86,7 +86,7 @@ export default function SingleProduct({ id }: { id: string }) {
 
                             {/* brand */}
                             <div className='flex items-center justify-start gap-1 text-teal-400 mt-2 w-full sm:col-span-3'>
-                                <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
+                                <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10 bg-white' />
                                 <Link
                                     href={`/products?brandId=${product.brandId._id}`}
                                     className='flex justify-center gap-2'>

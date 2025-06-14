@@ -58,7 +58,7 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                         {/* brand */}
                         <Link href={`/products?brandId=${product.brandId._id}`}>
                             <div className='flex items-center justify-start gap-1 text-sm sm:text-base hover:underline'>
-                                <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10' />
+                                <Image src={product.brandId.imageKey} width={40} height={40} alt={product.brandId.nameEN} className='rounded-full w-10 h-10 bg-white' />
                                 <h4 className='flex justify-start gap-1'>
                                     {product.brandId.nameFA} | {product.brandId.nameEN}
                                 </h4>

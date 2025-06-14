@@ -1,6 +1,5 @@
 'use client'
 import { useGetBrands } from "@/hooks/use-addProduct"
-import Spinner from "../shared/Spinner"
 import Image from "next/image"
 import { IBrand } from "@/types/brand.type"
 import Link from "next/link"
@@ -33,7 +32,7 @@ export default function MainBrands() {
 
 const BrandCard = ({ brand }: { brand: IBrand }) => (
     <Link href={'/products?brandId=' + brand._id} className='flex flex-col items-center justify-start gap-1 text-lg hover:text-xl hover:text-purple-700'>
-        <Image src={brand.imageKey} width={80} height={80} alt={brand.nameEN} className='rounded-full w-20 h-20' />
+        <Image src={brand.imageKey} width={80} height={80} alt={brand.nameEN} className='rounded-full w-20 h-20 bg-white' />
         <h4 className='flex justify-start gap-1'>
             {brand.nameFA} | {brand.nameEN}
         </h4>
