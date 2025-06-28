@@ -14,6 +14,7 @@ import EditProduct from './EditProduct';
 import AddProduct from './AddProduct';
 import Button from '@/components/shared/Button';
 import Link from 'next/link';
+import { categoriesObject } from '@/lib/utils';
 
 
 
@@ -56,7 +57,7 @@ function ChildComponent({ data, page, perPage }: { data: IProduct[] | [], page: 
                         <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
                         <TableCell>{p.brandId.nameFA}</TableCell>
-                        <TableCell>{p.category}</TableCell>
+                        <TableCell>{categoriesObject[p.category] || '-'}</TableCell>
                         <TableCell>{p.price}</TableCell>
                         <TableCell>
                             {

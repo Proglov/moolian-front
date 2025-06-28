@@ -86,7 +86,7 @@ export default function ProductMain({ id }: { id: string }) {
                         </TableRow>
                         <TableRow className='text-start'>
                             <TableHead className="w-[6rem] border-e">دسته بندی</TableHead>
-                            <TableCell className='pr-5'>{categoriesObject[product.category]}</TableCell>
+                            <TableCell className='pr-5'>{categoriesObject[product.category] || '-'}</TableCell>
                         </TableRow>
                         <TableRow className='text-start'>
                             <TableHead className="w-[6rem] border-e">جنسیت مصرف کننده</TableHead>

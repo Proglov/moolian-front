@@ -48,10 +48,13 @@ export default function Details({ product }: { product: IProduct }) {
                             </TableRow>
                         }
 
-                        <TableRow className='text-start'>
-                            <TableHead className="w-[6rem] border-e">دسته بندی</TableHead>
-                            <TableCell className='pr-5'>{categoriesObject[product.category]}</TableCell>
-                        </TableRow>
+                        {
+                            product.category &&
+                            <TableRow className='text-start'>
+                                <TableHead className="w-[6rem] border-e">دسته بندی</TableHead>
+                                <TableCell className='pr-5'>{categoriesObject[product.category]}</TableCell>
+                            </TableRow>
+                        }
 
                         <TableRow className='text-start'>
                             <TableHead className="w-[6rem] border-e">جنسیت مصرف کننده</TableHead>

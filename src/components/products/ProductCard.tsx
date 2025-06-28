@@ -11,6 +11,7 @@ import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function ProductCard({ product }: { product: IProduct | IProductGetByIds }) {
+    console.log(product);
     return (
         <MotionDiv
             initial='hidden'
@@ -89,11 +90,14 @@ export default function ProductCard({ product }: { product: IProduct | IProductG
                         </div>
 
                         {/* category */}
-                        <div className='text-start'>
-                            دسته بندی:
-                            {' '}
-                            {categoriesObject[product.category]}
-                        </div>
+                        {
+                            product.category &&
+                            <div className='text-start'>
+                                دسته بندی:
+                                {' '}
+                                {categoriesObject[product.category]}
+                            </div>
+                        }
 
                         {/* price */}
                         <div className='text-xl flex justify-center items-end gap-2 text-success'>
