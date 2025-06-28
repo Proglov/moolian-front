@@ -19,7 +19,7 @@ export default function ProductsMain() {
 
                 {
                     (brandId && products && products.length > 0) &&
-                    <h1 className="text-lg w-full text-center text-shadow-lg text-shadow-primary mb-1">
+                    <h1 className="text-3xl w-full text-center text-shadow-lg text-shadow-primary mb-1">
                         {products[0].brandId.nameFA}
                     </h1>
                 }
