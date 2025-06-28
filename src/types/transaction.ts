@@ -19,8 +19,8 @@ export enum Volume {
 
 export const volumeMultipliers: Record<number, number> = {
     30: 1,
-    50: 1.4,
-    100: 2.1,
+    50: 1.5,
+    100: 2.3,
 };
 
 export interface IUnPopulatedBoughtProduct {
