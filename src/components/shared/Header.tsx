@@ -9,8 +9,8 @@ import Logo from './Logo'
 
 export default function Header() {
     return (
-        <header>
-            <div className="sticky z-50 bg-background top-0 flex justify-around h-16 items-center gap-2 border-b px-4 shadow-lg">
+        <header className='sticky top-0 z-50'>
+            <div className="bg-background flex justify-around h-16 items-center gap-2 border-b px-4 shadow-lg">
                 <SidebarTrigger className="-ml-1 block md:hidden" />
                 <div className='flex items-center gap-2 grow'>
                     <Logo length={12} />
@@ -22,7 +22,7 @@ export default function Header() {
                     <Account />
                 </div>
             </div>
-            <div className="bg-primary top-0 hidden md:flex justify-center h-16 shrink-0 items-center gap-2 border-b px-4 z-40">
+            <div className="bg-primary hidden md:flex justify-center h-16 shrink-0 items-center gap-2 border-b px-4 z-40">
                 <NavigationMenuWithDropdown />
             </div>
         </header>
