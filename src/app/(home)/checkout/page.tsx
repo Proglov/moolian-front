@@ -6,40 +6,16 @@ import Info from "@/components/checkout/Info"
 import { useCheckout } from "@/hooks/use-checkout"
 import Payment from "@/components/checkout/Payment"
 import Transport from "@/components/checkout/Transport"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import Link from "next/link"
-import { FaClipboardCheck } from "react-icons/fa"
 
 
 export default function Page() {
     const { setStep, setTab, step, tab, addresses, addressDialogIsOpen, addressForm, addressSubmit, setAddressDialogIsOpen, isAddressLoading, selectedAddressIndex, setSelectedAddressIndex, onAddressDelete, confirmAddress, isTransactionLoading, transactionSubmit } = useCheckout()
 
-    if (step === 4) return (
-        <div className="w-full max-w-xl mx-auto mt-5">
-            <Alert className="text-success">
-                <FaClipboardCheck />
-                <AlertTitle className="text-xl">سپاس از خرید شما!</AlertTitle>
-                <AlertDescription className="text-base">
-                    <div>
-                        خرید شما با موفقیت انجام شد و در حال حاضر در حال پردازش است.
-                        <br />
-                        برای مشاهده وضعیت خرید خود، به صفحه
-                        <Link href='/profile' className="text-purple-600 underline mx-1">
-                            پروفایل
-                        </Link>
-                        خود مراجعه کنید.
-                        <br />
-                        در صورت بروز هرگونه مشکل، با ما تماس بگیرید.
-                        <br />
-                        <span className="text-destructive text-sm">توجه: پس از تایید سفارش شما توسط فروشگاه، این خرید غیرقابل برگشت خواهد بود.</span>
-
-
-                    </div>
-                </AlertDescription>
-            </Alert>
-
+    if (step === 4) {
+        <div className='w-full max-w-xl mx-auto mt-5'>
+            در حال انتقال ...
         </div>
-    )
+    }
 
     return (
         <div className='w-full max-w-xl mx-auto mt-5'>

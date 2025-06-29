@@ -11,7 +11,6 @@ import { categoriesObject, flavorsObject, seasonsObject } from '@/lib/utils'
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function ProductCard({ product }: { product: IProduct | IProductGetByIds }) {
-    console.log(product);
     return (
         <MotionDiv
             initial='hidden'

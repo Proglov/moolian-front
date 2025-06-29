@@ -40,9 +40,10 @@ export function useCheckout() {
 
     useEffect(() => {
         if (!isAuthLoaded) return;
-        if (!isLoggedIn) {
+        if (!isLoggedIn)
             router.push('/auth/signin');
-        }
+        if (!cart.length)
+            router.push('/');
     }, [isLoggedIn, isAuthLoaded, router]);
 
 
@@ -108,6 +109,7 @@ const useAddAddress = (previousAddresses: string[], setAddresses: Dispatch<SetSt
 }
 
 const useAddTransaction = (address: string, cart: ICartProductItem[], setStep: Dispatch<SetStateAction<number>>) => {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const [addNewTransaction, { isError, error, isSuccess, isLoading, data }] = useAddTransactionMutation()
 
@@ -116,7 +118,9 @@ const useAddTransaction = (address: string, cart: ICartProductItem[], setStep: D
     useEffect(() => {
         if (isSuccess) {
             setStep(4);
-            dispatch(ResetCartProducts())
+            dispatch(ResetCartProducts());
+            router.push(data.paymentUrl);
+            // window.open(data.paymentUrl, '_blank');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, data, setStep])

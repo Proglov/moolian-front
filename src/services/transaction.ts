@@ -162,7 +162,7 @@ export const transactionApi = baseApi.injectEndpoints({
                 }
             },
         }),
-        addTransaction: build.mutation<{ url: string }, ICreateTransaction>({
+        addTransaction: build.mutation<{ paymentUrl: string }, ICreateTransaction>({
             query: (body) => ({
                 url: '/transaction',
                 method: 'POST',

@@ -34,6 +34,7 @@ export default function useCart() {
     }, [products, cart]);
 
 
+    const transportPrice = 50000
     const { totalPrice, totalDiscount } = useMemo(() => cart.reduce((acc, cartItem) => {
         const product = productsWithDetailsMap.get(cartItem._id + cartItem.volume);
         if (!product) return acc;
@@ -46,7 +47,7 @@ export default function useCart() {
             totalPrice: acc.totalPrice + (price * quantity),
             totalDiscount: acc.totalDiscount + (price * quantity * (discount / 100))
         };
-    }, { totalPrice: 0, totalDiscount: 0 }), [cart, productsWithDetailsMap]);
+    }, { totalPrice: transportPrice, totalDiscount: 0 }), [cart, productsWithDetailsMap]);
 
     useEffect(() => {
         if (cart && cart.length) getProductsByIds({ ids: cart.map(item => item._id) })

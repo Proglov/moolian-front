@@ -14,13 +14,7 @@ export default function Payment({ submit, loading }: PaymentProps) {
                 <div className="min-h-20 border border-success rounded-lg p-2 flex items-center justify-start space-x-2 bg-success/10 hover:bg-success/20 transition-all duration-200 ease-in-out">
                     <RadioGroupItem value='0' id='r0' />
                     <Label htmlFor='r0'>
-                        پرداخت نقدی
-                    </Label>
-                </div>
-                <div className="min-h-20 border border-muted rounded-lg p-2 flex items-center justify-start space-x-2 bg-muted/30 text-muted-foreground/90">
-                    <RadioGroupItem value='1' id='r1' disabled />
-                    <Label htmlFor='r1'>
-                        پرداخت آنلاین (به زودی)
+                        پرداخت آنلاین
                     </Label>
                 </div>
             </RadioGroup>
