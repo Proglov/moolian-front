@@ -1,0 +1,1 @@
+export const transportPrice = 50000

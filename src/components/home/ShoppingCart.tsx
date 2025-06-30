@@ -11,6 +11,7 @@ import ShoppingCartIcon from "./ShoppingCartIcon"
 import AddButtons from "../shared/AddButtons"
 import Spinner from "../shared/Spinner"
 import Link from "next/link"
+import { transportPrice } from "@/constants/payment"
 
 
 export default function ShoppingCart() {
@@ -64,6 +65,9 @@ export default function ShoppingCart() {
                                             <div className="mt-1">
                                                 مبلغ نهایی:
                                                 {endPrice.toLocaleString('fa-IR')} تومان
+                                            </div>
+                                            <div className="text-destructive/50">
+                                                مبلغ ثابت {transportPrice.toLocaleString('fa-IR')} بابت ارسال افزوده شد
                                             </div>
                                         </div>
 

@@ -4,6 +4,7 @@ import { useGetAllProductsByIdsMutation } from "@/services/products"
 import { IProductGetByIds, IProductGetByIdsWithDetails } from "@/types/product.type"
 import { volumeMultipliers } from '@/types/transaction'
 import useError from "./useError"
+import { transportPrice } from "@/constants/payment"
 
 
 export default function useCart() {
@@ -34,7 +35,6 @@ export default function useCart() {
     }, [products, cart]);
 
 
-    const transportPrice = 50000
     const { totalPrice, totalDiscount } = useMemo(() => cart.reduce((acc, cartItem) => {
         const product = productsWithDetailsMap.get(cartItem._id + cartItem.volume);
         if (!product) return acc;
