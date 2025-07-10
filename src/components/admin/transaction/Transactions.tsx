@@ -61,7 +61,7 @@ export function TransactionTable({ data, page, perPage }: { data: ITransaction[]
                     <TableHead>ردیف</TableHead>
                     <TableHead>نام خریدار</TableHead>
                     <TableHead>شماره خریدار</TableHead>
-                    <TableHead>زمان ارسال</TableHead>
+                    {/* <TableHead>زمان ارسال</TableHead> */}
                     <TableHead>
                         قیمت نهایی
                         <br />
@@ -78,11 +78,11 @@ export function TransactionTable({ data, page, perPage }: { data: ITransaction[]
                         <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{transaction.userId.name || 'فاقد نام'}</TableCell>
                         <TableCell>{transaction.userId.phone}</TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                             {formattedTime(new Date(parseInt(transaction.shouldBeSentAt)))}
                             <br />
                             {timeFromNow(new Date(parseInt(transaction.shouldBeSentAt)))}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>{transaction.totalPrice.toLocaleString('fa-IR')}</TableCell>
                         <TableCell style={{ color: statusObject[transaction.status].color }}>{statusObject[transaction.status].fa}</TableCell>
                         <TableCell className='flex flex-col'>
