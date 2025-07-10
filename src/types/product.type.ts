@@ -28,8 +28,8 @@ export interface IProduct {
     desc: string;
     flavor: Flavor[];
     gender: Gender;
-    category: Category;
-    olfactory: string;
+    category?: Category;
+    olfactory?: string;
     imageKeys: string[];
     maker?: string;
     baseNoteObjects: INoteInProduct[];

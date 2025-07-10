@@ -57,7 +57,7 @@ function ChildComponent({ data, page, perPage }: { data: IProduct[] | [], page: 
                         <TableCell>{(page - 1) * perPage + (i + 1)}</TableCell>
                         <TableCell>{p.nameEN} - {p.nameFA}</TableCell>
                         <TableCell>{p.brandId.nameFA}</TableCell>
-                        <TableCell>{categoriesObject[p.category] || '-'}</TableCell>
+                        <TableCell>{p.category ? categoriesObject[p.category] : '-'}</TableCell>
                         <TableCell>{p.price}</TableCell>
                         <TableCell>
                             {

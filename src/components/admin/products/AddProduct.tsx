@@ -287,7 +287,6 @@ export default function AddProduct() {
                                         <FormItem>
                                             <FormLabel>
                                                 گروه بویایی محصول
-                                                <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
                                             <FormControl>
                                                 <Input {...field} />
@@ -343,9 +342,8 @@ export default function AddProduct() {
                                         <FormItem>
                                             <FormLabel>
                                                 دسته بندی
-                                                <span className="text-destructive pt-1.5">*</span>
                                             </FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value} dir="rtl">
+                                            <Select onValueChange={field.onChange} defaultValue={''} dir="rtl">
                                                 <FormControl className="w-full">
                                                     <SelectTrigger>
                                                         <SelectValue placeholder="انتخاب دسته بندی" />
