@@ -8,7 +8,7 @@ import { useAddImage } from "./use-addImage"
 import useError from "./useError"
 
 
-const FormSchema = z.object({
+export const FormSchema = z.object({
     name: z.string().nonempty({ message: 'نام نوت الزامیست' })
 })
 type TForm = z.infer<typeof FormSchema>;

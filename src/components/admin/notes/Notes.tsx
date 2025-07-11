@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table"
 import Image from 'next/image';
 import AddNote from './AddNote';
+import EditNote from './EditNote';
+import DeleteNote from './DeleteNote';
 
 
 
@@ -42,6 +44,7 @@ function ChildComponent({ data, page, perPage }: { data: INote[] | [], page: num
                     <TableHead>ردیف</TableHead>
                     <TableHead>نام</TableHead>
                     <TableHead>تصویر</TableHead>
+                    <TableHead>عملیات</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -51,6 +54,10 @@ function ChildComponent({ data, page, perPage }: { data: INote[] | [], page: num
                         <TableCell>{note.name}</TableCell>
                         <TableCell>
                             <Image width={200} height={200} src={note.imageKey} alt={note.name} />
+                        </TableCell>
+                        <TableCell className='flex flex-col'>
+                            <DeleteNote _id={note._id} />
+                            <EditNote note={note} />
                         </TableCell>
                     </TableRow>
                 ))}
